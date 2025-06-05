@@ -44,7 +44,7 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease-in-out;
-            border: 5px solid #011e26; /* Blue border from ddd.html, overriding bagianAwalDanTeks.html's white */
+            border: 5px solid #006661; /* Updated color */
         }
         .profile-img-container:hover {
             transform: scale(1.05);
@@ -58,8 +58,8 @@
             height: 100%;
             background: rgba(255, 255, 255, 0.5);
             transform: skewX(-20deg);
-            animation: shine 4s infinite ease-out; /* Increased duration to 4s from ddd.html */
-            animation-delay: 1s; /* Delay for initial load */
+            animation: shine 4s infinite ease-out;
+            animation-delay: 1s;
         }
         @keyframes shine {
             0% { left: -75%; }
@@ -67,21 +67,20 @@
             100% { left: -75%; }
         }
 
-        /* Typed.js cursor blinking */
         .typed-cursor {
             opacity: 1;
-            -webkit-animation: blink 0.7s infinite;
-            -moz-animation: blink 0.7s infinite;
             animation: blink 0.7s infinite;
-            color: #0b3a4a; /* Color from ddd.html */
+            color: #004d40; /* Updated color - darker teal */
         }
-        /* Hide cursor for specific Typed.js instances */
         .typed-cursor.hidden-cursor {
             display: none;
         }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
 
-        /* Fade-in for sections (from ddd.html) */
-        .fade-in-section {
+        .fade-in-section { /* General fade-in, can be used with AOS or custom */
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -91,35 +90,47 @@
             transform: translateY(0);
         }
 
-        /* Card styles (from skill bars and charts - ddd.html) */
+        /* New slide-up animation for About Me text */
+        .slide-up-fade-in-about {
+            opacity: 0;
+            transform: translateY(40px); /* Start 40px below */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transition-delay: 0.2s; /* Slight delay after parent fades in */
+        }
+        .slide-up-fade-in-about.is-visible {
+            opacity: 1;
+            transform: translateY(0); /* Move to final position */
+        }
+
+
         .card {
             background-color: white;
             border-radius: 0.5rem;
-            padding: 1rem; /* Adjusted padding for consistency */
-            margin-bottom: 1rem; /* Adjusted margin for consistency */
+            padding: 1rem;
+            margin-bottom: 1rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex; 
+            flex-direction: column; 
         }
 
-        /* Header for cards (from ddd.html) */
         .card-header {
             font-family: 'Lexend', sans-serif;
             font-size: 1rem;
             font-weight: 500;
-            color: #011e26;
+            color: #006661; /* Updated color */
             text-align: center;
             margin-bottom: 1rem;
         }
 
-        /* Skill Bar (from multilingual programmer - ddd.html) */
         .skill-bar-programmer {
             background-color: #e5e7eb;
             border-radius: 0.375rem;
             height: 0.5rem;
             position: relative;
-            flex-grow: 1; /* Allow the bar to grow */
+            flex-grow: 1;
         }
         .skill-bar-fill-programmer {
-            background-color: #011e26;
+            background-color: #006661; /* Updated color */
             border-radius: 0.375rem;
             height: 100%;
             width: 0;
@@ -128,207 +139,235 @@
             top: 0;
             left: 0;
         }
-        .skill-bar-text-programmer {
-            color: #4a5568;
-            font-size: 0.75rem;
-            font-weight: 500;
-            display: block;
-            width: 40px; /* Fixed width for text */
-            text-align: right; /* Align text to the right */
-            flex-shrink: 0; /* Prevent text from shrinking */
-        }
-        /* New flex container for skill text and bar */
+        /* .skill-bar-text-programmer - Dihapus/Diganti dengan ikon */
         .skill-item-container {
             display: flex;
             align-items: center;
-            gap: 10px; /* Space between text and bar */
-            margin-bottom: 1rem; /* Margin between skill items */
+            gap: 10px; /* Jarak antara ikon dan skill bar */
+            margin-bottom: 1rem;
         }
-        
-        /* Chart container styles (from application skill chart - ddd.html) */
-        #codingSkillChartContainer, #languageSkillChartContainer, #advancedProgrammingBarChartContainer, #codingSkillChartContainer2 {
-            width: 100%;
-            margin: 0;
-            position: relative;
-            min-height: 300px; /* Increased height for Keahlian Aplikasi chart */
+        .lang-icon { /* Styling untuk ikon bahasa pemrograman */
+            font-size: 1.5rem; /* Ukuran ikon Boxicons */
+            color: #006661;
+            width: 30px; /* Lebar tetap untuk ikon */
+            text-align: center;
+            flex-shrink: 0; /* Agar ikon tidak mengecil */
         }
-        /* Ensure canvas fills its container width */
-        #codingSkillChart, #languageSkillChart, #advancedProgrammingBarChart, #codingSkillChart2 {
-            width: 100% !important;
-            height: auto !important; /* Allow height to adjust based on aspect ratio or content */
-            min-height: inherit; /* Inherit min-height from container */
+        .lang-icon-text-custom { /* Styling untuk teks C dan R */
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 1.2rem; /* Sesuaikan agar visualnya mirip ikon */
+            color: #006661;
+            width: 30px;
+            text-align: center;
+            line-height: 1;
+            flex-shrink: 0;
+            display: inline-block;
         }
 
-        /* Chart Legend base style (from ddd.html) */
-        .chart-legend {
-            display: grid; /* Use grid for flexible column control */
-            gap: 0.5rem; /* Gap between legend items */
-            margin-top: 1rem;
-            justify-content: center; /* Center the grid items */
+        
+        .chart-outer-container { 
+            position: relative;
+            width: 100%;
+            height: 300px; 
+            margin-bottom: 0rem; /* Adjusted margin for legend */
         }
-        .legend-item {
+        #codingSkillChartContainer, #languageSkillChartContainer, #advancedProgrammingChartContainer { 
+            position: relative; 
+            width: 100%;
+            height: 100%; 
+        }
+        #codingSkillChart, #languageSkillChart, #advancedProgrammingChart { 
+            width: 100% !important;
+            height: 100% !important; 
+        }
+
+
+        .chart-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+            gap: 0.25rem 0.5rem; 
+            margin-top: 0.75rem; 
+            padding: 0 0.5rem; 
+            justify-content: center; 
+        }
+        .legend-item { 
             display: flex;
             align-items: center;
-            margin: 0; /* Remove margin from individual items, use gap on parent */
+            margin: 0;
+            font-size: 0.7rem; 
+            color: #4a5568;
         }
-        .legend-color {
-            width: 1rem;
-            height: 1rem;
-            border-radius: 0.25rem;
-            margin-right: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .legend-color { 
+            width: 0.75rem; 
+            height: 0.75rem; 
+            border-radius: 0.125rem; 
+            margin-right: 0.375rem; 
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
-        .legend-label {
-            font-size: 0.75rem;
+        .legend-label { 
+            font-size: 0.7rem; 
             color: #4a5568;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
         }
 
-        /* Styles for the Photo Grid within a card (from ddd.html) */
+
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); /* Responsive columns */
-            gap: 0.25rem; /* Slightly larger gap for visual appeal */
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 0.25rem;
             margin-bottom: 2rem;
-            padding: 0; /* Add some padding inside the grid */
+            padding: 0;
         }
         .logo-item {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 60px; /* Fixed height for small logos */
+            height: 60px;
             border-radius: 0.5rem;
             background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             transition: transform 0.2s ease-in-out;
-            padding: 0.25rem; /* Add padding inside the item */
+            padding: 0.25rem;
         }
         .logo-item:hover {
             transform: scale(1.1);
         }
         .logo {
-            width: 80%; /* Adjusted size */
+            width: 80%;
             height: auto;
-            max-height: 80%; /* Adjusted size */
+            max-height: 80%;
             object-fit: contain;
         }
-        @media (min-width: 768px) { /* md breakpoint */
+        @media (min-width: 768px) {
             .photo-grid {
-                grid-template-columns: repeat(3, 1fr); /* 3 columns on larger screens for better fit in card */
+                grid-template-columns: repeat(3, 1fr);
             }
         }
-        @media (min-width: 1024px) { /* lg breakpoint, for 6 columns in wider screen */
+        @media (min-width: 1024px) {
             .photo-grid {
                 grid-template-columns: repeat(6, 1fr); 
             }
         }
 
-        /* Styles for the new Certificate Slideshows (from ddd.html) */
-        .slideshow-container { /* This acts as the inner container for the slideshow */
-            background-color: #f3f4f6; /* Light gray background for the slideshow area */
+        .slideshow-container {
+            background-color: #f3f4f6;
             border-radius: 0.5rem;
             padding: 0rem;
             overflow: hidden;
             position: relative;
-            height: 0; /* Set height to 0 for aspect ratio padding */
-            padding-bottom: 65%; /* Aspect ratio (e.g., 16:9 for 65%) */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for the slideshow box */
-            cursor: pointer; /* Indicate it's clickable */
+            height: 0;
+            padding-bottom: 65%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
         .certificate-item {
-            position: absolute; /* Stack all images on top of each other */
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0; /* Hidden by default */
-            transition: opacity 1s ease-in-out; /* Smooth fade transition for 1 second */
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
             border-radius: 0.5rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-            display: flex; /* Use flex to center image within the item */
+            display: flex;
             justify-content: center;
             align-items: center;
         }
-        /* Only the active image is visible */
         .certificate-item.active {
             opacity: 1;
         }
         .certificate-img {
             width: 100%;
-            height: 100%; /* Fill the parent .certificate-item */
-            object-fit: cover; /* Cover the area, cropping if necessary */
-            border-radius: 0.5rem; /* Apply border-radius to the image itself */
-            transition: transform 0.3s ease-in-out; /* Zoom animation */
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease-in-out;
         }
-        /* Zoom animation on hover/touch */
         .certificate-item:hover .certificate-img,
         .certificate-item:active .certificate-img {
-            transform: scale(1.05); /* Zoom in 5% on hover/active */
+            transform: scale(1.05);
         }
 
-        /* Styles for the new detail button (from ddd.html) */
         .detail-button {
-            display: block; /* Make it a block element to take full width */
-            width: 100%; /* Changed to 100% to fill width */
-            margin: 0rem auto 1rem auto; /* Center the button and add margin below */
-            background-color: #011e26; /* Dark color for the button */
+            display: block;
+            width: 100%;
+            margin: 0rem auto 1rem auto;
+            background-color: #006661; /* Updated color */
             color: white;
-            padding: 0.6rem 0; /* Changed padding to 0 for left/right */
+            padding: 0.6rem 0;
             border-radius: 0.375rem;
-            text-decoration: none; /* Remove underline from link */
+            text-decoration: none;
             font-weight: 500;
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center; /* Center the text inside the button */
-            
+            text-align: center;
         }
         .detail-button:hover {
-            background-color: #1c5165; /* Slightly lighter on hover */
-            transform: translateY(-2px); /* Slight lift effect */
+            background-color: #00796b; /* Updated color - lighter teal for hover */
+            transform: translateY(-2px);
+        }
+        .download-cv-button { /* Tombol Download CV Baru */
+            display: inline-flex;
+            align-items: center;
+            margin-top: 1.5rem; /* `mt-6` */
+            background-color: #006661;
+            color: white;
+            padding: 0.6rem 1.2rem; /* `py-2.5 px-5` sedikit disesuaikan */
+            border-radius: 0.375rem; /* `rounded-md` */
+            text-decoration: none;
+            font-weight: 500; /* `font-medium` */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .download-cv-button i {
+            margin-right: 0.5rem; /* `mr-2` */
+        }
+        .download-cv-button:hover {
+            background-color: #00796b;
+            transform: translateY(-2px);
         }
 
 
-        /* Styles for Organizational Experience section and modal (from ddd.html) */
         .org-section-container {
             margin: 0 auto;
-            padding: 0rem; /* Added padding so content is not too close to edges */
+            padding: 0rem;
         }
-       
         .org-photo-grid {
             padding:0;
             margin:0;
-            display: grid; /* Changed to grid */
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Dynamic columns, larger size */
-            gap: 0.5rem; /* Gap between items */
-            margin-bottom: 2rem; /* No padding-bottom for scrollbar */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 2rem;
         }
         .org-logo-item {
             display: flex;
-            flex-direction: column; /* Stack image and text vertically */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            flex-shrink: 0; /* Prevent items from shrinking */
-            height: 120px; /* Increased fixed height for larger boxes */
+            flex-shrink: 0;
+            height: 120px;
             border-radius: 0.5rem;
             background-color: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             cursor: pointer;
-            padding: 0.5rem; /* Add padding inside logo item */
+            padding: 0.5rem;
         }
         .org-logo-item:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
         .org-logo {
-            width: 90%; /* Increased size */
-            height: 90%; /* Increased size */
+            width: 90%;
+            height: 90%;
             object-fit: contain;
         }
 
-        /* Styles for the modal and overlay (global modal - from ddd.html) */
         .modal {
-            display: none; /* Changed to none, JS will toggle to flex */
+            display: none;
             position: fixed;
             z-index: 1000;
             left: 0;
@@ -338,11 +377,10 @@
             overflow: auto;
             background-color: rgba(0,0,0,0.5);
             justify-content: center;
-            align-items: flex-start;
-            padding-top: 2.5rem;
+            align-items: center; 
+            padding: 1rem; 
             box-sizing: border-box;
         }
-
         .modal-content {
             background-color: #fefefe;
             padding: 20px;
@@ -352,16 +390,14 @@
             border-radius: 0.5rem;
             position: relative;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 0.3s;
+            animation: fadeInModal 0.3s;
             overflow-y: auto;
-            max-height: 75vh;
+            max-height: 85vh; 
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -370,19 +406,16 @@
             padding-bottom: 0.5rem;
             border-bottom: 1px solid #e2e8f0;
         }
-
         .modal-header h2 {
             margin: 0;
-            font-size: 1rem; /* Adjusted font size for modal title */
-            color: #2d3748;
+            font-size: 1rem;
+            color: #333; 
             font-family: 'Lexend', sans-serif;
         }
-
-        /* Styling for the close button (from ddd.html) */
         .close-button {
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
-            background-color: #011e26; /* Black color as per snippet */
+            background-color: #006661; /* Updated color */
             color: white;
             font-size: 0.75rem;
             font-weight: 500;
@@ -391,48 +424,45 @@
             border: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         .close-button:hover {
-            background-color: #205464; /* tombol Darker biru on hover as per snippet */
+            background-color: #00796b; /* Updated color - lighter teal */
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
-
         .close-button:focus {
             outline: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
-
         .modal-body {
-            text-align: justify; /* Justify text as per snippet */
+            text-align: justify;
             margin-bottom: 0.5rem;
-            font-size: 0.875rem; /* Adjusted font size for modal body */
+            font-size: 0.875rem;
             color: #4a5568;
             line-height: 1.6;
             font-family: 'Lexend', sans-serif;
         }
-
         .modal-footer {
             text-align: right;
             margin-top: 0.5rem;
         }
+
         .edu-section-container {
             margin: 0 auto;
             padding: 0; 
         }
         .edu-photo-grid {
-            display: grid; /* Changed to grid */
-            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); /* Dynamic columns, larger size */
-            gap: 0.5rem; /* Gap between items */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 0.5rem;
             margin-bottom: 1rem;
         }
         .edu-logo-item {
             display: flex;
-            flex-direction: column; /* Stack image and text vertically */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            flex-shrink: 0; /* Prevent items from shrinking */
-            min-height: 120px; /* Ensure a minimum height for visibility, larger */
-            padding-left: 0; /* Adjusted padding for larger box */
+            flex-shrink: 0;
+            min-height: 120px;
+            padding-left: 0;
             border-radius: 0.5rem;
             background-color: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -444,467 +474,538 @@
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
         .edu-logo {
-            width: 80%; /* Adjusted size */
-            max-height: 70px; /* Max height to prevent excessive growth, allow shrinking */
-            height: auto; /* Allow height to scale with width */
+            width: 80%;
+            max-height: 70px;
+            height: auto;
             object-fit: contain;
-            margin-bottom: 0.5rem; /* Space between logo and description */
+            margin-bottom: 0.5rem;
         }
         .edu-logo-description {
             font-family: 'Lexend', sans-serif;
-            font-size: 0.8rem; /* Slightly larger font for better readability in larger boxes */
+            font-size: 0.8rem;
             color: #555;
             text-align: center;
-            line-height: 1.2; /* Tighter line height */
+            line-height: 1.2;
             font-weight: 500;
-            word-break: break-word; /* Allow long words to break */
-            overflow-wrap: break-word; /* Ensure text wraps */
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
         .edu-description-text {
             font-family: 'Lexend', sans-serif;
-            font-size: 1rem; /* Adjusted font size */
+            font-size: 1rem;
             color: #4a5568;
             text-align: center;
-            margin-top: 2rem; /* More space from grid */
+            margin-top: 2rem;
             line-height: 1.6;
         }
-
         @media (max-width: 640px) {
-            .edu-section-container {
-                padding: 0.5rem;
-            }
-            .edu-photo-grid {
-                gap: 0.5rem; /* Even smaller gap on very small screens */
-            }
-            .edu-logo-item {
-                min-height: 100px; /* Smaller min-height on mobile */
-                padding: 0.5rem;
-            }
-            .edu-logo {
-                max-height: 60px; /* Smaller max-height for logos on mobile */
-            }
-            .edu-logo-description {
-                font-size: 0.7rem; /* Even smaller font on very small screens */
-            }
-            .edu-description-text {
-                font-size: 0.9rem;
-                margin-top: 1.5rem;
-            }
+            .edu-section-container { padding: 0.5rem; }
+            .edu-photo-grid { gap: 0.5rem; }
+            .edu-logo-item { min-height: 100px; padding: 0.5rem; }
+            .edu-logo { max-height: 60px; }
+            .edu-logo-description { font-size: 0.7rem; }
+            .edu-description-text { font-size: 0.9rem; margin-top: 1.5rem; }
         }
 
-        /* Styles for the About Me typing text (from ddd.html and bagianAwalDanTeks.html) */
-        #about-me-typing-container {
+        #about-me-typing-container { 
             margin-left: 0;
             margin-right: 0;
             margin-bottom: 0;
-            padding-right:0.5rem;
-            padding-left:0.5rem;
-            padding-bottom: 1rem;
-            padding-top: 1rem; /* Add some horizontal padding */
+            padding: 1rem 0.5rem; 
         }
-
-        #typing-text-about-me {
+        #typing-text-about-me { 
             font-family: 'Lexend', sans-serif;
-            white-space: pre-wrap; /* Maintain spaces and new lines */
-            text-align: justify; /* Justify text */
-            font-size: 1rem; /* Equivalent to Tailwind's text-lg */
-            line-height: 1.5rem; /* Equivalent to Tailwind's leading-7 */
-            color: ##006661; /* A slightly darker gray for readability */
-            min-height: 1rem; /* Ensure enough space for the text to type out */
+            white-space: pre-wrap;
+            text-align: justify;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: #006661; 
+            min-height: 1rem; 
         }
-
         @media (max-width: 640px) {
-            #typing-text-about-me {
-                font-size: 1rem; /* Smaller font on mobile */
-            }
+            #typing-text-about-me { font-size: 1rem; }
         }
 
-        /* NEW CSS from bagianAwalDanTeks.html for "Fully adaptable. Embrace the process, let's grow together!" text effect */
         .slide-down-fade-in {
-            opacity: 0; /* Start invisible */
-            transform: translateY(-20px); /* Start 20px above its final position */
-            transition: opacity 1.0s ease-out, transform 1.0s ease-out; /* Smooth transition */
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 1.0s ease-out, transform 1.0s ease-out;
         }
-
         .slide-down-fade-in.is-visible {
-            opacity: 1; /* Become fully visible */
-            transform: translateY(0); /* Move to its final position */
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* NEW CSS from bagianAwalDanTeks.html for abstract programmer background animations */
-        
-
-        /* Styling for the typed name text (from bagianAwalDanTeks.html) */
         #typed-name {
             color: #FFFFFF;
             text-shadow:
-                -1.5px -1.5px 0 #011e26,
-                1.5px -1.5px 0 #011e26,
-                -1.5px  1.5px 0 #011e26,
-                1.5px  1.5px 0 #011e26;
+                -1.5px -1.5px 0 #006661, /* Updated color */
+                1.5px -1.5px 0 #006661, /* Updated color */
+                -1.5px  1.5px 0 #006661, /* Updated color */
+                1.5px  1.5px 0 #006661; /* Updated color */
         }
 
-        /* NEW CSS for the new typing paragraph (from bagianAwalDanTeks.html) */
-        /* This is already handled by #typing-text-about-me in ddd.html, ensuring consistency */
-        /* #typed-about-me {
-            min-height: 50px;
+        .top-header {
+            background-color: #006661; /* Updated color */
+            color: white;
+            z-index: 1001; 
+            height: 64px; 
+        }
+        .mobile-menu-drawer { 
+            background-color: #004d40;  /* Updated color - darker teal */
+            color: white;
+            width: 250px; 
+            z-index: 1002; 
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%); 
+        }
+        .mobile-menu-drawer.open {
+            transform: translateX(0);
+        }
+        .main-content-area {
+            padding-top: 64px; 
+        }
+        .nav-link {
             display: block;
-            margin-top: 1rem;
-            color: #333;
-            font-size: 1.1em;
-            max-width: 800px;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 0 1rem;
-        } */
+            padding: 0.75rem 1rem; 
+            border-radius: 0.375rem; 
+            transition: background-color 0.2s ease, color 0.2s ease;
+            font-weight: 500; 
+            white-space: nowrap; 
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: #00796b; /* Updated color - lighter teal */
+            color: #ffffff;
+        }
+        .mobile-menu-drawer .nav-link {
+             padding: 0.75rem 1.5rem; 
+        }
+        .mobile-menu-drawer .nav-link i { 
+            margin-right: 0.75rem;
+        }
+  /* Styling untuk Desktop Dropdown Submenu */
+        .desktop-nav-item.relative .dropdown-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%; /* Muncul di bawah item utama */
+            background-color: #00796b; /* Warna dropdown sedikit berbeda untuk kontras */
+            min-width: 180px; /* Lebar minimum dropdown */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 0.375rem; /* rounded-md */
+            padding-top: 0.25rem; /* py-1 */
+            padding-bottom: 0.25rem; /* py-1 */
+            z-index: 1010; /* Pastikan di atas konten lain */
+        }
+        .desktop-nav-item.relative:hover .dropdown-menu {
+            display: block;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 0.5rem 1rem; /* py-2 px-4 */
+            font-size: 0.875rem; /* text-sm */
+            color: white;
+            white-space: nowrap;
+        }
+        .dropdown-menu a:hover {
+            background-color: #006661; /* Warna hover item dropdown */
+        }
+
+        /* Styling untuk Mobile Submenu Drawer */
+        .mobile-submenu {
+            display: none; /* Sembunyikan secara default */
+            padding-left: 1rem; /* Indentasi untuk submenu */
+            background-color: #005953; /* Warna latar sedikit berbeda untuk submenu */
+            border-radius: 0.25rem;
+            margin-top: 0.25rem;
+        }
+        .mobile-submenu.open {
+            display: block;
+        }
+        .mobile-submenu .nav-link {
+            font-size: 0.8rem; /* Ukuran font lebih kecil untuk submenu */
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .portfolio-mobile-trigger .arrow-icon.rotate-180 {
+            transform: rotate(180deg);
+        }
+        /* Footer Social Icon Styling */
+        .social-icon-link {
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            width: 40px; 
+            height: 40px; 
+            border: 2px solid white; /* Border color to white */
+            border-radius: 0.375rem; 
+            color: white; /* Icon color to white */
+            background-color: transparent; /* Initial background transparent */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 0 0.375rem; 
+        }
+        .social-icon-link:hover {
+            background-color: white; /* Background white on hover */
+            color: #006661; /* Icon color #006661 on hover */
+            border-color: white; /* Border can remain white or be adjusted */
+        }
+        .social-icon-link i {
+            font-size: 1.5rem; 
+        }
+
     </style>
 </head>
-<body class="bg-grey-100">
+<body class="bg-gray-100">
 
-    <section class="py-2 md:py-8 px-2 md:px-8 bg-white shadow-lg rounded-[0.5rem] my-1 mx-1">
-        <div class="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 text-center md:text-left fade-in-section" data-aos="fade-up"> 
-            <div class="profile-img-container">
-                <img src="https://media.licdn.com/dms/image/v2/D4D03AQGfb4H5tRHrHA/profile-displayphoto-shrink_400_400/B4DZZN3UqiG4Ag-/0/1745063071619?e=1753920000&v=beta&t=EO4u6S0oblEjMVdIbVWODU7CSbvovQksxNtoZx7Wo_c" alt="[Image of Profile]" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
-            </div>
-            <div class="text-center md:text-left">
-                <h1 class="text-[1.5rem] md:text-[3rem] font-extrabold leading-tight mb-4 text-[#011e26]">
-                    Hello, I'm <span id="typed-name"></span>
-                </h1>
-                <!-- NEW: Call to action text with slide-down-fade-in effect -->
-                <p id="call-to-action" class="text-lg md:text-xl text-[#0b3a4a] mb-8 slide-down-fade-in">
-                    Fully adaptable. Embrace the process, let's grow together!
-                </p>
-            </div>
+    <!-- Header Atas (Desktop & Mobile Trigger) -->
+    <header class="top-header fixed top-0 left-0 right-0 flex items-center justify-between px-4 md:px-6 shadow-md">
+        <a href="#home" class="text-xl md:text-2xl font-bold">Portfolio Saya</a>
+        <!-- Navigasi Desktop -->
+        <nav class="hidden md:flex space-x-1">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#certificates" class="nav-link">Portfolio</a>
+            <a href="#about-me" class="nav-link">About Me</a>
+            <a href="#organizational-experience" class="nav-link">Others</a>
+        </nav>
+        <!-- Tombol Hamburger Mobile -->
+        <button id="mobileMenuBtn" aria-label="Buka menu" class="md:hidden">
+            <i class='bx bx-menu text-3xl'></i>
+        </button>
+    </header>
+
+    <!-- Menu Mobile Drawer (Samping) -->
+    <aside id="mobileMenuDrawer" class="mobile-menu-drawer fixed top-0 left-0 h-full shadow-lg p-6 pt-20">
+        <button id="closeMobileMenuBtn" class="absolute top-5 right-5 text-2xl" aria-label="Tutup menu">
+            <i class='bx bx-x'></i>
+        </button>
+        <nav class="space-y-2">
+            <a href="#home" class="nav-link active"><i class='bx bxs-home'></i>Home</a>
+            <a href="#certificates" class="nav-link"><i class='bx bxs-briefcase-alt-2'></i>Portfolio</a>
+            <a href="#about-me" class="nav-link"><i class='bx bxs-user-detail'></i>About Me</a>
+            <a href="#organizational-experience" class="nav-link"><i class='bx bxs-extension'></i>Others</a>
+        </nav>
+        <div class="absolute bottom-6 left-6 text-xs text-gray-400">
+            <p>&copy; <span id="currentYearMobileDrawer"></span> Toriq As Syarif</p>
         </div>
-        <!-- NEW POSITION for the long typing paragraph -->
-    </section>
-    <section id="about-me">
-        <div class="w-full text-center fade-in-section" data-aos="fade-up">
-            <div id="about-me-typing-container">
-                <div id="typing-text-about-me"></div>
+    </aside>
+
+
+    <!-- Konten Utama -->
+    <main id="mainContent" class="main-content-area">
+        <!-- Bagian Awal dan Teks -->
+        <section id="home-content" class="py-2 md:py-8 px-2 md:px-8 bg-white shadow-lg rounded-[0.5rem] my-1 mx-1 md:mt-6 md:mx-6">
+            <div class="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 text-center md:text-left fade-in-section" data-aos="fade-up"> 
+                <div class="profile-img-container">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGfb4H5tRHrHA/profile-displayphoto-shrink_400_400/B4DZZN3UqiG4Ag-/0/1745063071619?e=1753920000&v=beta&t=EO4u6S0oblEjMVdIbVWODU7CSbvovQksxNtoZx7Wo_c" alt="Foto profil Toriq As Syarif" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
+                </div>
+                <div class="text-center md:text-left">
+                    <h1 class="text-[1.5rem] md:text-[3rem] font-extrabold leading-tight mb-4 text-[#006661]"> 
+                        Hello, I'm <span id="typed-name"></span>
+                    </h1>
+                    <p id="call-to-action" class="text-lg md:text-xl text-[#004d40] mb-4 slide-down-fade-in"> 
+                        Fully adaptable. Embrace the process, let's grow together!
+                    </p>
+                    <!-- Tombol Download CV -->
+                    <a href="path/to/your-cv.pdf" download="Toriq_As_Syarif_CV.pdf" class="download-cv-button">
+                        <i class='bx bxs-download'></i> Download My CV
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
-
-
-    <section id="certificates">
-        <div class="max-w-6xl mx-auto text-center fade-in-section">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
-
-                <div class="card fade-in-section" data-aos="fade-right">
-                    <a href="https://www.to6661q.xyz/portfolio/work-experience" class="detail-button">Work Experience</a>
-                    <div id="slideshow-container-1" class="slideshow-container">
-                        <div class="certificate-item active">
-                            <img class="certificate-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTECLcPWwRdkO_1nNW42XSe4iFDIUzFL6LWkw&s?w=1080" alt="[Image of Sertifikat Pengembangan Web 1]">
-                        </div>
-                        <div class="certificate-item">
-                            <img class="certificate-img" src="https://marketplace.canva.com/EAFtd8e9grU/1/0/1600w/canva-krem-dan-coklat-modern-elegan-sertifikat-penghargaan-nP83-0IaVzU.jpg?w=1080" alt="[Image of Sertifikat Pengembangan Web 2]">
-                        </div>
-                        <div class="certificate-item">
-                            <img class="certificate-img" src="https://akcdn.detik.net.id/community/media/visual/2024/08/25/contoh-sertifikat-9.png?w=1080" alt="[Image of Sertifikat Pengembangan Web 3]">
-                        </div>
-                    </div>
+        </section>
+        
+        <section id="about-me" class="md:mx-6">
+            <div id="about-me-text-container" class="w-full text-center fade-in-section" data-aos="fade-up" data-aos-delay="100">
+                <div id="typing-text-about-me" class="slide-up-fade-in-about"> 
+                    Possesses a basic understanding of Programming, Databases, Networking, and Machine Learning. Skilled in cross-functional collaboration with experience working alongside design, marketing, and engineering teams. Detail-oriented, organized, and passionate about digital products and the content streaming industry like music, podcast, and video. Familiar with A/B testing, product analytics tools, and agile methodologies.
                 </div>
-
-                <div class="card fade-in-section" data-aos="fade-up">
-                    <a href="https://www.to6661q.xyz/portfolio/training" class="detail-button">Training</a>
-                    <div id="slideshow-container-2" class="slideshow-container">
-                        <div class="certificate-item active">
-                            <img class="certificate-img" src="https://placehold.co/1080x720/87CEEB/FFFFFF?text=Data+Science+Cert+1" alt="[Image of Sertifikat Ilmu Data 1]">
-                        </div>
-                        <div class="certificate-item">
-                            <img class="certificate-img" src="https://placehold.co/1080x720/FFD700/000000?text=Data+Science+Cert+2" alt="[Image of Sertifikat Ilmu Data 2]">
-                        </div>
-                        <div class="certificate-item">
-                            <img class="certificate-img" src="https://placehold.co/1080x720/98FB98/000000?text=Data+Science+Cert+3" alt="[Image of Sertifikat Ilmu Data 3]">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card fade-in-section" data-aos="fade-left" data-aos-delay="400">
-                    <a href="https://www.to6661q.xyz/portfolio/achievement" class="detail-button">Achievement</a>
-                    <div id="slideshow-container-3" class="slideshow-container">
-                        <div class="certificate-item active">
-                            <img class="certificate-img" src="https://placehold.co/1080x720/DDA0DD/FFFFFF?text=Other+Cert+1" alt="[Image of Sertifikat Lainnya 1]">
-                        </div>
-                        <div class="certificate-item">
-                            <img class="certificate-img" src="https://placehold.co/1080x720/F08080/FFFFFF?text=Other+Cert+2" alt="[Image of Sertifikat Lainnya 2]">
-                        </div>
-                        <div class="certificate-item">
-                            <img class="certificate-img" src="https://placehold.co/1080x720/ADD8E6/000000?text=Other+Cert+3" alt="[Image of Sertifikat Lainnya 3]">
-                        </div>
-                    </div>
-                </div>
-
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="programming-language-skills">
-        <div class="max-w-6xl mx-auto text-center fade-in-section">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
-                
-                <div class="card w-full fade-in-section" data-aos="fade-up">
-                    <h2 class="card-header">Keahlian Aplikasi</h2>
-                    <div id="codingSkillChartContainer">
-                        <canvas id="codingSkillChart"></canvas>
+        <section id="certificates" class="py-4 md:py-8 px-2 md:px-6">
+            <div class="max-w-6xl mx-auto text-center fade-in-section">
+                 <h2 class="text-2xl md:text-3xl font-bold mb-8 text-[#006661]">Portfolio</h2> 
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
+                    <div class="card fade-in-section" data-aos="fade-right">
+                        <a href="https://www.to6661q.xyz/portfolio/work-experience" class="detail-button">Work Experience</a>
+                        <div id="slideshow-container-1" class="slideshow-container">
+                            <div class="certificate-item active">
+                                <img class="certificate-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTECLcPWwRdkO_1nNW42XSe4iFDIUzFL6LWkw&s?w=1080" alt="Sertifikat Pengalaman Kerja 1">
+                            </div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="https://marketplace.canva.com/EAFtd8e9grU/1/0/1600w/canva-krem-dan-coklat-modern-elegan-sertifikat-penghargaan-nP83-0IaVzU.jpg?w=1080" alt="Sertifikat Pengalaman Kerja 2">
+                            </div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="https://akcdn.detik.net.id/community/media/visual/2024/08/25/contoh-sertifikat-9.png?w=1080" alt="Sertifikat Pengalaman Kerja 3">
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="card w-full fade-in-section" data-aos="fade-up">
-                    <h2 class="card-header">Bahasa Pemrograman</h2>
-                    <div class="flex flex-col justify-center flex-grow">
-                        <div class="skill-item-container">
-                            <span class="skill-bar-text-programmer">Python</span>
-                            <div class="skill-bar-programmer">
-                                <div class="skill-bar-fill-programmer" id="python-skill"></div>
+                    <div class="card fade-in-section" data-aos="fade-up">
+                        <a href="https://www.to6661q.xyz/portfolio/training" class="detail-button">Training</a>
+                        <div id="slideshow-container-2" class="slideshow-container">
+                            <div class="certificate-item active">
+                                <img class="certificate-img" src="https://placehold.co/1080x720/87CEEB/FFFFFF?text=Sertifikat+Pelatihan+1" alt="Sertifikat Pelatihan 1">
+                            </div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="https://placehold.co/1080x720/FFD700/000000?text=Sertifikat+Pelatihan+2" alt="Sertifikat Pelatihan 2">
+                            </div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="https://placehold.co/1080x720/98FB98/000000?text=Sertifikat+Pelatihan+3" alt="Sertifikat Pelatihan 3">
                             </div>
                         </div>
-                        <div class="skill-item-container">
-                            <span class="skill-bar-text-programmer">C++</span>
-                            <div class="skill-bar-programmer">
-                                <div class="skill-bar-fill-programmer" id="cpp-skill"></div>
+                    </div>
+                    <div class="card fade-in-section" data-aos="fade-left" data-aos-delay="400">
+                        <a href="https://www.to6661q.xyz/portfolio/achievement" class="detail-button">Achievement</a>
+                        <div id="slideshow-container-3" class="slideshow-container">
+                            <div class="certificate-item active">
+                                <img class="certificate-img" src="https://placehold.co/1080x720/DDA0DD/FFFFFF?text=Sertifikat+Pencapaian+1" alt="Sertifikat Pencapaian 1">
                             </div>
-                        </div>
-                        <div class="skill-item-container">
-                            <span class="skill-bar-text-programmer">HTML</span>
-                            <div class="skill-bar-programmer">
-                                <div class="skill-bar-fill-programmer" id="html-skill"></div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="https://placehold.co/1080x720/F08080/FFFFFF?text=Sertifikat+Pencapaian+2" alt="Sertifikat Pencapaian 2">
                             </div>
-                        </div>
-                        <div class="skill-item-container">
-                            <span class="skill-bar-text-programmer">PHP</span>
-                            <div class="skill-bar-programmer">
-                                <div class="skill-bar-fill-programmer" id="php-skill"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item-container">
-                            <span class="skill-bar-text-programmer">Java</span>
-                            <div class="skill-bar-programmer">
-                                <div class="skill-bar-fill-programmer" id="java-skill"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item-container">
-                            <span class="skill-bar-text-programmer">C</span>
-                            <div class="skill-bar-programmer">
-                                <div class="skill-bar-fill-programmer" id="c-skill"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item-container">
-                            <span class="skill-bar-text-programmer">R</span>
-                            <div class="skill-bar-programmer">
-                                <div class="skill-bar-fill-programmer" id="r-skill"></div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="https://placehold.co/1080x720/ADD8E6/000000?text=Sertifikat+Pencapaian+3" alt="Sertifikat Pencapaian 3">
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="card w-full fade-in-section" data-aos="fade-right">
-                    <h2 class="card-header">Keahlian Bahasa</h2>
-                    <div id="languageSkillChartContainer" class="relative">
-                        <canvas id="languageSkillChart"></canvas>
+        <section id="programming-language-skills" class="py-4 md:py-8 px-2 md:px-6">
+            <div class="max-w-6xl mx-auto text-center fade-in-section">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-[#006661]">Keahlian Teknis</h2> 
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+                    <div class="card w-full fade-in-section" data-aos="fade-up">
+                        <h2 class="card-header">Keahlian Aplikasi</h2>
+                        <div class="chart-outer-container">
+                            <div id="codingSkillChartContainer">
+                                <canvas id="codingSkillChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="chart-legend" id="codingSkillChartLegend"></div> 
                     </div>
-                    <div class="chart-legend flex flex-wrap justify-center gap-2" id="languageChartLegend"></div>
+                    <div class="card w-full fade-in-section" data-aos="fade-up">
+                        <h2 class="card-header">Bahasa Pemrograman</h2>
+                        <div class="flex flex-col justify-center flex-grow py-7"> 
+                            <div class="skill-item-container">
+                                <i class='bx bxl-python lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="python-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <i class='bx bxl-c-plus-plus lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="cpp-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <i class='bx bxl-html5 lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="html-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                 <i class='bx bxl-php lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="php-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <i class='bx bxl-java lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="java-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <span class="lang-icon-text-custom">C</span>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="c-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <span class="lang-icon-text-custom">R</span>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="r-skill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card w-full fade-in-section" data-aos="fade-right">
+                        <h2 class="card-header">Keahlian Bahasa</h2> 
+                        <div class="chart-outer-container">
+                            <div id="languageSkillChartContainer" class="relative">
+                                <canvas id="languageSkillChart"></canvas>
+                            </div>
+                        </div>
+                         <div class="chart-legend" id="languageChartLegend"></div>
+                    </div>
+                    <div class="card w-full fade-in-section" data-aos="fade-left">
+                        <h2 class="card-header">Bahasa Pemrograman2</h2> 
+                         <div class="chart-outer-container">
+                            <div id="advancedProgrammingChartContainer"> 
+                                <canvas id="advancedProgrammingChart"></canvas> 
+                            </div>
+                        </div>
+                        <div class="chart-legend" id="advancedProgrammingChartLegend"></div> 
+                    </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="card w-full fade-in-section" data-aos="fade-left">
-                    <h2 class="card-header">Bahasa Pemrograman2</h2>
-                    <div id="advancedProgrammingBarChartContainer">
-                        <canvas id="advancedProgrammingBarChart"></canvas>
+        <section id="all-app-skills" class="py-4 md:py-8 px-2 md:px-6">
+            <div class="max-w-6xl mx-auto text-center fade-in-section">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-[#006661]">Tools & Teknologi</h2> 
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-3">
+                    <div class="fade-in-section p-0" data-aos="fade-right">
+                        <h2 class="card-header">Aplikasi Kantor</h2>
+                        <div class="photo-grid">
+                            <div class="logo-item"><img class="logo" src="https://atarim.io/wp-content/uploads/Trello_logo_PNG3-2048x1152.webp" alt="Logo Trello"></div>
+                            <div class="logo-item"><img class="logo" src="https://icon.icepanel.io/Technology/svg/IBM-SPSS-Statistics.svg" alt="Logo SPSS"></div>
+                            <div class="logo-item"><img class="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvrixGJRMafbXlYE-e5v5tpAstg9Qlqr1kfEEQQSWBu880msjy-QMUMhbrnhYq541GUeI&usqp=CAU" alt="Logo Microsoft Teams"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg" alt="Logo Microsoft Word"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" alt="Logo Microsoft Excel"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Microsoft_Office_PowerPoint_%282019%E2%80%93present%29.svg" alt="Logo Microsoft PowerPoint"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Microsoft_Office_OneNote_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_OneNote_%282019%E2%80%93present%29.svg.png" alt="Logo Microsoft OneNote"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Microsoft_Office_Access_%282019-present%29.svg/2097px-Microsoft_Office_Access_%282019-present%29.svg.png" alt="Logo Microsoft Access"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Microsoft_Publisher_2013-2019_logo.svg/1200px-Microsoft_Publisher_2013-2019_logo.svg.png" alt="Logo Microsoft Publisher"></div>
+                        </div>
                     </div>
+                    <div class="fade-in-section p-0" data-aos="fade-up">
+                        <h2 class="card-header">Aplikasi Pemrograman</h2>
+                        <div class="photo-grid">
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg" alt="Logo VS Code"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Notepad%2B%2B_Logo.png" alt="Logo Notepad++"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="Logo Jupyter"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg" alt="Logo Google Colaboratory"></div>
+                            <div class="logo-item"><img class="logo" src="https://community.algostudio.net/wp-content/uploads/2020/04/Anaconda_Logo.png" alt="Logo Anaconda"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Xampp_logo.svg" alt="Logo XAMPP"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/38/SQLite370.svg" alt="Logo SQLite"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/id/a/a9/MySQL.png" alt="Logo MySQL"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/36/Logo.min.svg" alt="Logo PostgreSQL"></div>
+                        </div>
+                    </div>
+                    <div class="fade-in-section p-0" data-aos="fade-left" data-aos-delay="400">
+                        <h2 class="card-header">Aplikasi Multimedia</h2>
+                        <div class="photo-grid">
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Logo Adobe Premiere Pro"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Logo Adobe Photoshop"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" alt="Logo Adobe After Effects"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Adobe_Audition_CC_icon_%282020%29.svg" alt="Logo Adobe Audition"></div>
+                            <div class="logo-item"><img class="logo" src="https://i.namu.wiki/i/kNH_2GzbByB0sEwi5gbJmtWOB_2EymScOU2U7DknQCDIwahsnKf9tXufzyTEUxuElja24eOnFXjmtamnNLDfLd-EFELurext--w1dzituTSykmmq62pOspCcrMdZrjuJRDM1fs8asIhBFrSOBHO0Fw.webp" alt="Logo CapCut"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/7/79/BandLab_logo.svg" alt="Logo BandLab"></div>
+                            <div class="logo-item"><img class="logo" src="https://logos-world.net/wp-content/uploads/2024/10/Figma-Logo-New.png" alt="Logo Figma"></div>
+                            <div class="logo-item"><img class="logo" src="https://logos-world.net/wp-content/uploads/2020/02/Canva-Logo-700x394.png" alt="Logo Canva"></div>
+                            <div class="logo-item"><img class="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcvIwSTtDe9H3X9wDyeWzh7EPkrBymg2QPTSRc20rWV3E6wTiEiNnccS_OiN0X8UE6Kk&usqp=CAU" alt="Logo DaVinci Resolve"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="organizational-experience" class="py-4 md:py-8 px-2 md:px-6">
+            <div class="org-section-container text-center fade-in-section" data-aos="fade-up">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-[#006661]">Pengalaman Organisasi</h2> 
+                <div class="org-photo-grid">
+                    <div class="org-logo-item" data-title="HIMTI UIN Jakarta Academic Division - 2019/2020" data-description="Himpunan Mahasiswa Teknik Informatika (HIMTI) focuses on developing the potential and scientific knowledge of Informatics Engineering students at UIN Syarif Hidayatullah Jakarta. This department aims to enhance IT hard skills and encourage students to excel academically and actively participate in various IT competitions.">
+                        <img class="org-logo" src="https://media.licdn.com/dms/image/v2/C560BAQH9y7sIutv2fA/company-logo_200_200/company-logo_200_200/0/1630663355274/himtiuinjkt_logo?e=2147483647&v=beta&t=tm2rR4NRsiHZZn_eJEE3dNhxMduYh3WSIDJAnZlrorA" alt="Logo HIMTI UIN Jakarta">
+                    </div>
+                    <div class="org-logo-item" data-title="SEMA FST Oversight Commission - 2020/2021" data-description="The Senat Mahasiswa Faculty of Science and Technology (SEMA FST) Oversight Commission primarily functions to control and supervise all activities and policies set by Dewan Mahasiswa Faculty of Science and Technology (DEMA FST) and all Department Student Associations Himpunan Mahasiswa Jurusan (HMJ) within the UIN Jakarta Faculty of Science and Technology. This commission is responsible for ensuring that every work program adheres to the organizational statutes, bylaws, and applicable regulations, as well as maintaining transparency and accountability of student organizations at the faculty level.">
+                        <img class="org-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Semafstuin.jpg" alt="Logo SEMA FST">
+                    </div>
+                    <div class="org-logo-item" data-title="Dapur Seni Music Division - 2018/2025" data-description="This student activity unit accommodates the artistic talents of students from the Faculty of Science and Technology. The Music Division serves as a hub for musical development, where students can hone their instrumental and vocal skills, create original works, and perform in various shows. This division also actively organizes training sessions, participates in competitions, and builds a community for music enthusiasts on campus.">
+                        <img class="org-logo" src="https://media.licdn.com/dms/image/v2/D560BAQH-keKCg_OSAA/company-logo_100_100/company-logo_100_100/0/1721293804331?e=2147483647&v=beta&t=wGJWzYkzseJ8r74hZaS3K4uPxMmaEQ-DkmC9rv5_kRQ" alt="Logo Dapur Seni">
+                    </div>
+                    <div class="org-logo-item" data-title="FORSA UIN Jakarta - 2019/2025" data-description="Federasi Olahraga Mahasiswa (FORSA) UIN Jakarta is a university-level Student Activity Unit Unit Kegiatan Mahasiswa (UKM) that serves as the primary platform for UIN Jakarta students to develop their talents and interests in sports. FORSA plays a crucial role in facilitating various sports branches, including Taekwondo, Perisai Diri, Pagar Nusa, Karate, Persaudaraan Setia Hati Terate, Tapak Suci, Badminton, Table Tennis, E-sports, Basketball, Volleyball, Futsal, and Football with the aim of improving student fitness, sportsmanship, and achievement. Actively engage in regular training, participate in team selections, compete in internal and external tournaments, and contribute to managing campus sports events. Through FORSA, not only hone their athletic abilities but also build leadership and teamwork skills.">
+                        <img class="org-logo" src="https://pbs.twimg.com/profile_images/1407596855/Logo_FORSA_Non_Text_400x400.jpg" alt="Logo FORSA UIN Jakarta">
+                    </div>
+                    <div class="org-logo-item" data-title="PSHT UIN Jakarta - 2019/2025" data-description="Persaudaraan Setia Hati Terate (PSHT) UIN Jakarta is a Student Activity Unit Unit Kegiatan Mahasiswa (UKM) that serves as the official branch of Persaudaraan Setia Hati Terate (PSHT) within UIN Syarif Hidayatullah Jakarta. This UKM focuses on training and developing the martial art of Pencak Silat Setia Hati Terate, which not only emphasizes self-defense techniques but also the formation of character, discipline, mental strength, and spirituality among its members. PSHT UIN Jakarta actively conducts regular training sessions, belt promotion tests, and participates in various pencak silat championships and community service activities.">
+                        <img class="org-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK_26mJdolNSXjKpG2D7oc8vY0DRlmS8rfBg&s" alt="Logo PSHT UIN Jakarta">
+                    </div>
+                    <div class="org-logo-item" data-title="HMI Komfastek - 2018/2025" data-description="Himpunan Mahasiswa Islam Komisariat Faculty of Science and Technology (HMI Komfastek) UIN Jakarta is a specialized branch of the Himpunan Mahasiswa Islam (HMI), specifically affiliated with the Faculty of Science and Technology (FST) at UIN Syarif Hidayatullah Jakarta. As part of the larger HMI organization, Komfastek focuses on cadre development for students within the FST environment. The main goal of HMI Komfastek is to produce academics with integrity, creativity, Islamic awareness, and social responsibility. They strive to cultivate students who not only excel in the fields of Science and Technology but also possess leadership qualities, a critical perspective on national issues, and the ability to contribute meaningfully in line with HMI values and the Three Pillars of Higher Education (Tri Dharma Perguruan Tinggi). Their activities typically include discussions, leadership training Latihan Kader (LK), Islamic studies, and community service.">
+                        <img class="org-logo" src="https://ugc.production.linktr.ee/fc35f15e-5a30-4d56-bcf7-53fbb20951e1_jpg-20231119-170838-0000.jpeg?io=true&size=avatar-v3_0" alt="Logo HMI Komfastek">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="py-4 md:py-8 px-2 md:px-6">
+            <div class="edu-section-container text-center fade-in-section" data-aos="fade-up">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 text-[#006661]">Edukasi</h2> 
+                <div class="edu-photo-grid">
+                    <div class="edu-logo-item">
+                        <img class="edu-logo" src="https://i.pinimg.com/474x/2d/57/40/2d57400bf03bbdbfd9e33560e4cfc62c.jpg" alt="Logo TK">
+                        <span class="edu-logo-description">TK</span>
+                    </div>
+                    <div class="edu-logo-item">
+                        <img class="edu-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR15i2ijnNpuDFLq8FH8Kjrj9mJFP0nu9II9Q&s" alt="Logo SDN 2 Sidorahayu">
+                        <span class="edu-logo-description">SDN 2 Sidorahayu</span>
+                    </div>
+                    <div class="edu-logo-item">
+                        <img class="edu-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq9BqgIl6ON8ljjfpIV1tbRhV2cA_K_iYzcg&s" alt="Logo SMPN 2 Belitang">
+                        <span class="edu-logo-description">SMPN 2 Belitang</span>
+                    </div>
+                    <div class="edu-logo-item">
+                        <img class="edu-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Seal_of_the_Ministry_of_Religious_Affairs_of_the_Republic_of_Indonesia.svg/810px-Seal_of_the_Ministry_of_Religious_Affairs_of_the_Republic_of_Indonesia.svg.png" alt="Logo MAN 1 OKU Timur">
+                        <span class="edu-logo-description">MAN 1 OKU Timur</span>
+                    </div>
+                    <div class="edu-logo-item">
+                        <img class="edu-logo" src="https://upload.wikimedia.org/wikipedia/id/a/a3/Logo_UIN_Syarif_Hidayatullah_Jakarta.png" alt="Logo UIN Jakarta">
+                        <span class="edu-logo-description">UIN Jakarta</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle"></h2>
+                </div>
+                <div id="modalBody" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button id="closeButton" class="close-button">Tutup</button>
                 </div>
             </div>
         </div>
-    </section>
-
-    <section id="all-app-skills" class="py-0 md:py-0 px- md:px-0 bg-grey-100 mt-4">
-        <div class="max-w-6xl mx-auto text-center fade-in-section">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-3">
-
-                <div class="fade-in-section p-0" data-aos="fade-right">
-                    <h2 class="card-header">Keahlian Aplikasi Kantor</h2>
-                    <div class="photo-grid">
-                        <div class="logo-item">
-                            <img class="logo" src="https://atarim.io/wp-content/uploads/Trello_logo_PNG3-2048x1152.webp" alt="[Image of Logo Trello]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://icon.icepanel.io/Technology/svg/IBM-SPSS-Statistics.svg" alt="[Image of Logo SPSS]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvrixGJRMafbXlYE-e5v5tpAstg9Qlqr1kfEEQQSWBu880msjy-QMUMhbrnhYq541GUeI&usqp=CAU" alt="[Image of Logo Microsoft Teams]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg" alt="[Image of Logo Microsoft Word]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" alt="[Image of Logo Microsoft Excel]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Microsoft_Office_PowerPoint_%282019%E2%80%93present%29.svg" alt="[Image of Logo Microsoft PowerPoint]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Microsoft_Office_OneNote_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_OneNote_%282019%E2%80%93present%29.svg.png" alt="[Image of Logo Microsoft OneNote]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Microsoft_Office_Access_%282019-present%29.svg/2097px-Microsoft_Office_Access_%282019-present%29.svg.png" alt="[Image of Logo Microsoft Access]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Microsoft_Publisher_2013-2019_logo.svg/1200px-Microsoft_Publisher_2013-2019_logo.svg.png" alt="[Image of Logo Microsoft Publisher]">
-                        </div>
-                    </div>
+        
+        <footer class="bg-[#006661] text-gray-300 py-6 mt-10 text-center"> <!-- Padding atas dan bawah dikurangi (py-6) -->
+            <div class="container mx-auto px-6">
+                <div class="flex justify-center space-x-2 mb-3"> <!-- Margin bawah dikurangi (mb-3) -->
+                    <a href="https://www.linkedin.com/in/toriq-as-syarif-9488381b2/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon-link">
+                        <i class='bx bxl-linkedin-square'></i>
+                    </a>
+                    <a href="https://github.com/to6661q" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-icon-link">
+                        <i class='bx bxl-github'></i>
+                    </a>
+                    <a href="https://www.instagram.com/to6661q/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon-link">
+                        <i class='bx bxl-instagram-alt'></i>
+                    </a>
+                    <a href="mailto:toriq.assyarif@gmail.com" aria-label="Email" class="social-icon-link">
+                        <i class='bx bxs-envelope'></i>
+                    </a>
+                    <a href="https://wa.me/6282289007000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-icon-link">
+                        <i class='bx bxl-whatsapp'></i>
+                    </a>
                 </div>
-
-                <div class="fade-in-section p-0" data-aos="fade-up">
-                    <h2 class="card-header">Keahlian Aplikasi Pemrograman</h2>
-                    <div class="photo-grid">
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg" alt="[Image of Logo VS Code]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Notepad%2B%2B_Logo.png" alt="[Image of Logo Notepad++]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="[Image of Logo Jupyter]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg" alt="[Image of Logo Google Colaboratory]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://community.algostudio.net/wp-content/uploads/2020/04/Anaconda_Logo.png" alt="[Image of Logo Anaconda]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Xampp_logo.svg" alt="[Image of Logo XAMPP]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/38/SQLite370.svg" alt="[Image of Logo SQLite]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/id/a/a9/MySQL.png" alt="[Image of Logo MySQL]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/36/Logo.min.svg" alt="[Image of Logo PostgreSQL]">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="fade-in-section p-0" data-aos="fade-left" data-aos-delay="400">
-                    <h2 class="card-header">Keahlian Aplikasi Multimedia</h2>
-                    <div class="photo-grid">
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="[Image of Logo Adobe Premiere Pro]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="[Image of Logo Adobe Photoshop]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" alt="[Image of Logo Adobe After Effects]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Adobe_Audition_CC_icon_%282020%29.svg" alt="[Image of Logo Adobe Audition]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://i.namu.wiki/i/kNH_2GzbByB0sEwi5gbJmtWOB_2EymScOU2U7DknQCDIwahsnKf9tXufzyTEUxuElja24eOnFXjmtamnNLDfLd-EFELurext--w1dzituTSykmmq62pOspCcrMdZrjuJRDM1fs8asIhBFrSOBHO0Fw.webp" alt="[Image of Logo CapCut]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/7/79/BandLab_logo.svg" alt="[Image of Logo BandLab]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://logos-world.net/wp-content/uploads/2024/10/Figma-Logo-New.png" alt="[Image of Logo Figma]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://logos-world.net/wp-content/uploads/2020/02/Canva-Logo-700x394.png" alt="[Image of Logo Canva]">
-                        </div>
-                        <div class="logo-item">
-                            <img class="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcvIwSTtDe9H3X9wDyeWzh7EPkrBymg2QPTSRc20rWV3E6wTiEiNnccS_OiN0X8UE6Kk&usqp=CAU" alt="[Image of Logo DaVinci Resolve]">
-                        </div>
-                    </div>
-                </div>
-
+                <p class="text-sm">&copy; <span id="currentYearFooter"></span> Toriq As Syarif. All rights reserved.</p>
+                <!-- Teks "Dibuat dengan..." telah dihapus -->
             </div>
-        </div>
-    </section>
-
-    <section id="organizational-experience" class="py-0 md:py-0 px-0 md:px-0 bg-grey-100">
-        <div class="org-section-container text-center fade-in-section" data-aos="fade-up">
-            <h2 class="card-header">Pengalaman Organisasi</h2>
-            <div class="org-photo-grid">
-                <div class="org-logo-item" data-title="HIMTI UIN Jakarta Academic Division - 2019/2020" data-description="Himpunan Mahasiswa Teknik Informatika (HIMTI) focuses on developing the potential and scientific knowledge of Informatics Engineering students at UIN Syarif Hidayatullah Jakarta. This department aims to enhance IT hard skills and encourage students to excel academically and actively participate in various IT competitions.">
-                    <img class="org-logo" src="https://media.licdn.com/dms/image/v2/C560BAQH9y7sIutv2fA/company-logo_200_200/company-logo_200_200/0/1630663355274/himtiuinjkt_logo?e=2147483647&v=beta&t=tm2rR4NRsiHZZn_eJEE3dNhxMduYh3WSIDJAnZlrorA" alt="">
-                </div>
-                <div class="org-logo-item" data-title="SEMA FST Oversight Commission - 2020/2021" data-description="The Senat Mahasiswa Faculty of Science and Technology (SEMA FST) Oversight Commission primarily functions to control and supervise all activities and policies set by Dewan Mahasiswa Faculty of Science and Technology (DEMA FST) and all Department Student Associations Himpunan Mahasiswa Jurusan (HMJ) within the UIN Jakarta Faculty of Science and Technology. This commission is responsible for ensuring that every work program adheres to the organizational statutes, bylaws, and applicable regulations, as well as maintaining transparency and accountability of student organizations at the faculty level.">
-                    <img class="org-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Semafstuin.jpg" alt="">
-                </div>
-                <div class="org-logo-item" data-title="Dapur Seni Music Division - 2018/2025" data-description="This student activity unit accommodates the artistic talents of students from the Faculty of Science and Technology. The Music Division serves as a hub for musical development, where students can hone their instrumental and vocal skills, create original works, and perform in various shows. This division also actively organizes training sessions, participates in competitions, and builds a community for music enthusiasts on campus.">
-                    <img class="org-logo" src="https://media.licdn.com/dms/image/v2/D560BAQH-keKCg_OSAA/company-logo_100_100/company-logo_100_100/0/1721293804331?e=2147483647&v=beta&t=wGJWzYkzseJ8r74hZaS3K4uPxMmaEQ-DkmC9rv5_kRQ" alt="">
-                </div>
-                <div class="org-logo-item" data-title="FORSA UIN Jakarta - 2019/2025" data-description="Federasi Olahraga Mahasiswa (FORSA) UIN Jakarta is a university-level Student Activity Unit Unit Kegiatan Mahasiswa (UKM) that serves as the primary platform for UIN Jakarta students to develop their talents and interests in sports. FORSA plays a crucial role in facilitating various sports branches, including Taekwondo, Perisai Diri, Pagar Nusa, Karate, Persaudaraan Setia Hati Terate, Tapak Suci, Badminton, Table Tennis, E-sports, Basketball, Volleyball, Futsal, and Football with the aim of improving student fitness, sportsmanship, and achievement. Actively engage in regular training, participate in team selections, compete in internal and external tournaments, and contribute to managing campus sports events. Through FORSA, not only hone their athletic abilities but also build leadership and teamwork skills.">
-                    <img class="org-logo" src="https://pbs.twimg.com/profile_images/1407596855/Logo_FORSA_Non_Text_400x400.jpg" alt="">
-                </div>
-                <div class="org-logo-item" data-title="PSHT UIN Jakarta - 2019/2025" data-description="Persaudaraan Setia Hati Terate (PSHT) UIN Jakarta is a Student Activity Unit Unit Kegiatan Mahasiswa (UKM) that serves as the official branch of Persaudaraan Setia Hati Terate (PSHT) within UIN Syarif Hidayatullah Jakarta. This UKM focuses on training and developing the martial art of Pencak Silat Setia Hati Terate, which not only emphasizes self-defense techniques but also the formation of character, discipline, mental strength, and spirituality among its members. PSHT UIN Jakarta actively conducts regular training sessions, belt promotion tests, and participates in various pencak silat championships and community service activities.">
-                    <img class="org-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK_26mJdolNSXjKpG2D7oc8vY0DRlmS8rfBg&s" alt="">
-                </div>
-                <div class="org-logo-item" data-title="HMI Komfastek - 2018/2025" data-description="Himpunan Mahasiswa Islam Komisariat Faculty of Science and Technology (HMI Komfastek) UIN Jakarta is a specialized branch of the Himpunan Mahasiswa Islam (HMI), specifically affiliated with the Faculty of Science and Technology (FST) at UIN Syarif Hidayatullah Jakarta. As part of the larger HMI organization, Komfastek focuses on cadre development for students within the FST environment. The main goal of HMI Komfastek is to produce academics with integrity, creativity, Islamic awareness, and social responsibility. They strive to cultivate students who not only excel in the fields of Science and Technology but also possess leadership qualities, a critical perspective on national issues, and the ability to contribute meaningfully in line with HMI values and the Three Pillars of Higher Education (Tri Dharma Perguruan Tinggi). Their activities typically include discussions, leadership training Latihan Kader (LK), Islamic studies, and community service.">
-                    <img class="org-logo" src="https://ugc.production.linktr.ee/fc35f15e-5a30-4d56-bcf7-53fbb20951e1_jpg-20231119-170838-0000.jpeg?io=true&size=avatar-v3_0" alt="">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="education" class="py-0 md:py-0 px-0 md:px-0 bg-grey-100">
-        <div class="edu-section-container text-center fade-in-section" data-aos="fade-up">
-            <h2 class="card-header">Edukasi</h2>
-            <div class="edu-photo-grid">
-                <div class="edu-logo-item">
-                    <img class="edu-logo" src="https://i.pinimg.com/474x/2d/57/40/2d57400bf03bbdbfd9e33560e4cfc62c.jpg" alt="">
-                    <span class="edu-logo-description">TK</span>
-                </div>
-                <div class="edu-logo-item">
-                    <img class="edu-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR15i2ijnNpuDFLq8FH8Kjrj9mJFP0nu9II9Q&s" alt="">
-                    <span class="edu-logo-description">SDN 2 Sidorahayu</span>
-                </div>
-                <div class="edu-logo-item">
-                    <img class="edu-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq9BqgIl6ON8ljjfpIV1tbRhV2cA_K_iYzcg&s" alt="">
-                    <span class="edu-logo-description">SMPN 2 Belitang</span>
-                </div>
-                <div class="edu-logo-item">
-                    <img class="edu-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Seal_of_the_Ministry_of_Religious_Affairs_of_the_Republic_of_Indonesia.svg/810px-Seal_of_the_Ministry_of_Religious_Affairs_of_the_Republic_of_Indonesia.svg.png" alt="">
-                    <span class="edu-logo-description">MAN 1 OKU Timur</span>
-                </div>
-                <div class="edu-logo-item">
-                    <img class="edu-logo" src="https://upload.wikimedia.org/wikipedia/id/a/a3/Logo_UIN_Syarif_Hidayatullah_Jakarta.png" alt="">
-                    <span class="edu-logo-description">UIN Jakarta</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalTitle"></h2>
-            </div>
-            <div id="modalBody" class="modal-body">
-            </div>
-            <div class="modal-footer">
-                <button id="closeButton" class="close-button">Close</button>
-            </div>
-        </div>
-    </div>
+        </footer>
+    </main>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize AOS (Animate On Scroll)
             AOS.init({
-                duration: 1000,
-                once: true, // Animation runs once when scrolled into view
-                mirror: false, // Animation does not repeat when scrolling up
+                duration: 800, 
+                once: true,
+                mirror: false,
+                offset: 50, 
             });
 
-            // Typed.js for animated intro text (Name and Roles)
             var typedName = new Typed('#typed-name', {
-                strings: ["Toriq As Syarif", "Programmer", "Developer", "Engineer", "Guitarist"], // Ganti dengan nama dan deskripsi Anda
+                strings: ["Toriq As Syarif", "Programmer", "Developer", "Engineer", "Guitarist"],
                 typeSpeed: 60,
                 backSpeed: 30,
                 backDelay: 1500,
@@ -914,452 +1015,352 @@
                 cursorChar: '|',
             });
 
-            // JavaScript to trigger slide-down-fade-in for "Fully adaptable. Embrace the process, let's grow together!"
             const callToActionElement = document.getElementById('call-to-action');
             if (callToActionElement) {
-                // This delay is set to appear after the name typing has finished its initial run
                 setTimeout(() => {
                     callToActionElement.classList.add('is-visible');
-                }, 2000); // Start slide-down-fade-in after 2 seconds
+                }, 2000);
             }
 
-            // Typed.js for About Me section
-            const aboutMeText = "Possesses a basic understanding of Programming, Databases, Networking, and Machine Learning. Skilled in cross-functional collaboration with experience working alongside design, marketing, and engineering teams. Detail-oriented, organized, and passionate about digital products and the content streaming industry like music, podcast, and video. Familiar with A/B testing, product analytics tools, and agile methodologies.";
-            let typedAboutMeInstance; // To hold the instance
+            const aboutMeTextContainer = document.getElementById('about-me-text-container');
+            const typingTextAboutMe = document.getElementById('typing-text-about-me');
 
-            // This will start after the call to action text has finished its animation
-            // (2000ms call to action start delay + 1000ms CSS transition = 3000ms)
-            // Giving it a slight buffer, e.g., 3200ms
-            setTimeout(() => {
-                startAboutMeTyping();
-            }, 3200); // Start this typing effect after 3.2 seconds
+            if (aboutMeTextContainer && typingTextAboutMe) {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1 
+                };
+                const observerCallback = (entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            typingTextAboutMe.classList.add('is-visible');
+                            observer.unobserve(entry.target); 
+                        }
+                    });
+                };
+                const aboutMeObserver = new IntersectionObserver(observerCallback, observerOptions);
+                aboutMeObserver.observe(typingTextAboutMe); 
+            }
+
+            function setProgrammerSkillLevel(skillId, level) {
+                const skillBarFill = document.getElementById(skillId);
+                if (skillBarFill) {
+                    skillBarFill.style.width = '0%'; 
+                    setTimeout(() => {
+                        skillBarFill.style.width = level + '%';
+                    }, 100); 
+                }
+            }
             
-            function startAboutMeTyping() {
-                // Ensure it's only initialized once
-                if (!typedAboutMeInstance) {
-                    typedAboutMeInstance = new Typed('#typing-text-about-me', {
-                        strings: [aboutMeText],
-                        typeSpeed: 25, // Slower typing speed for longer text
-                        backSpeed: 10,
-                        startDelay: 0, // Starts immediately after the timeout
-                        showCursor: false,
-                        cursorChar: '|',
-                        loop: false, // Type once
-                        onComplete: (self) => {
-                            // Hide the cursor after typing is complete
-                            if (self.cursor) {
-                                self.cursor.classList.add('hidden-cursor');
-                            }
+            const advancedProgrammingData = { 
+                'Teamwork': 85, 
+                'Adaptif': 70, 
+                'Komunikatif': 65,
+                'Responsibility': 75, 
+                'Kindly': 60, 
+                'Respect': 82
+            };
+            const advancedProgrammingDoughnutColors = ['#006661', '#00796b', '#00897b', '#26a69a', '#4db6ac', '#80cbc4', '#b2dfdb'];
+
+
+            const programmerSkillBars = document.querySelectorAll('.skill-bar-fill-programmer');
+            const programmerObserverOptions = { root: null, rootMargin: '0px', threshold: 0.5 };
+            const programmerObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const targetId = entry.target.id;
+                        if (targetId === 'python-skill') setProgrammerSkillLevel(targetId, 95);
+                        else if (targetId === 'cpp-skill') setProgrammerSkillLevel(targetId, 90);
+                        else if (targetId === 'html-skill') setProgrammerSkillLevel(targetId, 90);
+                        else if (targetId === 'php-skill') setProgrammerSkillLevel(targetId, 90);
+                        else if (targetId === 'java-skill') setProgrammerSkillLevel(targetId, 80);
+                        else if (targetId === 'c-skill') setProgrammerSkillLevel(targetId, 80);
+                        else if (targetId === 'r-skill') setProgrammerSkillLevel(targetId, 75);
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, programmerObserverOptions);
+            programmerSkillBars.forEach(bar => programmerObserver.observe(bar));
+
+            // Chart.js: Keahlian Aplikasi (Radar Chart)
+            const codingCtx = document.getElementById('codingSkillChart');
+            if (codingCtx) {
+                const tingkatPenguasaan = { 
+                    'An': 90,  
+                    'DA': 90,  
+                    'ML': 85,  
+                    'Mu': 85,  
+                    'IS': 80,  
+                    'WD': 90   
+                };
+                const radarChartFillColor = 'rgba(0, 102, 97, 0.5)'; 
+                const radarChartBorderColorTheme = '#006661'; 
+
+                const codingData = {
+                    labels: Object.keys(tingkatPenguasaan), 
+                    datasets: [{
+                        label: 'Tingkat Penguasaan', 
+                        data: Object.values(tingkatPenguasaan),
+                        backgroundColor: radarChartFillColor, 
+                        borderColor: radarChartBorderColorTheme, 
+                        borderWidth: 2,
+                        pointBackgroundColor: radarChartBorderColorTheme, 
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff', 
+                        pointHoverBorderColor: radarChartBorderColorTheme
+                    }]
+                };
+                new Chart(codingCtx.getContext('2d'), {
+                    type: 'radar', data: codingData,
+                    options: {
+                        responsive: true, maintainAspectRatio: false, 
+                        plugins: { 
+                            legend: { display: false }, 
+                            tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
                         },
+                        scales: { r: {
+                            angleLines: { color: 'rgba(0,0,0,0.1)' }, 
+                            grid: { color: 'rgba(0,0,0,0.1)' },
+                            pointLabels: { font: { family: 'Lexend', size: 10, weight: '500' }, color: '#4a5568' }, 
+                            ticks: { beginAtZero: true, max: 100, stepSize: 20, color: '#666', backdropColor: 'rgba(255,255,255,0.7)', font: { family: 'Lexend', size: 8 }} 
+                        }},
+                        elements: { line: { tension: 0.1 }, point: { radius: 3, hitRadius: 8, hoverRadius: 5 }} 
+                    }
+                });
+
+                const codingSkillChartLegend = document.getElementById('codingSkillChartLegend');
+                if (codingSkillChartLegend) {
+                    const legendTextMapping = {
+                        'An': 'Android', 'DA': 'Data Analis', 'ML': 'Machine Learning',
+                        'Mu': 'Multimedia', 'IS': 'IT Support', 'WD': 'Web Developer'
+                    };
+                    codingSkillChartLegend.innerHTML = ''; 
+                    for (const key in legendTextMapping) {
+                        if (legendTextMapping.hasOwnProperty(key)) {
+                            const legendItem = document.createElement('div');
+                            legendItem.classList.add('legend-item'); 
+                            legendItem.textContent = `${key} = ${legendTextMapping[key]}`;
+                            codingSkillChartLegend.appendChild(legendItem);
+                        }
+                    }
+                }
+            }
+
+            // Chart.js: Keahlian Bahasa (Vertical Bar Chart)
+            const languageCtx = document.getElementById('languageSkillChart');
+            if (languageCtx) {
+                const languageSkillLevels = { 
+                    'Bahasa': 95, 
+                    'Inggris': 80,
+                    'Arab': 60
+                };
+                const languageBarColors = ['#006661', '#00796b', '#00897b'];
+                const languageSkillData = {
+                    labels: Object.keys(languageSkillLevels),
+                    datasets: [{
+                        label: 'Tingkat Keahlian', 
+                        data: Object.values(languageSkillLevels),
+                        backgroundColor: languageBarColors, 
+                        borderColor: languageBarColors, 
+                        borderWidth: 1
+                    }]
+                };
+                new Chart(languageCtx.getContext('2d'), {
+                    type: 'bar', 
+                    data: languageSkillData,
+                    options: {
+                        // indexAxis: 'y', // Dihapus untuk membuat bar vertikal
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { display: false }, 
+                            tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
+                        },
+                        scales: {
+                            y: { // Sumbu Y sekarang untuk nilai persentase
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: { callback: val => val + '%', font: { family: 'Lexend', size: 8 }, color: '#666', stepSize: 20 },
+                                grid: { color: 'rgba(0,0,0,0.1)' }
+                            },
+                            x: { // Sumbu X untuk label bahasa
+                                ticks: { font: { family: 'Lexend', size: 10 }, color: '#4a5568' },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+
+                const languageChartLegend = document.getElementById('languageChartLegend');
+                if (languageChartLegend) {
+                    languageChartLegend.innerHTML = ''; 
+                    Object.keys(languageSkillLevels).forEach((label, index) => {
+                         const item = document.createElement('div'); item.className = 'legend-item';
+                         const colorBox = document.createElement('div'); colorBox.className = 'legend-color';
+                         colorBox.style.backgroundColor = languageBarColors[index % languageBarColors.length];
+                         const labelText = document.createElement('span'); labelText.className = 'legend-label';
+                         labelText.textContent = label;
+                         item.append(colorBox, labelText); languageChartLegend.appendChild(item);
                     });
                 }
             }
 
-            // Function to set skill levels for Multilingual Programmer bars
-            function setProgrammerSkillLevel(skillId, level) {
-                const skillBarFill = document.getElementById(skillId);
-                if (skillBarFill) {
-                    skillBarFill.style.width = level + '%';
-                }
-            }
-
-            // Set initial skill levels for Multilingual Programmer bars
-            setProgrammerSkillLevel('python-skill', 95);
-            setProgrammerSkillLevel('cpp-skill', 90);
-            setProgrammerSkillLevel('html-skill', 90);
-            setProgrammerSkillLevel('php-skill', 90);
-            setProgrammerSkillLevel('java-skill', 80);
-            setProgrammerSkillLevel('c-skill', 80);
-            setProgrammerSkillLevel('r-skill', 75);
-            
-            const advancedProgrammingSkills = {
-                'teamwork': 85,
-                'adaptif': 70,
-                'komunikatif': 65,
-                'responsibility': 75,
-                'kindly': 60,
-                'respect': 82
-            };
-
-
-            // Intersection Observer for Programmer Skill Bars
-            const programmerSkillBars = document.querySelectorAll('.skill-bar-fill-programmer');
-            const programmerObserverOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.5
-            };
-            const programmerObserver = new IntersectionObserver((entries, observerCallback) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                        observerCallback.unobserve(entry.target);
+            // Chart.js: Bahasa Pemrograman2 (Doughnut Chart)
+            const advancedProgrammingCtx = document.getElementById('advancedProgrammingChart'); 
+            if (advancedProgrammingCtx) {
+                new Chart(advancedProgrammingCtx.getContext('2d'), {
+                    type: 'doughnut', 
+                    data: {
+                        labels: Object.keys(advancedProgrammingData), 
+                        datasets: [{
+                            label: 'Tingkat Penguasaan', 
+                            data: Object.values(advancedProgrammingData), 
+                            backgroundColor: advancedProgrammingDoughnutColors, 
+                            borderColor: advancedProgrammingDoughnutColors, 
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        cutout: '50%', 
+                        plugins: { 
+                            legend: { display: false }, 
+                            tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
+                        }
                     }
                 });
-            }, programmerObserverOptions);
-            programmerSkillBars.forEach(bar => {
-                programmerObserver.observe(bar);
-            });
-
-
-            // Chart.js for Application Skills (Radar Chart) - ORIGINAL
-            const codingCtx = document.getElementById('codingSkillChart').getContext('2d');
-            const tingkatPenguasaan = {
-                'An': 90,
-                'DA': 90,
-                'ML.': 85,
-                'Mu': 85,
-                'IS': 80,
-                'WD': 90
-            };
-            // Define colors for radar chart dataset
-            const radarChartColor = 'rgba(1, 30, 38, 0.7)'; // A slightly transparent dark blue/grey
-            const radarChartBorderColor = '#011e26'; // Solid dark blue/grey
-
-            const codingData = {
-                labels: Object.keys(tingkatPenguasaan),
-                datasets: [{
-                    label: 'Tingkat Penguasaan', // Label for the dataset in the legend
-                    data: Object.values(tingkatPenguasaan),
-                    backgroundColor: radarChartColor,
-                    borderColor: radarChartBorderColor,
-                    borderWidth: 2, // Thicker border for radar lines
-                    pointBackgroundColor: radarChartBorderColor, // Color of data points
-                    pointBorderColor: '#fff', // Border color of data points
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: radarChartBorderColor
-                }]
-            };
-            const codingSkillChart = new Chart(codingCtx, {
-                type: 'radar', // Changed to radar chart
-                data: codingData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false, 
-                    plugins: {
-                        legend: {
-                            display: false, // *** Changed to false to hide legend ***
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.label}: ${context.raw}%`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        r: {
-                            angleLines: {
-                                color: 'rgba(0, 0, 0, 0.1)' // Lighter angle lines
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)' // Lighter grid lines
-                            },
-                            pointLabels: {
-                                font: {
-                                    family: 'Lexend',
-                                    size: 12,
-                                    weight: '500'
-                                },
-                                color: '#4a5568' // Color for skill labels
-                            },
-                            ticks: {
-                                beginAtZero: true,
-                                max: 100,
-                                stepSize: 20, // Steps of 20 for the scale
-                                color: '#666', // Color for tick labels
-                                backdropColor: 'rgba(255, 255, 255, 0.7)', // Background for tick labels
-                                font: {
-                                    family: 'Lexend',
-                                    size: 10
-                                }
-                            }
-                        }
-                    },
-                    elements: {
-                        line: {
-                            tension: 0.1 // Slight tension for smoother lines
-                        },
-                        point: {
-                            radius: 4, // Size of data points
-                            hitRadius: 10,
-                            hoverRadius: 6
-                        }
-                    }
+                const advancedProgrammingChartLegend = document.getElementById('advancedProgrammingChartLegend');
+                if (advancedProgrammingChartLegend) {
+                    advancedProgrammingChartLegend.innerHTML = ''; 
+                    Object.keys(advancedProgrammingData).forEach((label, index) => {
+                         const item = document.createElement('div'); item.className = 'legend-item';
+                         const colorBox = document.createElement('div'); colorBox.className = 'legend-color';
+                         colorBox.style.backgroundColor = advancedProgrammingDoughnutColors[index % advancedProgrammingDoughnutColors.length]; 
+                         const labelText = document.createElement('span'); labelText.className = 'legend-label';
+                         labelText.textContent = label;
+                         item.append(colorBox, labelText); advancedProgrammingChartLegend.appendChild(item);
+                    });
                 }
-            });
-
-            // Chart.js for Language Skills (Doughnut Chart)
-            const languageCtx = document.getElementById('languageSkillChart').getContext('2d');
-            const languageSkillData = {
-                labels: ['Bahasa - Fluent', 'Inggris - Advanced', 'Arab - Basic'],
-                datasets: [{
-                    label: 'Skill',
-                    data: [700, 575, 350],
-                    backgroundColor: [
-                        '#011e26',
-                        '#0b3a4a',
-                        '#2c6e80',
-                    ],
-                    borderColor: [
-                        '#011e26',
-                        '#0b3a4a',
-                        '#2c6e80',
-                    ],
-                    borderWidth: 1
-                }]
-            };
-
-            const languageSkillChart = new Chart(languageCtx, {
-                type: 'doughnut',
-                data: languageSkillData,
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false, 
-                    cutout: '50%',
-                    plugins: {
-                        legend: {
-                            display: false // Hide default legend to use custom legend
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const label = context.label || '';
-                                    const value = context.parsed;
-                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                    const percentage = ((value / total) * 100).toFixed(1);
-                                    return `${label}: ${percentage}%`;
-                                }
-                            }
-                        }
-                    },
-                },
-            });
-
-            // Custom Legend for Language Skills Doughnut Chart
-            const languageChartLegend = document.getElementById('languageChartLegend');
-            const languageLabels = languageSkillData.labels;
-            const languageColors = languageSkillData.datasets[0].backgroundColor;
-
-            languageLabels.forEach((label, index) => {
-                const legendItem = document.createElement('div');
-                legendItem.classList.add('legend-item');
-                const legendColor = document.createElement('div');
-                legendColor.classList.add('legend-color');
-                legendColor.style.backgroundColor = languageColors[index];
-                const legendLabel = document.createElement('span');
-                legendLabel.classList.add('legend-label');
-                legendLabel.textContent = label.split(' - ')[0]; // Get "Bahasa", "Inggris", "Arab"
-                legendItem.appendChild(legendColor);
-                legendItem.appendChild(legendLabel); // Corrected typo here
-                languageChartLegend.appendChild(legendItem);
-            });
-
-            // New Chart.js for Advanced Programming Skills (Bar Chart)
-            const advancedProgrammingCtx = document.getElementById('advancedProgrammingBarChart').getContext('2d');
-            const advancedProgrammingBarChart = new Chart(advancedProgrammingCtx, {
-                type: 'bar', // Bar chart type
-                data: {
-                    labels: Object.keys(advancedProgrammingSkills),
-                    datasets: [{
-                        label: 'Tingkat Penguasaan',
-                        data: Object.values(advancedProgrammingSkills),
-                        backgroundColor: [
-                            '#011e26', // Dark
-                            '#0b3a4a', // Slightly lighter
-                            '#2c6e80', // Medium
-                            '#5a9ba8', // Lighter
-                            '#87ceeb', // Light blue
-                            '#a0d9f0', // Very light blue
-                            '#c0e6f7'  // Even lighter blue
-                        ],
-                        borderColor: [
-                            '#011e26',
-                            '#0b3a4a',
-                            '#2c6e80',
-                            '#5a9ba8',
-                            '#87ceeb',
-                            '#a0d9f0',
-                            '#c0e6f7'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false, // *** Changed to false to hide legend ***
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.label}: ${context.raw}%`;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            ticks: {
-                                callback: function(value) {
-                                    return value + '%';
-                                },
-                                font: {
-                                    family: 'Lexend',
-                                    size: 10
-                                },
-                                color: '#666',
-                                stepSize: 10 // *** Changed to 10% interval ***
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                font: {
-                                    family: 'Lexend',
-                                    size: 10
-                                },
-                                color: '#4a5568'
-                            },
-                            grid: {
-                                display: false // Hide vertical grid lines
-                            }
-                        }
-                    }
-                }
-            });
+            }
             
-            // Intersection Observer for Fade-in sections (general)
             const fadeInSections = document.querySelectorAll('.fade-in-section');
-            const fadeInObserver = new IntersectionObserver((entries, observer) => {
+            const generalFadeInObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
+                        if (entry.target.id !== 'about-me-text-container') {
+                             entry.target.classList.add('is-visible');
+                        }
                         observer.unobserve(entry.target);
                     }
                 });
-            }, {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.2 // Trigger when 20% visible
-            });
+            }, { root: null, rootMargin: '0px', threshold: 0.1 }); 
+            fadeInSections.forEach(section => generalFadeInObserver.observe(section));
 
-            fadeInSections.forEach(section => {
-                fadeInObserver.observe(section);
-            });
-
-            // Function to initialize a single slideshow
             function initializeSlideshow(containerId) {
-                const slideshowContainer = document.getElementById(containerId);
-                if (!slideshowContainer) {
-                    console.warn(`Slideshow container with ID '${containerId}' not found.`);
-                    return; // Exit if container not found
-                }
-
-                const items = slideshowContainer.querySelectorAll('.certificate-item');
-                if (items.length === 0) {
-                    console.warn(`No certificate items found in container with ID '${containerId}'.`);
-                    return;
-                }
-
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                const items = container.querySelectorAll('.certificate-item');
+                if (items.length === 0) return;
                 let currentIndex = 0;
-                let slideInterval;
-
-                // Ensure the first item is active on initialization
+                let interval;
                 items[currentIndex].classList.add('active');
 
-                function showNextImage() {
+                function showNext() {
                     items[currentIndex].classList.remove('active');
                     currentIndex = (currentIndex + 1) % items.length;
                     items[currentIndex].classList.add('active');
                 }
-
-                function showPreviousImage() {
+                function showPrev() {
                     items[currentIndex].classList.remove('active');
                     currentIndex = (currentIndex - 1 + items.length) % items.length;
                     items[currentIndex].classList.add('active');
                 }
+                function start() { clearInterval(interval); interval = setInterval(showNext, 3000); } 
+                function pause() { clearInterval(interval); }
 
-                function startSlideshow() {
-                    clearInterval(slideInterval);
-                    slideInterval = setInterval(showNextImage, 2000); // Change image every 2 seconds
-                }
-
-                function pauseSlideshow() {
-                    clearInterval(slideInterval);
-                }
-
-                // Start slideshow initially
-                startSlideshow();
-
-                // Event listeners for pausing/resuming on hover/touch
-                slideshowContainer.addEventListener('mouseenter', pauseSlideshow);
-                slideshowContainer.addEventListener('mouseleave', startSlideshow);
-                slideshowContainer.addEventListener('touchstart', pauseSlideshow);
-                slideshowContainer.addEventListener('touchend', startSlideshow);
-
-                // Add click event listener for navigation
-                slideshowContainer.addEventListener('click', function(event) {
-                    const rect = slideshowContainer.getBoundingClientRect();
-                    const clickX = event.clientX - rect.left; // X position relative to the container
-
-                    // If click is on the right half, go next
-                    if (clickX > rect.width / 2) {
-                        showNextImage();
-                    } 
-                    // If click is on the left half, go previous
-                    else {
-                        showPreviousImage();
-                    }
-                    // Pause and restart slideshow on manual navigation
-                    pauseSlideshow();
-                    startSlideshow();
+                start();
+                container.addEventListener('mouseenter', pause);
+                container.addEventListener('mouseleave', start);
+                container.addEventListener('touchstart', pause, {passive: true});
+                container.addEventListener('touchend', start);
+                container.addEventListener('click', (e) => {
+                    const rect = container.getBoundingClientRect();
+                    e.clientX - rect.left > rect.width / 2 ? showNext() : showPrev();
+                    pause(); start();
                 });
             }
-
-            // Initialize all slideshows
             initializeSlideshow('slideshow-container-1');
             initializeSlideshow('slideshow-container-2');
             initializeSlideshow('slideshow-container-3');
 
-            // Define colors for the new radar chart dataset
-
-            // Organizational Experience Modal Logic
             const orgLogoItems = document.querySelectorAll('.org-logo-item');
             const infoModal = document.getElementById('infoModal');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalBody = document.getElementById('modalBody');
+            const modalTitleEl = document.getElementById('modalTitle'); 
+            const modalBodyEl = document.getElementById('modalBody');   
             const closeButton = document.getElementById('closeButton');
 
-            infoModal.style.display = "none"; // Ensure modal is hidden initially
+            if (infoModal) infoModal.style.display = "none";
 
-            orgLogoItems.forEach((item) => {
+            orgLogoItems.forEach(item => {
                 item.addEventListener('click', () => {
-                    const description = item.getAttribute('data-description');
-                    const title = item.getAttribute('data-title');
-                    
-                    modalTitle.textContent = title;
-                    modalBody.innerHTML = `<p>${description}</p>`;
-                    infoModal.style.setProperty('display', 'flex', 'important');
+                    if (modalTitleEl && modalBodyEl && infoModal) {
+                        modalTitleEl.textContent = item.dataset.title;
+                        modalBodyEl.innerHTML = `<p>${item.dataset.description}</p>`;
+                        infoModal.style.setProperty('display', 'flex', 'important');
+                    }
                 });
             });
+            if (closeButton && infoModal) closeButton.addEventListener('click', () => infoModal.style.setProperty('display', 'none', 'important'));
+            if (infoModal) window.addEventListener('click', e => { if (e.target === infoModal) infoModal.style.setProperty('display', 'none', 'important'); });
 
-            closeButton.addEventListener('click', () => {
-                infoModal.style.setProperty('display', 'none', 'important');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenuDrawer = document.getElementById('mobileMenuDrawer'); 
+            const closeMobileMenuBtn = document.getElementById('closeMobileMenuBtn');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            if (mobileMenuBtn && mobileMenuDrawer && closeMobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.add('open'));
+                closeMobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.remove('open'));
+                
+                mobileMenuDrawer.querySelectorAll('a.nav-link').forEach(link => { 
+                    link.addEventListener('click', () => mobileMenuDrawer.classList.remove('open'));
+                });
+            }
+            
+            const currentYearElements = [document.getElementById('currentYearFooter'), document.getElementById('currentYearMobileDrawer')];
+            currentYearElements.forEach(el => {
+                if (el) el.textContent = new Date().getFullYear();
             });
+            
+            const sections = document.querySelectorAll('main section[id]'); 
+            function setActiveLink() {
+                let currentSectionId = '';
+                const headerHeight = 64; 
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - headerHeight - 10; 
+                    const sectionBottom = sectionTop + section.offsetHeight;
 
-            window.addEventListener('click', (event) => {
-                if (event.target === infoModal) {
-                    infoModal.style.setProperty('display', 'none', 'important');
+                    if (pageYOffset >= sectionTop && pageYOffset < sectionBottom) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+                if (!currentSectionId && sections.length > 0 && pageYOffset < (sections[0].offsetTop - headerHeight -10) ) {
+                     currentSectionId = 'home-content'; 
                 }
-            });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const linkHref = link.getAttribute('href').substring(1); 
+                    
+                    if (linkHref === currentSectionId || (currentSectionId === 'home-content' && linkHref === 'home')) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            window.addEventListener('scroll', setActiveLink);
+            setActiveLink(); 
+
         });
     </script>
 </body>
