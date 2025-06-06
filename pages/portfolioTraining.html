@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Training</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Link ke file CSS utama Anda -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Placeholder untuk Header (akan dimuat oleh JavaScript) -->
+    <div id="header-placeholder"></div>
+
+    <!-- Konten Utama Halaman "Portfolio - Training" -->
+    <main id="mainContent" class="main-content-area">
+        <section id="portfolio-training-content" class="py-8 md:py-12 px-4 md:px-8">
+            <div class="max-w-6xl mx-auto text-center"> 
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#006661]">Sertifikat Training</h2>
+                <!-- Tombol Detail Sertifikat Training -->
+                <a href="https://www.linkedin.com/in/to6661q/details/certifications/" target="_blank" rel="noopener noreferrer" class="detail-certificate-button">
+                    Click Me on Detailed Training Certificate
+                </a>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mt-8"> 
+                    <!-- Ganti dengan path gambar sertifikat training Anda -->
+                    <div class="certificate-card" data-aos="fade-up">
+                        <img src="https://www.rukita.co/stories/wp-content/uploads/2022/04/random-adalah-..png" alt="[Image of Training Certificate 1]" class="certificate-image">
+                    </div>
+                    <div class="certificate-card" data-aos="fade-up" data-aos-delay="100">
+                        <img src="../img/certificates/training_cert_2.jpg" alt="[Image of Training Certificate 2]" class="certificate-image">
+                    </div>
+                    <div class="certificate-card" data-aos="fade-up" data-aos-delay="200">
+                        <img src="../img/certificates/training_cert_3.jpg" alt="[Image of Training Certificate 3]" class="certificate-image">
+                    </div>
+                    <div class="certificate-card" data-aos="fade-up" data-aos-delay="300">
+                        <img src="../img/certificates/training_cert_4.jpg" alt="[Image of Training Certificate 4]" class="certificate-image">
+                    </div>
+                     <div class="certificate-card" data-aos="fade-up">
+                        <img src="../img/certificates/training_cert_5.jpg" alt="[Image of Training Certificate 5]" class="certificate-image">
+                    </div>
+                    <div class="certificate-card" data-aos="fade-up" data-aos-delay="100">
+                        <img src="../img/certificates/training_cert_6.jpg" alt="[Image of Training Certificate 6]" class="certificate-image">
+                    </div>
+                     <div class="certificate-card" data-aos="fade-up" data-aos-delay="200">
+                        <img src="../img/certificates/training_cert_7.jpg" alt="[Image of Training Certificate 7]" class="certificate-image">
+                    </div>
+                     <div class="certificate-card" data-aos="fade-up" data-aos-delay="300">
+                        <img src="../img/certificates/training_cert_8.jpg" alt="[Image of Training Certificate 8]" class="certificate-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal untuk Menampilkan Gambar Penuh -->
+        <div id="imageModal" class="image-modal">
+            <span class="image-modal-close" id="imageModalClose">&times;</span>
+            <img class="image-modal-content" id="modalImage">
+        </div>
+    </main>
+
+    <!-- Placeholder untuk Footer (akan dimuat oleh JavaScript) -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Skrip untuk memuat Header dan Footer -->
+    <script>
+        // Function to load HTML content from a given URL into a specified element ID
+        function loadHTML(url, elementId) {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                })
+                .catch(error => console.error('Error loading HTML:', error));
+        }
+
+        // Load header and footer when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adjust paths based on the current HTML file's location in 'pages/'
+            loadHTML('../includes/header.html', 'header-placeholder');
+            loadHTML('../includes/footer.html', 'footer-placeholder');
+        });
+    </script>
+    <!-- Link ke file JavaScript umum Anda -->
+    <script src="../js/script.js"></script>
+</body>
+</html>
