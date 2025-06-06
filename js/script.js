@@ -540,7 +540,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             document.querySelectorAll('nav .nav-link').forEach(link => {
                 const linkHref = link.getAttribute('href');
-                if (linkHref && linkHref.startsWith('../pages/') && linkHref.includes('#')) {
+                if (linkHref && linkHref.startsWith('../') && linkHref.includes('#')) {
                     const linkSectionId = linkHref.split('#')[1];
                     if (linkSectionId === currentSectionId) {
                         // For anchor links, only add 'active' if it's the *exact* section,
