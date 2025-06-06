@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - Keahlian & Informasi</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://unpkg.com/chart.js"></script>
+
+    <!-- Link ke file CSS utama Anda -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Placeholder untuk Header (akan dimuat oleh JavaScript) -->
+    <div id="header-placeholder"></div>
+
+    <!-- Konten Utama -->
+    <main id="mainContent" class="main-content-area">
+        <!-- Bagian Awal dan Teks -->
+        <section id="home-content" class="px-2 md:px-6 bg-white shadow-lg rounded-[0.5rem] mx-1 md:mx-4 my-1 md:mt-1">
+            <div class="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 text-center md:text-left fade-in-section py-2 md:py-3" data-aos="fade-up"> 
+                <div class="profile-img-container">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGfb4H5tRHrHA/profile-displayphoto-shrink_400_400/B4DZZN3UqiG4Ag-/0/1745063071619?e=1753920000&v=beta&t=EO4u6S0oblEjMVdIbVWODU7CSbvovQksxNtoZx7Wo_c" alt="[Image of Toriq As Syarif Profile Photo]" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
+                </div>
+                <div class="text-center md:text-left">
+                    <h1 class="text-[1.5rem] md:text-[3rem] font-extrabold leading-tight mb-2 text-[#006661]"> 
+                        Hello, I'm <span id="typed-name"></span>
+                    </h1>
+                    <p id="call-to-action" class="text-lg md:text-xl text-[#004d40] mb-3 slide-down-fade-in"> 
+                        Fully adaptable. Embrace the process, let's grow together!
+                    </p>
+                    <a href="../img/Toriq_As_Syarif_CV.pdf" download="Toriq_As_Syarif_CV.pdf" class="download-cv-button mt-3"> 
+                        <i class='bx bxs-download'></i> Download My CV
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about-me" class="md:mx-6 px-2 md:px-0"> 
+            <div id="about-me-text-container" class="w-full text-center fade-in-section" data-aos="fade-up" data-aos-delay="100">
+                <div id="typing-text-about-me" class="slide-up-fade-in-about py-2 md:py-3"> 
+                    Possesses a basic understanding of Programming, Databases, Networking, and Machine Learning. Skilled in cross-functional collaboration with experience working alongside design, marketing, and engineering teams. Detail-oriented, organized, and passionate about digital products and the content streaming industry like music, podcast, and video. Familiar with A/B testing, product analytics tools, and agile methodologies.
+                </div>
+            </div>
+        </section>
+
+        <section id="certificates" class="px-2 md:px-6"> 
+            <div class="max-w-6xl mx-auto text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up"> 
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
+                    <div class="card fade-in-section" data-aos="fade-right">
+                        <a href="portfolioExperience.html" class="detail-button">Work Experience</a>
+                        <div id="slideshow-container-1" class="slideshow-container">
+                            <div class="certificate-item active">
+                                <img class="certificate-img" src="../img/certificates/work_experience_1.jpg" alt="[Image of Work Experience Certificate 1]">
+                            </div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="../img/certificates/work_experience_2.jpg" alt="[Image of Work Experience Certificate 2]">
+                            </div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="../img/certificates/work_experience_3.jpg" alt="[Image of Work Experience Certificate 3]">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card fade-in-section" data-aos="fade-up">
+                        <a href="portfolioTraining.html" class="detail-button">Training</a> 
+                        <div id="slideshow-container-2" class="slideshow-container">
+                            <div class="certificate-item active">
+                                <img class="certificate-img" src="../img/certificates/training_cert_1.jpg" alt="[Image of Training Certificate 1]">
+                            </div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="../img/certificates/training_cert_2.jpg" alt="[Image of Training Certificate 2]">
+                            </div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="../img/certificates/training_cert_3.jpg" alt="[Image of Training Certificate 3]">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card fade-in-section" data-aos="fade-left" data-aos-delay="400">
+                        <a href="portfolioAchievements.html" class="detail-button">Achievement</a>
+                        <div id="slideshow-container-3" class="slideshow-container">
+                            <div class="certificate-item active">
+                                <img class="certificate-img" src="../img/certificates/achievement_cert_1.jpg" alt="[Image of Achievement Certificate 1]">
+                            </div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="../img/certificates/achievement_cert_2.jpg" alt="[Image of Achievement Certificate 2]">
+                            </div>
+                            <div class="certificate-item">
+                                <img class="certificate-img" src="../img/certificates/achievement_cert_3.jpg" alt="[Image of Achievement Certificate 3]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="programming-language-skills" class="px-2 md:px-6"> 
+            <div class="max-w-6xl mx-auto text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">  
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
+                    <!-- Card 1: Hard Skill (Radar Chart) -->
+                    <div class="card w-full fade-in-section" data-aos="fade-up">
+                        <h2 class="card-header">Hard Skill</h2>
+                        <div class="chart-outer-container">
+                            <div id="hardSkillChartContainer"> 
+                                <canvas id="hardSkillChart"></canvas> 
+                            </div>
+                        </div>
+                        <div class="chart-legend" id="hardSkillChartLegend"></div> 
+                    </div>
+                    <!-- Card 2: Soft Skill (Doughnut Chart) -->
+                    <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="100">
+                        <h2 class="card-header">Soft Skill</h2> 
+                         <div class="chart-outer-container">
+                            <div id="softSkillChartContainer"> 
+                                <canvas id="softSkillChart"></canvas> 
+                            </div>
+                        </div>
+                        <div class="chart-legend" id="softSkillChartLegend"></div> 
+                    </div>
+                    <!-- Card 3: Coding Skill -->
+                    <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="200">
+                        <h2 class="card-header">Coding Skill</h2>
+                        <div id="codingSkillBarsContainer" class="flex flex-col justify-center flex-grow py-1"> 
+                            <div class="skill-item-container">
+                                <i class='bx bxl-python lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="python-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <i class='bx bxl-html5 lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="html-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                 <i class='bx bxl-php lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="php-skill"></div>
+                                </div>
+                            </div>
+                             <div class="skill-item-container">
+                                <i class='bx bxl-css3 lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="css-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <i class='bx bxl-java lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="java-skill"></div>
+                                </div>
+                            </div>
+                             <div class="skill-item-container">
+                                <i class='bx bxl-javascript lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="javascript-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <i class='bx bxl-c-plus-plus lang-icon'></i>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="cpp-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <span class="lang-icon-text-custom">C</span>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="c-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <span class="lang-icon-text-custom">R</span>
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="r-skill"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item-container">
+                                <span class="lang-icon-text-custom">K</span> 
+                                <div class="skill-bar-programmer">
+                                    <div class="skill-bar-fill-programmer" id="kotlin-skill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 4: Language Skill -->
+                    <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="300">
+                        <h2 class="card-header">Language Skill</h2> 
+                        <div class="chart-outer-container">
+                            <div id="languageSkillChartContainer" class="relative">
+                                <canvas id="languageSkillChart"></canvas>
+                            </div>
+                        </div>
+                         <!-- Keterangan untuk Language Skill dihapus -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Application Skill Section (Dipindahkan ke sini, setelah Programming Language Skills) -->
+        <section id="application-skills" class="px-2 md:px-6">
+            <div class="max-w-6xl mx-auto text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">
+                <h2 class="text-2xl md:text-3xl font-bold mb-6 text-[#006661] text-center">Application Skill</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-3">
+                    <div class="fade-in-section p-0" data-aos="fade-right">
+                        <h2 class="card-header">Aplikasi Kantor</h2>
+                        <div class="photo-grid">
+                            <div class="logo-item"><img class="logo" src="https://atarim.io/wp-content/uploads/Trello_logo_PNG3-2048x1152.webp" alt="[Image of Trello Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://icon.icepanel.io/Technology/svg/IBM-SPSS-Statistics.svg" alt="[Image of SPSS Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvrixGJRMafbXlYE-e5v5tpAstg9Qlqr1kfEEQQSWBu880msjy-QMUMhbrnhYq541GUeI&usqp=CAU" alt="[Image of Microsoft Teams Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg" alt="[Image of Microsoft Word Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" alt="[Image of Microsoft Excel Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Microsoft_Office_PowerPoint_%282019%E2%80%93present%29.svg" alt="[Image of Microsoft PowerPoint Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Microsoft_Office_OneNote_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_OneNote_%282019%E2%80%93present%29.svg.png" alt="[Image of Microsoft OneNote Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Microsoft_Office_Access_%282019-present%29.svg/2097px-Microsoft_Office_Access_%282019-present%29.svg.png" alt="[Image of Microsoft Access Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Microsoft_Publisher_2013-2019_logo.svg/1200px-Microsoft_Publisher_2013-2019_logo.svg.png" alt="[Image of Microsoft Publisher Logo]"></div>
+                        </div>
+                    </div>
+                    <div class="fade-in-section p-0" data-aos="fade-up">
+                        <h2 class="card-header">Aplikasi Pemrograman</h2>
+                        <div class="photo-grid">
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg" alt="[Image of VS Code Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Notepad%2B%2B_Logo.png" alt="[Image of Notepad++ Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="[Image of Jupyter Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Google_Colaboratory_SVG_Logo.svg" alt="[Image of Google Colaboratory Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://community.algostudio.net/wp-content/uploads/2020/04/Anaconda_Logo.png" alt="[Image of Anaconda Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/03/Xampp_logo.svg" alt="[Image of XAMPP Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/38/SQLite370.svg" alt="[Image of SQLite Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/id/a/a9/MySQL.png" alt="[Image of MySQL Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/36/Logo.min.svg" alt="[Image of PostgreSQL Logo]"></div>
+                        </div>
+                    </div>
+                    <div class="fade-in-section p-0" data-aos="fade-left" data-aos-delay="400">
+                        <h2 class="card-header">Aplikasi Multimedia</h2>
+                        <div class="photo-grid">
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="[Image of Adobe Premiere Pro Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="[Image of Adobe Photoshop Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" alt="[Image of Adobe After Effects Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Adobe_Audition_CC_icon_%282020%29.svg" alt="[Image of Adobe Audition Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://i.namu.wiki/i/kNH_2GzbByB0sEwi5gbJmtWOB_2EymScOU2U7DknQCDIwahsnKf9tXufzyTEUxuElja24eOnFXjmtamnNLDfLd-EFELurext--w1dzituTSykmmq62pOspCcrMdZrjuJRDM1fs8asIhBFrSOBHO0Fw.webp" alt="[Image of CapCut Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/7/79/BandLab_logo.svg" alt="[Image of BandLab Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://logos-world.net/wp-content/uploads/2024/10/Figma-Logo-New.png" alt="[Image of Figma Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://logos-world.net/wp-content/uploads/2020/02/Canva-Logo-700x394.png" alt="[Image of Canva Logo]"></div>
+                            <div class="logo-item"><img class="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcvIwSTtDe9H3X9wDyeWzh7EPkrBymg2QPTSRc20rWV3E6wTiEiNnccS_OiN0X8UE6Kk&usqp=CAU" alt="[Image of DaVinci Resolve Logo]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Course History Section -->
+        <section id="course-history" class="px-2 md:px-6">
+            <div class="course-section-container text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">
+                <h2 class="text-xl font-bold mb-3 text-[#006661] text-center">Course History</h2>
+                <div class="course-photo-grid">
+                    <!-- 18 Kotak Placeholder untuk Course History -->
+                    <div class="course-logo-item" data-aos="zoom-in">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH1" alt="[Image of Course 1 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 1</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="50">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH2" alt="[Image of Course 2 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 2</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="100">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH3" alt="[Image of Course 3 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 3</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="150">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH4" alt="[Image of Course 4 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 4</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="200">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH5" alt="[Image of Course 5 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 5</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="250">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH6" alt="[Image of Course 6 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 6</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="300">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH7" alt="[Image of Course 7 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 7</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="350">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH8" alt="[Image of Course 8 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 8</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="400">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH9" alt="[Image of Course 9 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 9</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="450">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH10" alt="[Image of Course 10 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 10</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="500">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH11" alt="[Image of Course 11 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 11</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="550">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH12" alt="[Image of Course 12 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 12</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="600">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH13" alt="[Image of Course 13 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 13</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="650">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH14" alt="[Image of Course 14 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 14</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="700">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH15" alt="[Image of Course 15 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 15</span>
+                    </div>
+                    <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="750">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH16" alt="[Image of Course 16 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 16</span>
+                    </div>
+                     <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="800">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH17" alt="[Image of Course 17 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 17</span>
+                    </div>
+                     <div class="course-logo-item" data-aos="zoom-in" data-aos-delay="850">
+                        <img class="course-logo" src="https://placehold.co/80x80/E0F2F7/006064?text=CH18" alt="[Image of Course 18 Placeholder]">
+                        <span class="course-logo-description">Nama Kursus 18</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="organizational-experience" class="px-2 md:px-6"> 
+            <div class="org-section-container text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">  
+                <h2 class="text-xl font-bold mb-3 text-[#006661] text-center">Organization Experience</h2> 
+                <div class="org-photo-grid">
+                    <div class="org-logo-item" data-title="HIMTI UIN Jakarta Academic Division - 2019/2020" data-description="Himpunan Mahasiswa Teknik Informatika (HIMTI) focuses on developing the potential and scientific knowledge of Informatics Engineering students at UIN Syarif Hidayatullah Jakarta. This department aims to enhance IT hard skills and encourage students to excel academically and actively participate in various IT competitions.">
+                        <img class="org-logo" src="https://media.licdn.com/dms/image/v2/C560BAQH9y7sIutv2fA/company-logo_200_200/company-logo_200_200/0/1630663355274/himtiuinjkt_logo?e=2147483647&v=beta&t=tm2rR4NRsiHZZn_eJEE3dNhxMduYh3WSIDJAnZlrorA" alt="[Image of HIMTI UIN Jakarta Logo]">
+                    </div>
+                    <div class="org-logo-item" data-title="SEMA FST Oversight Commission - 2020/2021" data-description="The Senat Mahasiswa Faculty of Science and Technology (SEMA FST) Oversight Commission primarily functions to control and supervise all activities and policies set by Dewan Mahasiswa Faculty of Science and Technology (DEMA FST) and all Department Student Associations Himpunan Mahasiswa Jurusan (HMJ) within the UIN Jakarta Faculty of Science and Technology. This commission is responsible for ensuring that every work program adheres to the organizational statutes, bylaws, and applicable regulations, as well as maintaining transparency and accountability of student organizations at the faculty level.">
+                        <img class="org-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Semafstuin.jpg" alt="[Image of SEMA FST Logo]">
+                    </div>
+                    <div class="org-logo-item" data-title="Dapur Seni Music Division - 2018/2025" data-description="This student activity unit accommodates the artistic talents of students from the Faculty of Science and Technology. The Music Division serves as a hub for musical development, where students can hone their instrumental and vocal skills, create original works, and perform in various shows. This division also actively organizes training sessions, participates in competitions, and builds a community for music enthusiasts on campus.">
+                        <img class="org-logo" src="https://media.licdn.com/dms/image/v2/D560BAQH-keKCg_OSAA/company-logo_100_100/company-logo_100_100/0/1721293804331?e=2147483647&v=beta&t=wGJWzYkzseJ8r74hZaS3K4uPxMmaEQ-DkmC9rv5_kRQ" alt="[Image of Dapur Seni Logo]">
+                    </div>
+                    <div class="org-logo-item" data-title="FORSA UIN Jakarta - 2019/2025" data-description="Federasi Olahraga Mahasiswa (FORSA) UIN Jakarta is a university-level Student Activity Unit Unit Kegiatan Mahasiswa (UKM) that serves as the primary platform for UIN Jakarta students to develop their talents and interests in sports. FORSA plays a crucial role in facilitating various sports branches, including Taekwondo, Perisai Diri, Pagar Nusa, Karate, Persaudaraan Setia Hati Terate, Tapak Suci, Badminton, Table Tennis, E-sports, Basketball, Volleyball, Futsal, and Football with the aim of improving student fitness, sportsmanship, and achievement. Actively engage in regular training, participate in team selections, compete in internal and external tournaments, and contribute to managing campus sports events. Through FORSA, not only hone their athletic abilities but also build leadership and teamwork skills.">
+                        <img class="org-logo" src="https://pbs.twimg.com/profile_images/1407596855/Logo_FORSA_Non_Text_400x400.jpg" alt="[Image of FORSA UIN Jakarta Logo]">
+                    </div>
+                    <div class="org-logo-item" data-title="PSHT UIN Jakarta - 2019/2025" data-description="Persaudaraan Setia Hati Terate (PSHT) UIN Jakarta is a Student Activity Unit Unit Kegiatan Mahasiswa (UKM) that serves as the official branch of Persaudaraan Setia Hati Terate (PSHT) within UIN Syarif Hidayatullah Jakarta. This UKM focuses on training and developing the martial art of Pencak Silat Setia Hati Terate, which not only emphasizes self-defense techniques but also the formation of character, discipline, mental strength, and spirituality among its members. PSHT UIN Jakarta actively conducts regular training sessions, belt promotion tests, and participates in various pencak silat championships and community service activities.">
+                        <img class="org-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK_26mJdolNSXjKpG2D7oc8vY0DRlmS8rfBg&s" alt="[Image of PSHT UIN Jakarta Logo]">
+                    </div>
+                    <div class="org-logo-item" data-title="HMI Komfastek - 2018/2025" data-description="Himpunan Mahasiswa Islam Komisariat Faculty of Science and Technology (HMI Komfastek) UIN Jakarta is a specialized branch of the Himpunan Mahasiswa Islam (HMI), specifically affiliated with the Faculty of Science and Technology (FST) at UIN Syarif Hidayatullah Jakarta. As part of the larger HMI organization, Komfastek focuses on cadre development for students within the FST environment. The main goal of HMI Komfastek is to produce academics with integrity, creativity, Islamic awareness, and social responsibility. They strive to cultivate students who not only excel in the fields of Science and Technology but also possess leadership qualities, a critical perspective on national issues, and the ability to contribute meaningfully in line with HMI values and the Three Pillars of Higher Education (Tri Dharma Perguruan Tinggi). Their activities typically include discussions, leadership training Latihan Kader (LK), Islamic studies, and community service.">
+                        <img class="org-logo" src="https://ugc.production.linktr.ee/fc35f15e-5a30-4d56-bcf7-53fbb20951e1_jpg-20231119-170838-0000.jpeg?io=true&size=avatar-v3_0" alt="[Image of HMI Komfastek Logo]">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Education Section (Dipindahkan ke Paling Bawah) -->
+        <section id="education" class="px-2 md:px-6"> 
+            <div class="edu-section-container text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up"> 
+                <h2 class="text-xl font-bold mb-3 text-[#006661] text-center">Education</h2> 
+                <div class="edu-photo-grid">
+                    <div class="edu-logo-item">
+                        <img class="edu-logo" src="https://i.pinimg.com/474x/2d/57/40/2d57400bf03bbdbfd9e33560e4cfc62c.jpg" alt="[Image of TK Logo]">
+                        <span class="edu-logo-description">TK</span>
+                    </div>
+                    <div class="edu-logo-item">
+                        <img class="edu-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR15i2ijnNpuDFLq8FH8Kjrj9mJFP0nu9II9Q&s" alt="[Image of SDN 2 Sidorahayu Logo]">
+                        <span class="edu-logo-description">SDN 2 Sidorahayu</span>
+                    </div>
+                    <div class="edu-logo-item">
+                        <img class="edu-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQq9BqgIl6ON8ljjfpIV1tbRhV2cA_K_iYzcg&s" alt="[Image of SMPN 2 Belitang Logo]">
+                        <span class="edu-logo-description">SMPN 2 Belitang</span>
+                    </div>
+                    <div class="edu-logo-item">
+                        <img class="edu-logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Seal_of_the_Ministry_of_Religious_Affairs_of_the_Republic_of_Indonesia.svg/810px-Seal_of_the_Ministry_of_Religious_Affairs_of_the_Republic_of_Indonesia.svg.png" alt="[Image of MAN 1 OKU Timur Logo]">
+                        <span class="edu-logo-description">MAN 1 OKU Timur</span>
+                    </div>
+                    <div class="edu-logo-item">
+                        <img class="edu-logo" src="https://upload.wikimedia.org/wikipedia/id/a/a3/Logo_UIN_Syarif_Hidayatullah_Jakarta.png" alt="[Image of UIN Jakarta Logo]">
+                        <span class="edu-logo-description">UIN Jakarta</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="infoModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modalTitle"></h2>
+                </div>
+                <div id="modalBody" class="modal-body"></div>
+                <div class="modal-footer">
+                    <button id="closeButton" class="close-button">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Placeholder untuk Footer (akan dimuat oleh JavaScript) -->
+    <div id="footer-placeholder"></div>
+
+    <!-- Skrip untuk memuat Header dan Footer -->
+    <script>
+        // Function to load HTML content from a given URL into a specified element ID
+        function loadHTML(url, elementId) {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                })
+                .catch(error => console.error('Error loading HTML:', error));
+        }
+
+        // Load header and footer when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adjust paths based on the current HTML file's location in 'pages/'
+            loadHTML('../includes/header.html', 'header-placeholder');
+            loadHTML('../includes/footer.html', 'footer-placeholder');
+        });
+    </script>
+    <!-- Link ke file JavaScript umum Anda -->
+    <script src="../js/script.js"></script>
+</body>
+</html>
