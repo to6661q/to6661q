@@ -1,36 +1,39 @@
-<!-- // File: includes/header.html -->
-<!-- // Perbaikan Final: Struktur HTML diubah untuk memisahkan link dan hover. -->
-<header class="top-header fixed top-0 left-0 right-0 flex items-center justify-between px-4 md:px-6 shadow-md">
-    <a href="/index.html" class="flex items-center">
-        <img src="/img/logo.png" alt="Logo Situs" class="h-8 w-8 mr-2 rounded-sm" onerror="this.onerror=null;this.src='https://placehold.co/40x40/FFFFFF/006661?text=TS';">
+<!-- // File ini berisi semua kode untuk header dan navigasi -->
+<!-- // PERUBAHAN: Semua link di bawah ini telah disesuaikan path-nya -->
+<div class="top-header fixed top-0 left-0 right-0 flex items-center justify-between px-4 md:px-6 shadow-md">
+    <!-- // PERUBAHAN: Link logo sekarang mengarah ke index.html di direktori utama -->
+    <a href="../index.html" class="flex items-center"> 
+        <!-- // PERUBAHAN: Ganti "logo.png" dengan nama file logo Anda di dalam folder /img -->
+        <img src="../img/logo.png" 
+             alt="Logo Situs" 
+             class="h-8 w-8 mr-2 rounded-sm"
+             onerror="this.onerror=null;this.src='https://placehold.co/40x40/FFFFFF/006661?text=TS';"> <!-- Fallback jika gambar tidak ada -->
         <span class="text-lg font-semibold text-white">to6661q</span>
     </a>
-    
     <!-- Navigasi Desktop -->
     <nav class="hidden md:flex space-x-1 items-center">
-        <a href="/index.html" class="nav-link">Home</a>
-
-        <!-- // Perbaikan: Wrapper div untuk hover, dan <a> untuk link terpisah -->
+        <a href="../index.html" class="nav-link">Home</a>
+        
         <div class="desktop-nav-item relative">
-            <a href="/pages/portfolio.html" class="nav-link" id="portfolioDesktopTrigger">
-                Portfolio
-            </a>
-            <div class="dropdown-menu">
-                <a href="/pages/experience.html" class="nav-link">Experience</a>
-                <a href="/pages/training.html" class="nav-link">Training</a>
-                <a href="/pages/achievements.html" class="nav-link">Achievements</a>
+            <button class="nav-link flex items-center" aria-haspopup="true" aria-expanded="false" id="portfolioDesktopTrigger">
+                Portfolio <i class='bx bx-chevron-down text-lg ml-1'></i>
+            </button>
+            <div class="dropdown-menu"> 
+                <a href="../pages/portfolio.html" class="nav-link">All Portfolio</a>
+                <a href="../pages/experience.html" class="nav-link">Experience</a> 
+                <a href="../pages/training.html" class="nav-link">Training</a> 
+                <a href="../pages/achievements.html" class="nav-link">Achievements</a> 
             </div>
         </div>
-
-        <a href="/pages/something.html" class="nav-link">Something</a>
-        <a href="/pages/aboutMe.html" class="nav-link">About Me</a>
+        
+        <a href="../pages/something.html" class="nav-link">Something</a>
+        <a href="../pages/aboutMe.html" class="nav-link">About Me</a> 
     </nav>
-    
     <!-- Tombol Hamburger Mobile -->
     <button id="mobileMenuBtn" aria-label="Buka menu" class="md:hidden">
         <i class='bx bx-menu text-3xl'></i>
     </button>
-</header>
+</div>
 
 <!-- Menu Mobile Drawer (Samping) -->
 <aside id="mobileMenuDrawer" class="mobile-menu-drawer fixed top-0 left-0 h-full shadow-lg p-6 pt-20 overflow-y-auto">
@@ -38,27 +41,25 @@
         <i class='bx bx-x'></i>
     </button>
     <nav class="space-y-2">
-        <a href="/index.html" class="nav-link"><i class='bx bxs-home'></i>Home</a>
-
-        <!-- // Perbaikan Mobile: Link utama Portfolio ditambahkan -->
-        <a href="/pages/portfolio.html" class="nav-link"><i class='bx bxs-briefcase-alt-2'></i>Portfolio Hub</a>
+        <a href="../index.html" class="nav-link"><i class='bx bxs-home'></i>Home</a>
         
         <div>
             <button class="nav-link w-full text-left flex justify-between items-center portfolio-mobile-trigger">
-                <span><i class='bx bx-chevron-down'></i>Sub-Portfolio</span>
+                <span><i class='bx bxs-briefcase-alt-2'></i>Portfolio</span>
                 <i class='bx bx-chevron-down text-lg arrow-icon'></i>
             </button>
-            <div class="mobile-submenu mt-1 space-y-1 portfolio-mobile-submenu">
-                <a href="/pages/experience.html" class="nav-link">Experience</a>
-                <a href="/pages/training.html" class="nav-link">Training</a>
-                <a href="/pages/achievements.html" class="nav-link">Achievements</a>
+            <div class="mobile-submenu mt-1 space-y-1 portfolio-mobile-submenu"> 
+                <a href="../pages/portfolio.html" class="nav-link">All Portfolio</a>
+                <a href="../pages/experience.html" class="nav-link">Experience</a>
+                <a href="../pages/training.html" class="nav-link">Training</a> 
+                <a href="../pages/achievements.html" class="nav-link">Achievements</a>
             </div>
         </div>
 
-        <a href="/pages/something.html" class="nav-link"><i class='bx bxs-extension'></i>Something</a>
-        <a href="/pages/aboutMe.html" class="nav-link"><i class='bx bxs-user-detail'></i>About Me</a>
+        <a href="../pages/something.html" class="nav-link"><i class='bx bxs-extension'></i>Something</a>
+        <a href="../pages/aboutMe.html" class="nav-link"><i class='bx bxs-user-detail'></i>About Me</a>
     </nav>
-    <div class="mt-8 text-xs text-gray-400">
+    <div class="mt-8 text-xs text-gray-400"> 
         <p>&copy; <span id="currentYearMobileDrawer"></span> Toriq As Syarif</p>
     </div>
 </aside>
