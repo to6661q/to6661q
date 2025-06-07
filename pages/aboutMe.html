@@ -3,189 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Saya - Keahlian & Informasi</title>
+    <title>About Me - Portfolio Toriq</title>
+
+    <!-- CSS (note the ../ path) -->
+    <link rel="stylesheet" href="../css/style.css">
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <script src="https://unpkg.com/chart.js"></script>
-
-    <!-- Link ke file CSS utama Anda -->
-    <link rel="stylesheet" href="../css/style.css">
 </head>
-<body class="bg-gray-100">
+<body>
 
-    <!-- Placeholder untuk Header (akan dimuat oleh JavaScript) -->
     <div id="header-placeholder"></div>
 
-    <!-- Konten Utama -->
     <main id="mainContent" class="main-content-area">
-        <!-- Bagian Awal dan Teks -->
-        <section id="home-content" class="px-2 md:px-6 bg-white shadow-lg rounded-[0.5rem] mx-1 md:mx-4 my-1 md:mt-1">
-            <div class="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 text-center md:text-left fade-in-section py-2 md:py-3" data-aos="fade-up"> 
+        <!-- Profile Section -->
+        <section id="profile-header" class="px-4 md:px-6 bg-white shadow-lg rounded-b-lg mx-auto my-4 max-w-7xl">
+            <div class="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 text-center md:text-left py-8" data-aos="fade-up"> 
                 <div class="profile-img-container">
-                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGfb4H5tRHrHA/profile-displayphoto-shrink_400_400/B4DZZN3UqiG4Ag-/0/1745063071619?e=1753920000&v=beta&t=EO4u6S0oblEjMVdIbVWODU7CSbvovQksxNtoZx7Wo_c" alt="[Image of Toriq As Syarif Profile Photo]" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGfb4H5tRHrHA/profile-displayphoto-shrink_400_400/B4DZZN3UqiG4Ag-/0/1745063071619?e=1753920000&v=beta&t=EO4u6S0oblEjMVdIbVWODU7CSbvovQksxNtoZx7Wo_c" alt="Foto profil Toriq As Syarif" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
                 </div>
                 <div class="text-center md:text-left">
-                    <h1 class="text-[1.5rem] md:text-[3rem] font-extrabold leading-tight mb-2 text-[#006661]"> 
-                        Hello, I'm <span id="typed-name"></span>
+                    <h1 class="text-2xl md:text-4xl font-extrabold leading-tight mb-2 text-[#006661]"> 
+                        Hello, I'm <span id="typed-name" class="text-white"></span>
                     </h1>
-                    <p id="call-to-action" class="text-lg md:text-xl text-[#004d40] mb-3 slide-down-fade-in"> 
+                    <p class="text-lg md:text-xl text-[#004d40] mb-3"> 
                         Fully adaptable. Embrace the process, let's grow together!
                     </p>
-                    <a href="../img/Toriq_As_Syarif_CV.pdf" download="Toriq_As_Syarif_CV.pdf" class="download-cv-button mt-3"> 
+                    <a href="#" download="Toriq_As_Syarif_CV.pdf" class="download-cv-button"> 
                         <i class='bx bxs-download'></i> Download My CV
                     </a>
                 </div>
             </div>
         </section>
-        
-        <!-- New Section with Paragraph and Social Media Icons -->
-        <section id="new-info-section" class="px-2 md:px-6 py-4 md:py-8">
-            <div class="new-section-content mx-auto" data-aos="fade-up">
-                <div class="new-section-text-column">
-                    <p class="new-section-paragraph">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="new-section-social-column">
-                    <h3 class="card-header mb-2 text-xl font-bold text-[#006661]">Connect With Me</h3>
-                    <div class="social-media-container-small">
-                        <a href="https://www.facebook.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-media-icon-small">
-                            <i class='bx bxl-facebook-square'></i>
-                        </a>
-                        <a href="https://www.instagram.com/to6661q/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-media-icon-small">
-                            <i class='bx bxl-instagram-alt'></i>
-                        </a>
-                        <a href="https://twitter.com/yourprofile" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="social-media-icon-small">
-                            <i class='bx bxl-twitter'></i>
-                        </a>
-                        <a href="https://www.youtube.com/yourchannel" target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="social-media-icon-small">
-                            <i class='bx bxl-youtube'></i>
-                        </a>
-                        <a href="mailto:toriq.assyarif@gmail.com" aria-label="Email" class="social-media-icon-small">
-                            <i class='bx bxs-envelope'></i>
-                        </a>
-                    </div>
-                    <div class="map-container-mini" data-aos="fade-up" data-aos-delay="50">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126916.90370425887!2d106.7570498!3d-6.27506925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f14b13a7c6a9%3A0x6b2b73a24128f7d2!2sSouth%20Jakarta%2C%20Jakarta%20Capital%20Region!5e0!3m2!1sen!2sid!4v1717676465492!5m2!1sen!2sid" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade"
-                            title="Lokasi Jakarta Selatan Mini"
-                        ></iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Application Skill Section (My Projects and My Hobbies) -->
-        <section id="application-skills" class="px-2 md:px-6">
-            <div class="max-w-6xl mx-auto text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">
-                <div class="main-content-grid grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-                    <!-- My Projects Column -->
-                    <div class="fade-in-section p-0" data-aos="fade-right">
-                        <div class="card h-full flex flex-col"> 
-                            <h2 class="card-header text-2xl md:text-3xl font-bold mb-4 text-[#006661] text-center">My Projects</h2>
-                            <p class="text-gray-600 mb-4 px-4 text-sm text-justify">
-                                Berikut adalah gambaran singkat aktivitas proyek saya di GitHub.
-                            </p>
-                            <a href="https://github.com/to6661q?tab=repositories" target="_blank" rel="noopener noreferrer" 
-                               class="inline-flex items-center justify-center bg-[#006661] text-white py-2 px-4 rounded-md 
-                                      font-semibold transition duration-300 ease-in-out hover:bg-[#00796b] hover:scale-105 
-                                      shadow-md mb-4 mx-4">
-                                <i class='bx bxl-github text-xl mr-2'></i> View All Projects
-                            </a>
-
-                            <!-- GitHub Repositories Embed -->
-                            <div class="github-repos-embed-container flex-grow overflow-hidden border border-gray-300 rounded-lg" style="min-height: 350px;">
-                                <iframe 
-                                    src="https://github.com/to6661q?tab=repositories" 
-                                    class="w-full h-full" 
-                                    frameborder="0" 
-                                    title="GitHub Repositories"
-                                    sandbox="allow-scripts allow-same-origin allow-popups"
-                                ></iframe>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- My Hobbies Column -->
-                    <div class="fade-in-section p-0" data-aos="fade-left">
-                        <div class="card h-full flex flex-col">
-                            <h2 class="card-header text-2xl md:text-3xl font-bold mb-6 text-[#006661] text-center">My Hobbies</h2>
-                            <div class="photo-grid">
-                                <!-- Hobi Icons (using placeholder for vector feel) -->
-                                <div class="logo-item"><img class="hobby-logo" src="https://placehold.co/60x60/ADD8E6/000000?text=♫" alt="Musik"></div>
-                                <div class="logo-item"><img class="hobby-logo" src="https://placehold.co/60x60/ADD8E6/000000?text=🎥" alt="Film"></div>
-                                <div class="logo-item"><img class="hobby-logo" src="https://placehold.co/60x60/ADD8E6/000000?text=🎮" alt="Gaming"></div>
-                                <div class="logo-item"><img class="hobby-logo" src="https://placehold.co/60x60/ADD8E6/000000?text=⚽" alt="Sepak Bola"></div>
-                                <div class="logo-item"><img class="hobby-logo" src="https://placehold.co/60x60/ADD8E6/000000?text=📚" alt="Membaca"></div>
-                                <div class="logo-item"><img class="hobby-logo" src="https://placehold.co/60x60/ADD8E6/000000?text=🍜" alt="Memasak"></div>
-                                <div class="logo-item"><img class="hobby-logo" src="https://placehold.co/60x60/ADD8E6/000000?text=🏃" alt="Lari"></div>
-                                <div class="logo-item"><img class="hobby-logo" src="https://placehold.co/60x60/ADD8E6/000000?text=📸" alt="Fotografi"></div>
-                                <div class="logo-item"><img class="hobby-logo" src="https://placehold.co/60x60/ADD8E6/000000?text=🌱" alt="Berkebun"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <p class="main-quote">
+        <!-- Main Quote -->
+        <p class="main-quote max-w-4xl px-4" data-aos="fade-up">
             "Semua impian kita bisa menjadi kenyataan, jika kita memiliki keberanian untuk mengejarnya."
         </p>
 
-        <div id="infoModal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 id="modalTitle"></h2>
+        <!-- Info and Contact Section -->
+        <section id="info-contact" class="px-4 md:px-6 py-8">
+            <div class="new-section-content mx-auto" data-aos="fade-up">
+                <div class="new-section-text-column">
+                    <p class="new-section-paragraph">
+                        I am a passionate and detail-oriented individual with a foundational understanding of Programming, Databases, and Networking. Experienced in cross-functional collaboration with design and engineering teams, I am adept at using product analytics tools and agile methodologies. My goal is to leverage my skills to contribute to innovative digital products, particularly within the dynamic content streaming industry.
+                    </p>
                 </div>
-                <div id="modalBody" class="modal-body"></div>
-                <div class="modal-footer">
-                    <button id="closeButton" class="close-button">Tutup</button>
+                <div class="new-section-social-column">
+                    <h3 class="text-xl font-bold text-[#006661] mb-2">Connect With Me</h3>
+                    <div class="map-container-mini" data-aos="fade-up" data-aos-delay="50">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126916.90370425887!2d106.7570498!3d-6.27506925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f14b13a7c6a9%3A0x6b2b73a24128f7d2!2sSouth%20Jakarta%2C%20Jakarta%20Capital%20Region!5e0!3m2!1sen!2sid!4v1717676465492!5m2!1sen!2sid" 
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                            title="Lokasi Jakarta Selatan Mini">
+                        </iframe>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <!-- Placeholder untuk Footer (akan dimuat oleh JavaScript) -->
-    <div id="footer-placeholder"></div>
+    <footer id="footer-placeholder"></footer>
 
-    <!-- Skrip untuk memuat Header dan Footer -->
-    <script>
-        // Function to load HTML content from a given URL into a specified element ID
-        function loadHTML(url, elementId) {
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    document.getElementById(elementId).innerHTML = data;
-                })
-                .catch(error => console.error('Error loading HTML:', error));
-        }
-
-        // Load header and footer when the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Adjust paths based on the current HTML file's location in 'pages/'
-            loadHTML('../includes/header.html', 'header-placeholder');
-            loadHTML('../includes/footer.html', 'footer-placeholder');
-        });
-    </script>
-    <!-- Link ke file JavaScript umum Anda -->
+    <!-- Main Script (note the ../ path) -->
     <script src="../js/script.js"></script>
 </body>
 </html>
