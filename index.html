@@ -3,68 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Datang - Hello Guys</title>
+    <title>Selamat Datang - Portfolio Toriq</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
     
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <script src="https://unpkg.com/chart.js"></script> 
-
-    <!-- Link ke file CSS utama Anda -->
-    <link rel="stylesheet" href="../css/style.css"> 
 </head>
-<body class="bg-gray-100">
+<body>
 
-    <!-- Placeholder untuk Header (akan dimuat oleh JavaScript) -->
     <div id="header-placeholder"></div>
 
-    <!-- Konten Utama Halaman Index -->
     <main id="mainContent" class="main-content-area">
         <section class="hero-section">
-            <h1 id="typed-hello"></h1> <!-- Target untuk Typed.js -->
-            <div class="quote-container" data-aos="fade-up" data-aos-delay="500">
+            <h1 id="typed-hello" data-aos="fade-up"></h1>
+            <div class="quote-container" data-aos="fade-up" data-aos-delay="200">
                 <p id="random-quote"></p>
                 <span id="quote-author" class="quote-author"></span>
             </div>
         </section>
     </main>
 
-    <!-- Placeholder untuk Footer (akan dimuat oleh JavaScript) -->
-    <div id="footer-placeholder"></div>
+    <footer id="footer-placeholder"></footer>
 
-    <!-- Skrip untuk memuat Header dan Footer -->
-    <script>
-        // Function to load HTML content from a given URL into a specified element ID
-        function loadHTML(url, elementId) {
-            fetch(url)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    document.getElementById(elementId).innerHTML = data;
-                })
-                .catch(error => console.error('Error loading HTML:', error));
-        }
-
-        // Load header and footer when the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Adjust paths based on the current HTML file's location in 'pages/'
-            loadHTML('../includes/header.html', 'header-placeholder');
-            loadHTML('../includes/footer.html', 'footer-placeholder');
-        });
-    </script>
-    <!-- Link ke file JavaScript umum Anda -->
-    <script src="../js/script.js"></script>
+    <!-- Main Script -->
+    <script src="js/script.js"></script>
 </body>
 </html>
