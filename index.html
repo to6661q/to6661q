@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Datang - Hello Guys</title>
-
-    <!-- // Framework dan Library dari CDN -->
+    <title>Selamat Datang - Portfolio Saya</title>
+    
+    <!-- Library Eksternal (CDN) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,103 +15,32 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 
-    <!-- // Menghubungkan ke file CSS eksternal di folder css -->
+    <!-- // PERUBAHAN: Menghubungkan ke file CSS eksternal di folder /css -->
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body class="bg-[#f0fdf4]">
 
-    <!-- // Kontainer untuk memuat header.html secara dinamis -->
-    <div id="header-container"></div>
+    <!-- // PERUBAHAN: Area ini akan diisi secara otomatis dengan konten dari includes/header.html oleh JavaScript -->
+    <header id="header-placeholder"></header>
 
     <!-- Konten Utama Halaman Index -->
     <main id="mainContent" class="main-content-area">
         <section class="hero-section">
-            <h1 id="typed-hello"></h1> <!-- Target untuk Typed.js -->
+            <h1 id="typed-hello"></h1> <!-- Target untuk animasi ketik -->
             <div class="quote-container" data-aos="fade-up" data-aos-delay="500">
                 <p id="random-quote"></p>
                 <span id="quote-author" class="quote-author"></span>
             </div>
         </section>
-
-        <!-- // Kontainer untuk memuat footer.html secara dinamis -->
-        <div id="footer-container"></div>
     </main>
-
-    <!-- // Menghubungkan ke file JavaScript eksternal di folder js -->
+    
+    <!-- // PERUBAHAN: Area ini akan diisi secara otomatis dengan konten dari includes/footer.html oleh JavaScript -->
+    <footer id="footer-placeholder"></footer>
+    
+    <!-- Library Eksternal (JS) -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- // PERUBAHAN: Menghubungkan ke file JavaScript eksternal di folder /js -->
     <script src="js/script.js"></script>
-
-    <!-- // // Perubahan Khusus untuk index.html: Menyesuaikan path untuk loadComponent -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // // Override fungsi fetch untuk index.html agar pathnya benar
-            const loadComponentIndex = (url, elementId) => {
-                fetch(url)
-                    .then(response => response.ok ? response.text() : Promise.reject('File not found'))
-                    .then(data => {
-                        const container = document.getElementById(elementId);
-                        if(container) {
-                            container.innerHTML = data;
-                             // // Sesuaikan href di header yang baru dimuat agar pathnya benar dari root
-                            if (elementId === 'header-container') {
-                                container.querySelectorAll('a').forEach(link => {
-                                    let href = link.getAttribute('href');
-                                    if (href && href.startsWith('../')) {
-                                        link.setAttribute('href', href.substring(3)); // hapus ../
-                                    }
-                                });
-                                // // Setelah header dimuat dan path diperbaiki, jalankan logika header
-                                const scriptTag = document.createElement('script');
-                                scriptTag.text = `
-                                    const headerElement = document.getElementById('header-container');
-                                    if(headerElement) {
-                                        // Logika event listener untuk header
-                                        const mobileMenuBtn = headerElement.querySelector('#mobileMenuBtn');
-                                        const mobileMenuDrawer = headerElement.querySelector('#mobileMenuDrawer');
-                                        const closeMobileMenuBtn = headerElement.querySelector('#closeMobileMenuBtn');
-                                        if(mobileMenuBtn) mobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.add('open'));
-                                        if(closeMobileMenuBtn) closeMobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.remove('open'));
-
-                                        const portfolioMobileTrigger = headerElement.querySelector('.portfolio-mobile-trigger');
-                                        if(portfolioMobileTrigger) {
-                                            const portfolioMobileSubmenu = headerElement.querySelector('.portfolio-mobile-submenu');
-                                            const portfolioArrowIcon = portfolioMobileTrigger.querySelector('.arrow-icon');
-                                            portfolioMobileTrigger.addEventListener('click', (e) => {
-                                                e.preventDefault();
-                                                portfolioMobileSubmenu.classList.toggle('open');
-                                                portfolioArrowIcon.classList.toggle('rotate-180');
-                                            });
-                                        }
-
-                                        // Set active link
-                                        const navLinks = headerElement.querySelectorAll('.nav-link');
-                                        navLinks.forEach(link => {
-                                            const linkHref = link.getAttribute('href');
-                                            if (linkHref === 'index.html' || linkHref === 'index.html') {
-                                                link.classList.add('active');
-                                            } else {
-                                                link.classList.remove('active');
-                                            }
-                                        });
-
-                                        const currentYearMobileDrawer = headerElement.querySelector('#currentYearMobileDrawer');
-                                        if(currentYearMobileDrawer) currentYearMobileDrawer.textContent = new Date().getFullYear();
-                                    }
-                                `;
-                                document.body.appendChild(scriptTag);
-                            } else if (elementId === 'footer-container') {
-                                const currentYearFooter = container.querySelector('#currentYearFooter');
-                                if(currentYearFooter) currentYearFooter.textContent = new Date().getFullYear();
-                            }
-                        }
-                    })
-                    .catch(error => console.error(`Error loading ${url}:`, error));
-            };
-
-            loadComponentIndex('includes/header.html', 'header-container');
-            loadComponentIndex('includes/footer.html', 'footer-container');
-        });
-    </script>
 </body>
 </html>
