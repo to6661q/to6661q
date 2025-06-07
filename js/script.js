@@ -1,9 +1,10 @@
 // // File: js/script.js
-// // Perbaikan Final: Logika setActiveNavLink diperbarui untuk penandaan link aktif yang lebih akurat.
+// // Perbaikan Final: Logika JS disesuaikan dengan struktur HTML baru.
 
 document.addEventListener('DOMContentLoaded', function() {
-    // // Fungsi untuk memuat komponen
+    // // Fungsi untuk memuat komponen (tetap sama)
     const loadComponent = (path, elementId) => {
+        // // Menentukan path yang benar baik dari root (index.html) maupun dari sub-folder (/pages/)
         const finalPath = document.body.classList.contains('is-root') ? path : `../${path}`;
 
         fetch(finalPath)
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (element) {
                     element.innerHTML = data;
                 }
+                // // Inisialisasi ulang logika header/footer SETELAH konten dimuat
                 if (elementId === 'header-container' || elementId === 'footer-container') {
                     initializeHeaderFooterLogic();
                 }
@@ -20,13 +22,16 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error(`Error loading component:`, error));
     };
 
+    // // Tambahkan class ke body untuk menandai jika ini adalah halaman root
     if (window.location.pathname === '/' || window.location.pathname.endsWith('/index.html')) {
         document.body.classList.add('is-root');
     }
 
+    // // Muat header dan footer
     loadComponent('includes/header.html', 'header-container');
     loadComponent('includes/footer.html', 'footer-container');
 
+    // // Inisialisasi AOS
     AOS.init({
         duration: 800,
         once: true,
@@ -34,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         offset: 50,
     });
 
+    // // Fungsi yang akan dijalankan setelah header dan footer dimuat
     const initializeHeaderFooterLogic = () => {
         const headerElement = document.getElementById('header-container');
         if (!headerElement) return;
@@ -60,16 +66,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Logika Dropdown Desktop
+        // // Perbaikan: Logika Dropdown Desktop (HANYA hover, tidak ada event click)
         const desktopNavItem = headerElement.querySelector('.desktop-nav-item');
-        if (desktopNavItem) {
+        const desktopDropdown = headerElement.querySelector('.dropdown-menu');
+        if (desktopNavItem && desktopDropdown) {
              desktopNavItem.addEventListener('mouseenter', () => {
-                const dropdown = desktopNavItem.querySelector('.dropdown-menu');
-                if(dropdown) dropdown.style.display = 'block';
+                desktopDropdown.style.display = 'block';
              });
              desktopNavItem.addEventListener('mouseleave', () => {
-                const dropdown = desktopNavItem.querySelector('.dropdown-menu');
-                if(dropdown) dropdown.style.display = 'none';
+                desktopDropdown.style.display = 'none';
              });
         }
         
@@ -83,42 +88,34 @@ document.addEventListener('DOMContentLoaded', function() {
         setActiveNavLink();
     };
     
-    // // === FUNGSI PERBAIKAN UNTUK ACTIVE LINK ===
     const setActiveNavLink = () => {
-        // // Dapatkan path URL saat ini (contoh: "/pages/experience.html")
         const currentPath = window.location.pathname;
         const navLinks = document.querySelectorAll('#header-container .nav-link');
 
-        // // Pertama, hapus semua kelas 'active' dari semua link
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-        });
-
-        // // Kedua, iterasi lagi untuk menambahkan kelas 'active' ke link yang tepat
         navLinks.forEach(link => {
             const linkPath = new URL(link.href, window.location.origin).pathname;
+            link.classList.remove('active');
 
-            // // Kondisi 1: Kecocokan persis antara URL saat ini dan href link
             if (currentPath === linkPath) {
                 link.classList.add('active');
+                
+                // Jika link aktif ada di dalam dropdown, tandai juga parent-nya
+                const parentDropdown = link.closest('.dropdown-menu');
+                if (parentDropdown) {
+                    const parentTrigger = parentDropdown.previousElementSibling;
+                    if (parentTrigger) {
+                        parentTrigger.classList.add('active');
+                    }
+                }
             }
         });
-
-        // // Ketiga, logika khusus untuk parent "Portfolio"
-        // // Jika URL saat ini ada di dalam /pages/ dan bukan portfolio.html itu sendiri,
-        // // maka kita juga aktifkan link ke portfolio.html
-        if (currentPath.includes('/pages/') && (currentPath.endsWith('experience.html') || currentPath.endsWith('training.html') || currentPath.endsWith('achievements.html'))) {
-            const portfolioHubLink = document.querySelector('a.nav-link[href="/pages/portfolio.html"]');
-            if (portfolioHubLink) {
-                portfolioHubLink.classList.add('active');
-            }
-        }
     };
+
 
     // === LOGIKA SPESIFIK HALAMAN (TETAP SAMA) ===
     // ... (kode untuk Typed.js, Countdown, Modal, dll. tetap di sini)
     // Logika Modal Gambar
-    const modal = document.getElementById("imageModal");
+     const modal = document.getElementById("imageModal");
     if (modal) {
         const modalImg = document.getElementById("modalImage");
         const certificateCards = document.querySelectorAll(".certificate-card");
