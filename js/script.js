@@ -1,148 +1,151 @@
-// // File: js/script.js
-// // Perbaikan Final: Logika setActiveNavLink diperbarui untuk penandaan link aktif yang lebih akurat.
-
+// // PERUBAHAN: Semua skrip dari file HTML asli sekarang ada di sini.
 document.addEventListener('DOMContentLoaded', function() {
-    // // Fungsi untuk memuat komponen
-    const loadComponent = (path, elementId) => {
-        const finalPath = document.body.classList.contains('is-root') ? path : `../${path}`;
-
-        fetch(finalPath)
-            .then(response => response.ok ? response.text() : Promise.reject(`File not found: ${finalPath}`))
-            .then(data => {
-                const element = document.getElementById(elementId);
-                if (element) {
-                    element.innerHTML = data;
-                }
-                if (elementId === 'header-container' || elementId === 'footer-container') {
-                    initializeHeaderFooterLogic();
-                }
-            })
-            .catch(error => console.error(`Error loading component:`, error));
+    
+    // // PERUBAHAN BARU: Fungsi untuk memuat komponen (header/footer) secara dinamis.
+    const loadComponent = async (url, placeholderId) => {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Gagal memuat ${url}: Status ${response.status}`);
+            }
+            const content = await response.text();
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+                // Menyisipkan HTML langsung, yang akan dirender oleh browser.
+                placeholder.insertAdjacentHTML('afterbegin', content);
+                // Menghapus elemen placeholder itu sendiri, menyisakan kontennya.
+                placeholder.replaceWith(...placeholder.childNodes);
+            }
+        } catch (error) {
+            console.error(error);
+            const placeholder = document.getElementById(placeholderId);
+            if (placeholder) {
+                placeholder.innerText = `Error memuat ${placeholderId}.`;
+            }
+        }
     };
 
-    if (window.location.pathname === '/' || window.location.pathname.endsWith('/index.html')) {
-        document.body.classList.add('is-root');
-    }
+    // // PERUBAHAN BARU: Fungsi untuk menentukan path yang benar.
+    // // Ini penting agar komponen bisa dimuat dari index.html (di root) dan dari halaman di dalam /pages.
+    const getPathPrefix = () => {
+        // Jika URL path mengandung '/pages/', berarti kita di dalam subfolder.
+        return window.location.pathname.includes('/pages/') ? '../' : './';
+    };
 
-    loadComponent('includes/header.html', 'header-container');
-    loadComponent('includes/footer.html', 'footer-container');
+    const prefix = getPathPrefix();
 
-    AOS.init({
-        duration: 800,
-        once: true,
-        mirror: false,
-        offset: 50,
-    });
+    // // PERUBAHAN BARU: Fungsi utama untuk menginisialisasi semua skrip halaman.
+    // // Fungsi ini akan dijalankan SETELAH header dan footer selesai dimuat.
+    const initializePageScripts = () => {
+        // 1. Inisialisasi AOS (Animate on Scroll)
+        AOS.init({
+            duration: 800, 
+            once: true,
+            mirror: false,
+            offset: 50, 
+        });
 
-    const initializeHeaderFooterLogic = () => {
-        const headerElement = document.getElementById('header-container');
-        if (!headerElement) return;
+        // 2. Logika untuk animasi ketik (hanya berjalan jika elemennya ada di halaman)
+        if (document.getElementById('typed-hello')) {
+            new Typed('#typed-hello', {
+                strings: ["Hello Guys!"],
+                typeSpeed: 80,
+                showCursor: true,
+                cursorChar: '|',
+                onComplete: (self) => {
+                    self.cursor.remove();
+                    displayRandomQuote(); // Tampilkan kutipan setelah selesai
+                }
+            });
+        }
+        
+        // Fungsi untuk menampilkan kutipan acak
+        function displayRandomQuote() {
+            const quotes = [
+                { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+                { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+                { text: "Life is really simple, but we insist on making it complicated.", author: "Confucius" }
+            ];
+            const quoteElement = document.getElementById('random-quote');
+            const authorElement = document.getElementById('quote-author');
+            
+            if (quoteElement && authorElement) {
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                quoteElement.textContent = `"${randomQuote.text}"`;
+                authorElement.textContent = `- ${randomQuote.author}`;
+                authorElement.classList.add('is-visible');
+            }
+        }
 
-        // Logika Menu Mobile
-        const mobileMenuBtn = headerElement.querySelector('#mobileMenuBtn');
-        const mobileMenuDrawer = headerElement.querySelector('#mobileMenuDrawer');
-        const closeMobileMenuBtn = headerElement.querySelector('#closeMobileMenuBtn');
-
+        // 3. Logika untuk Header & Menu Mobile
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenuDrawer = document.getElementById('mobileMenuDrawer'); 
+        const closeMobileMenuBtn = document.getElementById('closeMobileMenuBtn');
+        
         if (mobileMenuBtn && mobileMenuDrawer && closeMobileMenuBtn) {
             mobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.add('open'));
             closeMobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.remove('open'));
         }
         
-        // Logika Submenu Mobile
-        const portfolioMobileTrigger = headerElement.querySelector('.portfolio-mobile-trigger');
-        const portfolioMobileSubmenu = headerElement.querySelector('.portfolio-mobile-submenu');
-        if (portfolioMobileTrigger && portfolioMobileSubmenu) {
-            portfolioMobileTrigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                portfolioMobileSubmenu.classList.toggle('open');
-                const icon = portfolioMobileTrigger.querySelector('.arrow-icon');
-                if (icon) icon.classList.toggle('rotate-180');
-            });
-        }
+        // Logika untuk submenu portfolio di mobile
+        const portfolioMobileTrigger = document.querySelector('.portfolio-mobile-trigger');
+        const portfolioMobileSubmenu = document.querySelector('.portfolio-mobile-submenu');
+        const portfolioArrowIcon = portfolioMobileTrigger?.querySelector('.arrow-icon');
 
-        // Logika Dropdown Desktop
-        const desktopNavItem = headerElement.querySelector('.desktop-nav-item');
-        if (desktopNavItem) {
-             desktopNavItem.addEventListener('mouseenter', () => {
-                const dropdown = desktopNavItem.querySelector('.dropdown-menu');
-                if(dropdown) dropdown.style.display = 'block';
-             });
-             desktopNavItem.addEventListener('mouseleave', () => {
-                const dropdown = desktopNavItem.querySelector('.dropdown-menu');
-                if(dropdown) dropdown.style.display = 'none';
-             });
+        if (portfolioMobileTrigger) {
+            portfolioMobileTrigger.addEventListener('click', (event) => {
+                event.preventDefault(); 
+                portfolioMobileSubmenu.classList.toggle('open');
+                portfolioArrowIcon.classList.toggle('rotate-180');
+            });
         }
         
-        // Update tahun
-        const currentYearFooter = document.getElementById('currentYearFooter');
-        if (currentYearFooter) currentYearFooter.textContent = new Date().getFullYear();
-        const currentYearMobileDrawer = headerElement.querySelector('#currentYearMobileDrawer');
-        if (currentYearMobileDrawer) currentYearMobileDrawer.textContent = new Date().getFullYear();
-
-        // Atur link aktif
-        setActiveNavLink();
-    };
-    
-    // // === FUNGSI PERBAIKAN UNTUK ACTIVE LINK ===
-    const setActiveNavLink = () => {
-        // // Dapatkan path URL saat ini (contoh: "/pages/experience.html")
+        // 4. Update Tahun di Footer dan Drawer
+        const currentYear = new Date().getFullYear();
+        document.querySelectorAll('#currentYearFooter, #currentYearMobileDrawer').forEach(el => {
+            if (el) el.textContent = currentYear;
+        });
+        
+        // 5. Logika untuk menandai link navigasi yang aktif
         const currentPath = window.location.pathname;
-        const navLinks = document.querySelectorAll('#header-container .nav-link');
-
-        // // Pertama, hapus semua kelas 'active' dari semua link
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-        });
-
-        // // Kedua, iterasi lagi untuk menambahkan kelas 'active' ke link yang tepat
-        navLinks.forEach(link => {
-            const linkPath = new URL(link.href, window.location.origin).pathname;
-
-            // // Kondisi 1: Kecocokan persis antara URL saat ini dan href link
-            if (currentPath === linkPath) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const linkPath = new URL(link.href).pathname;
+            
+            // Cek jika path link sama dengan path halaman saat ini
+            if (linkPath === currentPath) {
                 link.classList.add('active');
+                
+                // Jika link aktif ada di dalam dropdown, buat parent-nya juga aktif
+                const parentSubmenu = link.closest('.mobile-submenu');
+                if (parentSubmenu) {
+                    const trigger = parentSubmenu.previousElementSibling;
+                    trigger.classList.add('active');
+                    parentSubmenu.classList.add('open');
+                    trigger.querySelector('.arrow-icon')?.classList.add('rotate-180');
+                }
+
+                const parentDropdown = link.closest('.desktop-nav-item');
+                if(parentDropdown) {
+                    parentDropdown.querySelector('.nav-link').classList.add('active');
+                }
             }
         });
-
-        // // Ketiga, logika khusus untuk parent "Portfolio"
-        // // Jika URL saat ini ada di dalam /pages/ dan bukan portfolio.html itu sendiri,
-        // // maka kita juga aktifkan link ke portfolio.html
-        if (currentPath.includes('/pages/') && (currentPath.endsWith('experience.html') || currentPath.endsWith('training.html') || currentPath.endsWith('achievements.html'))) {
-            const portfolioHubLink = document.querySelector('a.nav-link[href="/pages/portfolio.html"]');
-            if (portfolioHubLink) {
-                portfolioHubLink.classList.add('active');
-            }
+        // Khusus untuk link Home di index.html
+        if (currentPath === '/index.html' || currentPath === '/') {
+            document.querySelector('a.nav-link[href="../index.html"]')?.classList.add('active');
         }
     };
 
-    // === LOGIKA SPESIFIK HALAMAN (TETAP SAMA) ===
-    // ... (kode untuk Typed.js, Countdown, Modal, dll. tetap di sini)
-    // Logika Modal Gambar
-    const modal = document.getElementById("imageModal");
-    if (modal) {
-        const modalImg = document.getElementById("modalImage");
-        const certificateCards = document.querySelectorAll(".certificate-card");
-        const closeModalSpan = document.getElementById("imageModalClose");
+    // // PERUBAHAN BARU: Memuat header dan footer, lalu menjalankan skrip utama.
+    const loadLayout = async () => {
+        await Promise.all([
+            loadComponent(`${prefix}includes/header.html`, 'header-placeholder'),
+            loadComponent(`${prefix}includes/footer.html`, 'footer-placeholder')
+        ]);
+        // Setelah layout selesai dimuat, baru jalankan semua skrip interaktif.
+        initializePageScripts(); 
+    };
 
-        certificateCards.forEach(card => {
-            card.addEventListener('click', function() {
-                const imgElement = this.querySelector('.certificate-image-display, .certificate-image');
-                if (imgElement && modal && modalImg) {
-                    modal.style.display = "flex";
-                    modalImg.src = imgElement.src;
-                    modalImg.alt = imgElement.alt;
-                }
-            });
-        });
-
-        if (closeModalSpan) {
-            closeModalSpan.onclick = () => { modal.style.display = "none"; }
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    }
+    // Mulai proses!
+    loadLayout();
 });
