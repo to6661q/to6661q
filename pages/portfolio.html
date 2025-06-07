@@ -19,16 +19,729 @@
     
     <script src="https://unpkg.com/chart.js"></script>
 
-    
-    <!-- // Path ke CSS eksternal -->
-    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Custom Styles & Overrides */
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            line-height: 1.6;
+            color: #333;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Shine effect for profile image */
+        .profile-img-container {
+            position: relative;
+            display: inline-block;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+            border: 5px solid #006661; /* Updated color */
+        }
+        .profile-img-container:hover {
+            transform: scale(1.05);
+        }
+        .profile-img-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: skewX(-20deg);
+            animation: shine 4s infinite ease-out;
+            animation-delay: 1s;
+        }
+        @keyframes shine {
+            0% { left: -75%; }
+            50% { left: 125%; }
+            100% { left: -75%; }
+        }
+
+        .typed-cursor {
+            opacity: 1;
+            animation: blink 0.7s infinite;
+            color: #004d40; /* Updated color - darker teal */
+        }
+        .typed-cursor.hidden-cursor {
+            display: none;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .fade-in-section { /* General fade-in, can be used with AOS or custom */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* New slide-up animation for About Me text */
+        .slide-up-fade-in-about {
+            opacity: 0;
+            transform: translateY(40px); /* Start 40px below */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transition-delay: 0.2s; /* Slight delay after parent fades in */
+        }
+        .slide-up-fade-in-about.is-visible {
+            opacity: 1;
+            transform: translateY(0); /* Move to final position */
+        }
+
+
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex; 
+            flex-direction: column; 
+        }
+
+        .card-header {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #006661; /* Updated color */
+            text-align: center;
+            margin-bottom: 0.5rem; /* Dikurangi untuk merapatkan dengan chart */
+        }
+
+        .skill-bar-programmer {
+            background-color: #e5e7eb;
+            border-radius: 0.375rem;
+            height: 0.5rem;
+            position: relative;
+            flex-grow: 1;
+        }
+        .skill-bar-fill-programmer {
+            background-color: #006661; /* Updated color */
+            border-radius: 0.375rem;
+            height: 100%;
+            width: 0;
+            transition: width 0.6s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .skill-item-container {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Jarak antara ikon dan skill bar sedikit dirapatkan */
+            margin-bottom: 0.35rem; /* Jarak antar item skill dirapatkan lagi */
+        }
+        .lang-icon { 
+            font-size: 1.3rem; /* Sedikit dikecilkan lagi agar lebih pas */
+            color: #006661;
+            width: 26px; /* Sedikit dikecilkan */
+            text-align: center;
+            flex-shrink: 0; 
+        }
+        .lang-icon-text-custom { 
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 1.0rem; /* Sedikit dikecilkan lagi */
+            color: #006661;
+            width: 26px; /* Sedikit dikecilkan */
+            text-align: center;
+            line-height: 1;
+            flex-shrink: 0;
+            display: inline-block;
+        }
+
+        
+        .chart-outer-container { 
+            position: relative;
+            width: 100%;
+            height: 280px; 
+            margin-bottom: 0rem; 
+            margin-top: 0.5rem; 
+        }
+        #hardSkillChartContainer, #softSkillChartContainer, #languageSkillChartContainer, #codingSkillBarsContainer { 
+            position: relative; 
+            width: 100%;
+            height: 100%; 
+        }
+        #hardSkillChart, #softSkillChart, #languageSkillChart { 
+            width: 100% !important;
+            height: 100% !important; 
+        }
+        #codingSkillBarsContainer .flex-grow {
+             min-height: 280px; 
+        }
+
+
+        .chart-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
+            gap: 0.1rem 0.3rem; 
+            margin-top: 0.5rem; 
+            padding: 0 0.1rem; 
+            justify-content: center; 
+        }
+        .legend-item { 
+            display: flex;
+            align-items: center;
+            margin: 0;
+            font-size: 0.6rem; 
+            color: #4a5568;
+            line-height: 1.2; 
+        }
+        .legend-color { 
+            width: 0.6rem; 
+            height: 0.6rem; 
+            border-radius: 0.1rem; 
+            margin-right: 0.2rem; 
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .legend-label { 
+            font-size: 0.6rem; 
+            color: #4a5568;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 0.25rem;
+            margin-bottom: 1rem; 
+            padding: 0;
+        }
+        .logo-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease-in-out;
+            padding: 0.25rem;
+        }
+        .logo-item:hover {
+            transform: scale(1.1);
+        }
+        .logo {
+            width: 80%;
+            height: auto;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        @media (min-width: 768px) {
+            .photo-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (min-width: 1024px) {
+            .photo-grid {
+                grid-template-columns: repeat(6, 1fr); 
+            }
+        }
+
+        .slideshow-container {
+            background-color: #f3f4f6;
+            border-radius: 0.5rem;
+            padding: 0rem;
+            overflow: hidden;
+            position: relative;
+            height: 0;
+            padding-bottom: 65%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .certificate-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .certificate-item.active {
+            opacity: 1;
+        }
+        .certificate-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        .certificate-item:hover .certificate-img,
+        .certificate-item:active .certificate-img {
+            transform: scale(1.05);
+        }
+
+        .detail-button {
+            display: block;
+            width: 100%;
+            margin: 0rem auto 1rem auto;
+            background-color: #006661; 
+            color: white;
+            padding: 0.6rem 0;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .detail-button:hover {
+            background-color: #00796b; 
+            transform: translateY(-2px);
+        }
+        .download-cv-button { 
+            display: inline-flex;
+            align-items: center;
+            margin-top: 1.5rem; 
+            background-color: #006661;
+            color: white;
+            padding: 0.6rem 1.2rem; 
+            border-radius: 0.375rem; 
+            text-decoration: none;
+            font-weight: 500; 
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .download-cv-button i {
+            margin-right: 0.5rem; 
+        }
+        .download-cv-button:hover {
+            background-color: #00796b;
+            transform: translateY(-2px);
+        }
+
+
+        .org-section-container, .course-section-container { 
+            margin: 0 auto;
+            padding: 0rem;
+        }
+        .org-photo-grid, .course-photo-grid { 
+            padding:0;
+            margin:0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1rem; 
+        }
+        .org-logo-item { 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            height: 120px;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer; 
+            padding: 0.5rem;
+        }
+         .course-logo-item { 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            height: 120px;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            padding: 0.5rem;
+            overflow: hidden; 
+        }
+        .org-logo-item:hover, .course-logo-item:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        .org-logo, .course-logo { 
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            transition: transform 0.3s ease-in-out; 
+        }
+         
+        .course-logo {
+            width: 60%; 
+            height: 60%;
+        }
+        .course-logo-description { 
+            font-family: 'Lexend', sans-serif;
+            font-size: 0.65rem; 
+            color: #555;
+            text-align: center;
+            line-height: 1.1; 
+            font-weight: 500;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            margin-top: 0.25rem;
+        }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center; 
+            padding: 1rem; 
+            box-sizing: border-box;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 0.5rem;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeInModal 0.3s;
+            overflow-y: auto;
+            max-height: 85vh; 
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1rem;
+            color: #333; 
+            font-family: 'Lexend', sans-serif;
+        }
+        .close-button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            background-color: #006661; 
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .close-button:hover {
+            background-color: #00796b; 
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        .close-button:focus {
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .modal-body {
+            text-align: justify;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: #4a5568;
+            line-height: 1.6;
+            font-family: 'Lexend', sans-serif;
+        }
+        .modal-footer {
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+
+        .edu-section-container {
+            margin: 0 auto;
+            padding: 0; 
+        }
+        .edu-photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .edu-logo-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            min-height: 120px;
+            padding-left: 0;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        .edu-logo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        .edu-logo {
+            width: 80%;
+            max-height: 70px;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 0.5rem;
+        }
+        .edu-logo-description {
+            font-family: 'Lexend', sans-serif;
+            font-size: 0.8rem;
+            color: #555;
+            text-align: center;
+            line-height: 1.2;
+            font-weight: 500;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        .edu-description-text {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1rem;
+            color: #4a5568;
+            text-align: center;
+            margin-top: 2rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 640px) {
+            .edu-section-container { padding: 0.5rem; }
+            .edu-photo-grid { gap: 0.5rem; }
+            .edu-logo-item { min-height: 100px; padding: 0.5rem; }
+            .edu-logo { max-height: 60px; }
+            .edu-logo-description { font-size: 0.7rem; }
+            .edu-description-text { font-size: 0.9rem; margin-top: 1.5rem; }
+        }
+
+        #about-me-typing-container {
+            padding-left: 0;
+        }
+        #typing-text-about-me { 
+            font-family: 'Lexend', sans-serif;
+            white-space: pre-wrap;
+            text-align: justify;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            color: #006661; 
+            min-height: 1rem; 
+        }
+        @media (max-width: 640px) {
+            #typing-text-about-me { font-size: 1rem; }
+        }
+
+        .slide-down-fade-in {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 1.0s ease-out, transform 1.0s ease-out;
+        }
+        .slide-down-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #typed-name {
+            color: #FFFFFF;
+            text-shadow:
+                -1.5px -1.5px 0 #006661, 
+                1.5px -1.5px 0 #006661, 
+                -1.5px  1.5px 0 #006661, 
+                1.5px  1.5px 0 #006661; 
+        }
+
+        .top-header {
+            background-color: #006661; 
+            color: white;
+            z-index: 1001; 
+            height: 64px; 
+        }
+        .mobile-menu-drawer { 
+            background-color: #004d40;  
+            color: white;
+            width: 250px; 
+            z-index: 1002; 
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%); 
+        }
+        .mobile-menu-drawer.open {
+            transform: translateX(0);
+        }
+        .main-content-area {
+            padding-top: 64px; 
+        }
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1rem; 
+            border-radius: 0.375rem; 
+            transition: background-color 0.2s ease, color 0.2s ease;
+            font-weight: 500; 
+            white-space: nowrap; 
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: #00796b; 
+            color: #ffffff;
+        }
+        .mobile-menu-drawer .nav-link {
+             padding: 0.75rem 1.5rem; 
+        }
+        .mobile-menu-drawer .nav-link i { 
+            margin-right: 0.75rem;
+        }
+
+         /* Styling untuk Desktop Dropdown Submenu (dari others_page_certificates) */
+        .desktop-nav-item.relative .dropdown-menu {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%; 
+            background-color: #00796b; 
+            min-width: 180px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 0.375rem; 
+            padding-top: 0.25rem; 
+            padding-bottom: 0.25rem; 
+            z-index: 1010; 
+        }
+        .desktop-nav-item.relative:hover .dropdown-menu,
+        .desktop-nav-item.relative .nav-link:focus + .dropdown-menu, 
+        .desktop-nav-item.relative .dropdown-menu:hover { 
+            display: block;
+        }
+        .dropdown-menu a.nav-link { 
+            padding: 0.5rem 1rem; 
+            font-size: 0.875rem; 
+            color: white;
+            white-space: nowrap;
+        }
+        .dropdown-menu a.nav-link:hover {
+            background-color: #006661; 
+        }
+        #portfolioDesktopTrigger {
+            padding-right: 0.5rem; 
+        }
+        #portfolioDesktopTrigger i {
+            margin-left: 0.25rem; 
+        }
+
+
+        /* Styling untuk Mobile Submenu Drawer (dari others_page_certificates) */
+        .mobile-submenu {
+            display: none; 
+            padding-left: 1rem; 
+            background-color: #005953; 
+            border-radius: 0.25rem;
+            margin-top: 0.25rem;
+            max-height: 0; 
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-submenu.open {
+            display: block;
+            max-height: 500px; 
+        }
+        .mobile-submenu .nav-link {
+            font-size: 0.8rem; 
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+        .portfolio-mobile-trigger .arrow-icon { 
+            transition: transform 0.3s ease-in-out;
+        }
+        .portfolio-mobile-trigger .arrow-icon.rotate-180 {
+            transform: rotate(180deg);
+        }
+
+
+        /* Footer Social Icon Styling */
+        .social-icon-link {
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+            width: 40px; 
+            height: 40px; 
+            border: 2px solid white; 
+            border-radius: 0.375rem; 
+            color: white; 
+            background-color: transparent; 
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 0 0.375rem; 
+        }
+        .social-icon-link:hover {
+            background-color: white; 
+            color: #006661; 
+            border-color: white; 
+        }
+        .social-icon-link i {
+            font-size: 1.5rem; 
+        }
+
+    </style>
 </head>
 <body class="bg-[#f0fdf4]">
 
-    <!-- // Kontainer Header -->
-    <div id="header-container"></div>
+    <!-- Header Atas (Desktop & Mobile Trigger) -->
+    <header class="top-header fixed top-0 left-0 right-0 flex items-center justify-between px-4 md:px-6 shadow-md">
+    </header>
 
- <!-- Konten Utama -->
+    <!-- Menu Mobile Drawer (Samping) -->
+    <aside id="mobileMenuDrawer" class="mobile-menu-drawer fixed top-0 left-0 h-full shadow-lg p-6 pt-20 overflow-y-auto">
+        <button id="closeMobileMenuBtn" class="absolute top-5 right-5 text-2xl" aria-label="Tutup menu">
+            <i class='bx bx-x'></i>
+        </button>
+        <nav class="space-y-2">
+            <a href="#home" class="nav-link active"><i class='bx bxs-home'></i>Home</a>
+            
+            <div>
+                <button class="nav-link w-full text-left flex justify-between items-center portfolio-mobile-trigger">
+                    <span><i class='bx bxs-briefcase-alt-2'></i>Portfolio</span>
+                    <i class='bx bx-chevron-down text-lg arrow-icon'></i>
+                </button>
+                <div class="mobile-submenu mt-1 space-y-1 portfolio-mobile-submenu"> 
+                    <a href="#experience-target" class="nav-link">Experience</a>
+                    <a href="portfolio-training.html" class="nav-link">Training</a> 
+                    <a href="#achievements-target" class="nav-link">Achievements</a>
+                </div>
+            </div>
+
+            <a href="others.html" class="nav-link"><i class='bx bxs-extension'></i>Something</a>
+            <a href="#about-me" class="nav-link"><i class='bx bxs-user-detail'></i>About Me</a>
+        </nav>
+        <div class="mt-8 text-xs text-gray-400"> 
+            <p>&copy; <span id="currentYearMobileDrawer"></span> Toriq As Syarif</p>
+        </div>
+    </aside>
+
+
+    <!-- Konten Utama -->
     <main id="mainContent" class="main-content-area">
         <!-- Bagian Awal dan Teks -->
         <section id="home-content" class="bg-white shadow-lg rounded-[0.5rem]">
@@ -402,13 +1115,411 @@
             </div>
         </div>
         
+        <footer class="bg-[#006661] text-gray-300 py-3 mt-4 text-center"> 
+          
+        </footer>
     </main>
 
-    <!-- // Kontainer Footer -->
-    <div id="footer-container"></div>
-
-    <!-- // Path ke JS eksternal -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800, 
+                once: true,
+                mirror: false,
+                offset: 50, 
+            });
+
+            var typedName = new Typed('#typed-name', {
+                strings: ["Toriq As Syarif", "Programmer", "Developer", "Engineer", "Guitarist"],
+                typeSpeed: 60,
+                backSpeed: 30,
+                backDelay: 1500,
+                startDelay: 500,
+                loop: true,
+                showCursor: true,
+                cursorChar: '|',
+            });
+
+            const callToActionElement = document.getElementById('call-to-action');
+            if (callToActionElement) {
+                setTimeout(() => {
+                    callToActionElement.classList.add('is-visible');
+                }, 2000);
+            }
+
+            const aboutMeTextContainer = document.getElementById('about-me-typing-container');
+            const typingTextAboutMe = document.getElementById('typing-text-about-me');
+
+            if (aboutMeTextContainer && typingTextAboutMe) {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1 
+                };
+                const observerCallback = (entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            aboutMeTextContainer.classList.add('is-visible');
+                            observer.unobserve(entry.target); 
+                        }
+                    });
+                };
+                const aboutMeObserver = new IntersectionObserver(observerCallback, observerOptions);
+                aboutMeObserver.observe(aboutMeTextContainer); 
+            }
+
+            function setProgrammerSkillLevel(skillId, level) {
+                const skillBarFill = document.getElementById(skillId);
+                if (skillBarFill) {
+                    skillBarFill.style.width = '0%'; 
+                    setTimeout(() => {
+                        skillBarFill.style.width = level + '%';
+                    }, 100); 
+                }
+            }
+            
+            const softSkillData = { 
+                'Adaptable': 80, 
+                'Communicative': 85,
+                'Disciplined': 75,
+                'Respectful': 90,
+                'Responsible': 88,
+                'Teamwork': 92
+            };
+            const softSkillDoughnutColors = ['#006661', '#00796b', '#00897b', '#26a69a', '#4db6ac', '#80cbc4'];
+
+
+            const programmerSkillBars = document.querySelectorAll('.skill-bar-fill-programmer');
+            const programmerObserverOptions = { root: null, rootMargin: '0px', threshold: 0.5 };
+            const programmerObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const targetId = entry.target.id;
+                        if (targetId === 'python-skill') setProgrammerSkillLevel(targetId, 90);
+                        else if (targetId === 'html-skill') setProgrammerSkillLevel(targetId, 95);
+                        else if (targetId === 'php-skill') setProgrammerSkillLevel(targetId, 80);
+                        else if (targetId === 'css-skill') setProgrammerSkillLevel(targetId, 90); 
+                        else if (targetId === 'java-skill') setProgrammerSkillLevel(targetId, 75);
+                        else if (targetId === 'javascript-skill') setProgrammerSkillLevel(targetId, 85); 
+                        else if (targetId === 'cpp-skill') setProgrammerSkillLevel(targetId, 70); 
+                        else if (targetId === 'c-skill') setProgrammerSkillLevel(targetId, 65); 
+                        else if (targetId === 'r-skill') setProgrammerSkillLevel(targetId, 60); 
+                        else if (targetId === 'kotlin-skill') setProgrammerSkillLevel(targetId, 70); 
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, programmerObserverOptions);
+            programmerSkillBars.forEach(bar => programmerObserver.observe(bar));
+
+            // Chart.js: Hard Skill (Radar Chart)
+            const hardSkillCtx = document.getElementById('hardSkillChart');
+            if (hardSkillCtx) {
+                const hardSkillRawData = { 
+                    'An': 90, 'CS': 80, 'DS': 85,  
+                    'ML': 85, 'Mu': 85, 'Ne': 75, 'IS': 80   
+                };
+                const radarChartFillColor = 'rgba(0, 102, 97, 0.5)'; 
+                const radarChartBorderColorTheme = '#006661'; 
+
+                const hardSkillChartData = {
+                    labels: Object.keys(hardSkillRawData), 
+                    datasets: [{
+                        label: 'Tingkat Penguasaan', 
+                        data: Object.values(hardSkillRawData),
+                        backgroundColor: radarChartFillColor, 
+                        borderColor: radarChartBorderColorTheme, 
+                        borderWidth: 2,
+                        pointBackgroundColor: radarChartBorderColorTheme, 
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff', 
+                        pointHoverBorderColor: radarChartBorderColorTheme
+                    }]
+                };
+                new Chart(hardSkillCtx.getContext('2d'), {
+                    type: 'radar', 
+                    data: hardSkillChartData,
+                    options: {
+                        responsive: true, maintainAspectRatio: false, 
+                        plugins: { 
+                            legend: { display: false }, 
+                            tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
+                        },
+                        scales: { r: {
+                            angleLines: { color: 'rgba(0,0,0,0.1)' }, 
+                            grid: { color: 'rgba(0,0,0,0.1)' },
+                            pointLabels: { font: { family: 'Lexend', size: 10, weight: '500' }, color: '#4a5568' }, 
+                            ticks: { beginAtZero: true, max: 100, stepSize: 20, color: '#666', backdropColor: 'rgba(255,255,255,0.7)', font: { family: 'Lexend', size: 8 }} 
+                        }},
+                        elements: { line: { tension: 0.1 }, point: { radius: 3, hitRadius: 8, hoverRadius: 5 }} 
+                    }
+                });
+
+                const hardSkillChartLegend = document.getElementById('hardSkillChartLegend');
+                if (hardSkillChartLegend) {
+                    const legendTextMapping = {
+                        'An': 'Android', 'CS': 'Cyber Security', 'DS': 'Data Science',
+                        'ML': 'Machine Learning', 'Mu': 'Multimedia', 'Ne': 'Networking',
+                        'IS': 'IT Support'
+                    };
+                    hardSkillChartLegend.innerHTML = ''; 
+                    for (const key in legendTextMapping) {
+                        if (legendTextMapping.hasOwnProperty(key)) {
+                            const legendItem = document.createElement('div');
+                            legendItem.classList.add('legend-item'); 
+                            legendItem.textContent = `${key} = ${legendTextMapping[key]}`;
+                            hardSkillChartLegend.appendChild(legendItem);
+                        }
+                    }
+                }
+            }
+
+            // Chart.js: Language Skill (Vertical Bar Chart)
+            const languageCtx = document.getElementById('languageSkillChart');
+            if (languageCtx) {
+                const languageSkillLevels = { 
+                    'Bahasa': 95, 
+                    'Inggris': 80,
+                    'Arab': 60
+                };
+                const languageBarColors = ['#006661', '#00796b', '#00897b'];
+                const languageSkillData = {
+                    labels: Object.keys(languageSkillLevels),
+                    datasets: [{
+                        label: 'Tingkat Keahlian', 
+                        data: Object.values(languageSkillLevels),
+                        backgroundColor: languageBarColors, 
+                        borderColor: languageBarColors, 
+                        borderWidth: 1
+                    }]
+                };
+                new Chart(languageCtx.getContext('2d'), {
+                    type: 'bar', 
+                    data: languageSkillData,
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: { 
+                            legend: { display: false }, 
+                            tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
+                        },
+                        scales: {
+                            y: { 
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: { 
+                                    stepSize: 25, 
+                                    callback: val => val + '%' ,
+                                    font: { family: 'Lexend', size: 8 }, color: '#666'
+                                },
+                                grid: { color: 'rgba(0,0,0,0.1)' }
+                            },
+                            x: { 
+                                ticks: { font: { family: 'Lexend', size: 10 }, color: '#4a5568' },
+                                grid: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart.js: Soft Skill (Doughnut Chart) 
+            const softSkillCtx = document.getElementById('softSkillChart'); 
+            if (softSkillCtx) {
+                new Chart(softSkillCtx.getContext('2d'), {
+                    type: 'doughnut', 
+                    data: {
+                        labels: Object.keys(softSkillData), 
+                        datasets: [{
+                            label: 'Tingkat Penguasaan', 
+                            data: Object.values(softSkillData), 
+                            backgroundColor: softSkillDoughnutColors, 
+                            borderColor: softSkillDoughnutColors,    
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        cutout: '50%', 
+                        plugins: { 
+                            legend: { display: false }, 
+                            tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
+                        }
+                    }
+                });
+                const softSkillChartLegend = document.getElementById('softSkillChartLegend'); 
+                if (softSkillChartLegend) {
+                    softSkillChartLegend.innerHTML = ''; 
+                    Object.keys(softSkillData).forEach((label, index) => {
+                         const item = document.createElement('div'); item.className = 'legend-item';
+                         const colorBox = document.createElement('div'); colorBox.className = 'legend-color';
+                         colorBox.style.backgroundColor = softSkillDoughnutColors[index % softSkillDoughnutColors.length]; 
+                         const labelText = document.createElement('span'); labelText.className = 'legend-label';
+                         labelText.textContent = label;
+                         item.append(colorBox, labelText); softSkillChartLegend.appendChild(item);
+                    });
+                }
+            }
+            
+            const fadeInSections = document.querySelectorAll('.fade-in-section');
+            const generalFadeInObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.id !== 'about-me-text-container') {
+                             entry.target.classList.add('is-visible');
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.1 }); 
+            fadeInSections.forEach(section => generalFadeInObserver.observe(section));
+
+            function initializeSlideshow(containerId) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+                const items = container.querySelectorAll('.certificate-item');
+                if (items.length === 0) return;
+                let currentIndex = 0;
+                let interval;
+                items[currentIndex].classList.add('active');
+
+                function showNext() {
+                    items[currentIndex].classList.remove('active');
+                    currentIndex = (currentIndex + 1) % items.length;
+                    items[currentIndex].classList.add('active');
+                }
+                function showPrev() {
+                    items[currentIndex].classList.remove('active');
+                    currentIndex = (currentIndex - 1 + items.length) % items.length;
+                    items[currentIndex].classList.add('active');
+                }
+                function start() { clearInterval(interval); interval = setInterval(showNext, 3000); } 
+                function pause() { clearInterval(interval); }
+
+                start();
+                container.addEventListener('mouseenter', pause);
+                container.addEventListener('mouseleave', start);
+                container.addEventListener('touchstart', pause, {passive: true});
+                container.addEventListener('touchend', start);
+                container.addEventListener('click', (e) => {
+                    const rect = container.getBoundingClientRect();
+                    e.clientX - rect.left > rect.width / 2 ? showNext() : showPrev();
+                    pause(); start();
+                });
+            }
+            initializeSlideshow('slideshow-container-1');
+            initializeSlideshow('slideshow-container-2');
+            initializeSlideshow('slideshow-container-3');
+
+            const orgLogoItems = document.querySelectorAll('.org-logo-item'); 
+            const courseLogoItems = document.querySelectorAll('.course-logo-item'); 
+            const infoModal = document.getElementById('infoModal');
+            const modalTitleEl = document.getElementById('modalTitle'); 
+            const modalBodyEl = document.getElementById('modalBody');   
+            const closeButton = document.getElementById('closeButton');
+
+            if (infoModal) infoModal.style.display = "none";
+
+            orgLogoItems.forEach(item => {
+                 item.addEventListener('click', () => {
+                    if (modalTitleEl && modalBodyEl && infoModal) {
+                        modalTitleEl.textContent = item.dataset.title || 'Detail';
+                        modalBodyEl.innerHTML = `<p>${item.dataset.description || 'Informasi tidak tersedia.'}</p>`;
+                        infoModal.style.setProperty('display', 'flex', 'important');
+                    }
+                });
+            });
+
+            if (closeButton && infoModal) closeButton.addEventListener('click', () => infoModal.style.setProperty('display', 'none', 'important'));
+            if (infoModal) window.addEventListener('click', e => { if (e.target === infoModal) infoModal.style.setProperty('display', 'none', 'important'); });
+
+            // Logika Header Responsif (Sinkron dengan others_page_certificates)
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenuDrawer = document.getElementById('mobileMenuDrawer'); 
+            const closeMobileMenuBtn = document.getElementById('closeMobileMenuBtn');
+            const mobileNavLinks = document.querySelectorAll('#mobileMenuDrawer .nav-link'); 
+
+            if (mobileMenuBtn && mobileMenuDrawer && closeMobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.add('open'));
+                closeMobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.remove('open'));
+                
+                mobileNavLinks.forEach(link => { 
+                    if (!link.parentElement.classList.contains('portfolio-mobile-trigger') && !link.closest('.mobile-submenu')) { 
+                        link.addEventListener('click', () => mobileMenuDrawer.classList.remove('open'));
+                    }
+                });
+            }
+            
+            const portfolioMobileTrigger = document.querySelector('.portfolio-mobile-trigger');
+            const portfolioMobileSubmenu = document.querySelector('.portfolio-mobile-submenu');
+            const portfolioArrowIcon = portfolioMobileTrigger ? portfolioMobileTrigger.querySelector('.arrow-icon') : null;
+
+            if (portfolioMobileTrigger && portfolioMobileSubmenu && portfolioArrowIcon) {
+                portfolioMobileTrigger.addEventListener('click', function(event) {
+                    event.preventDefault(); 
+                    portfolioMobileSubmenu.classList.toggle('open');
+                    portfolioArrowIcon.classList.toggle('rotate-180');
+                });
+                portfolioMobileSubmenu.querySelectorAll('a.nav-link').forEach(link => {
+                     link.addEventListener('click', () => {
+                        mobileMenuDrawer.classList.remove('open');
+                     });
+                });
+            }
+            
+            const portfolioDesktopTrigger = document.getElementById('portfolioDesktopTrigger');
+            const desktopDropdown = portfolioDesktopTrigger ? portfolioDesktopTrigger.nextElementSibling : null;
+            
+            const currentYearElements = [document.getElementById('currentYearFooter'), document.getElementById('currentYearMobileDrawer')];
+            currentYearElements.forEach(el => {
+                if (el) el.textContent = new Date().getFullYear();
+            });
+            
+            const sections = document.querySelectorAll('main section[id]'); 
+            function setActiveLink() {
+                let currentSectionId = '';
+                const headerHeight = 64; 
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - headerHeight - 10; 
+                    const sectionBottom = sectionTop + section.offsetHeight;
+
+                    if (pageYOffset >= sectionTop && pageYOffset < sectionBottom) {
+                        currentSectionId = section.getAttribute('id');
+                    }
+                });
+                if (!currentSectionId && sections.length > 0 && pageYOffset < (sections[0].offsetTop - headerHeight -10) ) {
+                     currentSectionId = 'home-content'; 
+                }
+
+                document.querySelectorAll('nav .nav-link').forEach(link => { 
+                    link.classList.remove('active');
+                    const linkHref = link.getAttribute('href');
+                    
+                    if (linkHref && ((linkHref.startsWith('#') && linkHref.substring(1) === currentSectionId) || (currentSectionId === 'home-content' && linkHref === '#home'))) {
+                        link.classList.add('active');
+                    } else if (linkHref === 'others.html' && window.location.pathname.endsWith('/others.html')) { 
+                        if(link.textContent.trim() === 'Something') {
+                            link.classList.add('active');
+                        }
+                    } else if (linkHref === 'portfolio-training.html' && window.location.pathname.endsWith('/portfolio-training.html')) {
+                        const parentDropdown = link.closest('.dropdown-menu') || link.closest('.mobile-submenu');
+                        if (parentDropdown) {
+                            const portfolioTrigger = document.querySelector('#portfolioDesktopTrigger') || document.querySelector('.portfolio-mobile-trigger span');
+                            if (portfolioTrigger) {
+                                const mainPortfolioLinkInNav = Array.from(document.querySelectorAll('header nav > a.nav-link, header nav > div > button.nav-link')).find(el => el.textContent.includes('Portfolio'));
+                                if (mainPortfolioLinkInNav && !mainPortfolioLinkInNav.classList.contains('active')) mainPortfolioLinkInNav.classList.add('active');
+                            }
+                        }
+                        if (link.textContent.trim() === 'Training') {
+                            link.classList.add('active');
+                        }
+                    }
+                });
+            }
+            window.addEventListener('scroll', setActiveLink);
+            setActiveLink(); 
+
+        });
+    </script>
 </body>
 </html>
