@@ -1,21 +1,20 @@
 <!-- // File: includes/header.html -->
-<!-- // Konten ini akan dimuat secara dinamis di setiap halaman. -->
+<!-- // Perbaikan Final: Struktur HTML diubah untuk memisahkan link dan hover. -->
 <header class="top-header fixed top-0 left-0 right-0 flex items-center justify-between px-4 md:px-6 shadow-md">
-    <!-- // Path ke index.html di root folder -->
     <a href="/index.html" class="flex items-center">
-        <!-- // Path gambar placeholder, bisa diganti ke folder /img/ nanti -->
-        <img src="https://placehold.co/40x40/FFFFFF/006661?text=TS" alt="Logo Situs" class="h-8 w-8 mr-2 rounded-sm">
+        <img src="/img/logo.png" alt="Logo Situs" class="h-8 w-8 mr-2 rounded-sm" onerror="this.onerror=null;this.src='https://placehold.co/40x40/FFFFFF/006661?text=TS';">
         <span class="text-lg font-semibold text-white">to6661q</span>
     </a>
+    
     <!-- Navigasi Desktop -->
     <nav class="hidden md:flex space-x-1 items-center">
-        <!-- // Path disesuaikan untuk navigasi dari folder /pages/ -->
         <a href="/index.html" class="nav-link">Home</a>
 
+        <!-- // Perbaikan: Wrapper div untuk hover, dan <a> untuk link terpisah -->
         <div class="desktop-nav-item relative">
-<a href="/pages/portfolio.html" class="nav-link flex items-center portfolio-desktop-trigger" aria-haspopup="true" aria-expanded="false" id="portfolioDesktopTrigger">
-    Portfolio <i class='bx bx-chevron-down text-lg ml-1 transform transition-transform duration-200 arrow-icon'></i>
-</a>
+            <a href="/pages/portfolio.html" class="nav-link" id="portfolioDesktopTrigger">
+                Portfolio
+            </a>
             <div class="dropdown-menu">
                 <a href="/pages/experience.html" class="nav-link">Experience</a>
                 <a href="/pages/training.html" class="nav-link">Training</a>
@@ -26,6 +25,7 @@
         <a href="/pages/something.html" class="nav-link">Something</a>
         <a href="/pages/aboutMe.html" class="nav-link">About Me</a>
     </nav>
+    
     <!-- Tombol Hamburger Mobile -->
     <button id="mobileMenuBtn" aria-label="Buka menu" class="md:hidden">
         <i class='bx bx-menu text-3xl'></i>
@@ -40,10 +40,14 @@
     <nav class="space-y-2">
         <a href="/index.html" class="nav-link"><i class='bx bxs-home'></i>Home</a>
 
+        <!-- // Perbaikan Mobile: Link utama Portfolio ditambahkan -->
+        <a href="/pages/portfolio.html" class="nav-link"><i class='bx bxs-briefcase-alt-2'></i>Portfolio Hub</a>
+        
         <div>
-            <a href="/pages/portfolio.html" class="nav-link flex items-center portfolio-desktop-trigger" aria-haspopup="true" aria-expanded="false" id="portfolioDesktopTrigger">
-    Portfolio <i class='bx bx-chevron-down text-lg ml-1 transform transition-transform duration-200 arrow-icon'></i>
-</a>
+            <button class="nav-link w-full text-left flex justify-between items-center portfolio-mobile-trigger">
+                <span><i class='bx bx-chevron-down'></i>Sub-Portfolio</span>
+                <i class='bx bx-chevron-down text-lg arrow-icon'></i>
+            </button>
             <div class="mobile-submenu mt-1 space-y-1 portfolio-mobile-submenu">
                 <a href="/pages/experience.html" class="nav-link">Experience</a>
                 <a href="/pages/training.html" class="nav-link">Training</a>
