@@ -3,61 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Training - Portfolio Toriq</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Portfolio - Training</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="../css/style.css">
+   
 </head>
-<body>
+<body class="bg-[#f0fdf4]">
 
-    <div id="header-placeholder"></div>
+    <!-- Header Atas (Desktop & Mobile Trigger) -->
+    <header class="top-header fixed top-0 left-0 right-0 flex items-center justify-between px-4 md:px-6 shadow-md">
+        <a href="index.html#home" class="flex items-center"> 
+            <img src="https://placehold.co/40x40/FFFFFF/006661?text=TS" alt="Logo Situs" class="h-8 w-8 mr-2 rounded-sm"> 
+            <span class="text-lg font-semibold text-white">to6661q</span>
+        </a>
+        <!-- Navigasi Desktop -->
+        <nav class="hidden md:flex space-x-1 items-center">
+            <a href="index.html#home" class="nav-link">Home</a> 
+            
+            <div class="desktop-nav-item relative">
+                <button class="nav-link flex items-center portfolio-desktop-trigger active" aria-haspopup="true" aria-expanded="false" id="portfolioDesktopTrigger"> 
+                    Portfolio <i class='bx bx-chevron-down text-lg ml-1 transform transition-transform duration-200 arrow-icon'></i>
+                </button>
+                <div class="dropdown-menu"> 
+                    <a href="index.html#experience-target" class="nav-link">Experience</a> 
+                    <a href="#portfolio-training-content" class="nav-link active">Training</a> 
+                    <a href="index.html#achievements-target" class="nav-link">Achievements</a> 
+                </div>
+            </div>
+            
+            <a href="others.html" class="nav-link">Something</a>
+            <a href="index.html#about-me" class="nav-link">About Me</a> 
+        </nav>
+        <!-- Tombol Hamburger Mobile -->
+        <button id="mobileMenuBtn" aria-label="Buka menu" class="md:hidden">
+            <i class='bx bx-menu text-3xl'></i>
+        </button>
+    </header>
 
+    <!-- Menu Mobile Drawer (Samping) -->
+    <aside id="mobileMenuDrawer" class="mobile-menu-drawer fixed top-0 left-0 h-full shadow-lg p-6 pt-20 overflow-y-auto">
+        <button id="closeMobileMenuBtn" class="absolute top-5 right-5 text-2xl" aria-label="Tutup menu">
+            <i class='bx bx-x'></i>
+        </button>
+        <nav class="space-y-2">
+            <a href="index.html#home" class="nav-link"><i class='bx bxs-home'></i>Home</a>
+            
+            <div>
+                <button class="nav-link w-full text-left flex justify-between items-center portfolio-mobile-trigger">
+                    <span><i class='bx bxs-briefcase-alt-2'></i>Portfolio</span>
+                    <i class='bx bx-chevron-down text-lg arrow-icon'></i>
+                </button>
+                <div class="mobile-submenu mt-1 space-y-1 portfolio-mobile-submenu"> 
+                    <a href="index.html#experience-target" class="nav-link">Experience</a>
+                    <a href="#portfolio-training-content" class="nav-link active">Training</a> 
+                    <a href="index.html#achievements-target" class="nav-link">Achievements</a>
+                </div>
+            </div>
+
+            <a href="others.html" class="nav-link"><i class='bx bxs-extension'></i>Something</a>
+            <a href="index.html#about-me" class="nav-link"><i class='bx bxs-user-detail'></i>About Me</a>
+        </nav>
+        <div class="mt-8 text-xs text-gray-400"> 
+            <p>&copy; <span id="currentYearMobileDrawer"></span> Toriq As Syarif</p>
+        </div>
+    </aside>
+
+
+    <!-- Konten Utama Halaman "Portfolio - Training" -->
     <main id="mainContent" class="main-content-area">
-        <section class="py-8 md:py-12 px-4 md:px-8">
-            <div class="max-w-7xl mx-auto text-center"> 
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#006661]" data-aos="fade-up">Training Certificates</h2>
-                <a href="https://www.linkedin.com/in/to6661q/details/certifications/" target="_blank" rel="noopener noreferrer" class="detail-certificate-button" data-aos="fade-up" data-aos-delay="100">
-                    View All Certifications on LinkedIn
+        <section id="portfolio-training-content" class="py-8 md:py-12 px-4 md:px-8">
+            <div class="max-w-6xl mx-auto text-center"> 
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-[#006661]">Sertifikat Training</h2>
+                <!-- Tombol Detail Sertifikat Training -->
+                <a href="https://www.linkedin.com/in/to6661q/details/certifications/" target="_blank" rel="noopener noreferrer" class="detail-certificate-button">
+                    Click Me on Detailed Training Certificate
                 </a>
                 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 mt-8"> 
-                    <!-- Certificate 1 -->
+                    <!-- Ganti dengan path gambar sertifikat training Anda -->
                     <div class="certificate-card" data-aos="fade-up">
-                        <div class="certificate-image-wrapper">
-                            <img src="https://placehold.co/600x424/006661/FFFFFF?text=Cert+1" alt="Sertifikat Training 1" class="certificate-image">
-                        </div>
+                        <img src="https://www.rukita.co/stories/wp-content/uploads/2022/04/random-adalah-..png" alt="Sertifikat Training 1" class="certificate-image">
                     </div>
-                     <!-- Certificate 2 -->
                     <div class="certificate-card" data-aos="fade-up" data-aos-delay="100">
-                         <div class="certificate-image-wrapper">
-                            <img src="https://placehold.co/600x424/00796b/FFFFFF?text=Cert+2" alt="Sertifikat Training 2" class="certificate-image">
-                        </div>
+                        <img src="img/certificates/training_cert_2.jpg" alt="Sertifikat Training 2" class="certificate-image">
                     </div>
-                     <!-- Certificate 3 -->
                     <div class="certificate-card" data-aos="fade-up" data-aos-delay="200">
-                         <div class="certificate-image-wrapper">
-                            <img src="https://placehold.co/600x424/00897b/FFFFFF?text=Cert+3" alt="Sertifikat Training 3" class="certificate-image">
-                        </div>
+                        <img src="img/certificates/training_cert_3.jpg" alt="Sertifikat Training 3" class="certificate-image">
                     </div>
-                    <!-- Add more certificate cards as needed -->
+                    <div class="certificate-card" data-aos="fade-up" data-aos-delay="300">
+                        <img src="img/certificates/training_cert_4.jpg" alt="Sertifikat Training 4" class="certificate-image">
+                    </div>
+                     <div class="certificate-card" data-aos="fade-up">
+                        <img src="img/certificates/training_cert_5.jpg" alt="Sertifikat Training 5" class="certificate-image">
+                    </div>
+                    <div class="certificate-card" data-aos="fade-up" data-aos-delay="100">
+                        <img src="img/certificates/training_cert_6.jpg" alt="Sertifikat Training 6" class="certificate-image">
+                    </div>
+                     <div class="certificate-card" data-aos="fade-up" data-aos-delay="200">
+                        <img src="img/certificates/training_cert_7.jpg" alt="Sertifikat Training 7" class="certificate-image">
+                    </div>
+                     <div class="certificate-card" data-aos="fade-up" data-aos-delay="300">
+                        <img src="img/certificates/training_cert_8.jpg" alt="Sertifikat Training 8" class="certificate-image">
+                    </div>
                 </div>
             </div>
         </section>
+
+        <!-- Modal untuk Menampilkan Gambar Penuh -->
+        <div id="imageModal" class="image-modal">
+            <span class="image-modal-close" id="imageModalClose">&times;</span>
+            <img class="image-modal-content" id="modalImage">
+        </div>
+
+        <footer class="bg-[#006661] text-gray-300 py-6 mt-10 text-center">
+            <div class="container mx-auto px-6">
+                <div class="flex justify-center space-x-2 mb-3"> 
+                    <a href="https://www.linkedin.com/in/toriq-as-syarif-9488381b2/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon-link">
+                        <i class='bx bxl-linkedin-square'></i>
+                    </a>
+                    <a href="https://github.com/to6661q" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="social-icon-link">
+                        <i class='bx bxl-github'></i>
+                    </a>
+                    <a href="https://www.instagram.com/to6661q/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon-link">
+                        <i class='bx bxl-instagram-alt'></i>
+                    </a>
+                    <a href="mailto:toriq.assyarif@gmail.com" aria-label="Email" class="social-icon-link">
+                        <i class='bx bxs-envelope'></i>
+                    </a>
+                    <a href="https://wa.me/6282289007000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-icon-link">
+                        <i class='bx bxl-whatsapp'></i>
+                    </a>
+                </div>
+                <p class="text-sm">&copy; <span id="currentYearFooter"></span> Toriq As Syarif. All rights reserved.</p>
+            </div>
+        </footer>
     </main>
-    
-    <footer id="footer-placeholder"></footer>
 
-    <!-- Image Modal -->
-    <div id="imageModal" class="image-modal">
-        <span class="image-modal-close" id="imageModalClose">&times;</span>
-        <img class="image-modal-content" id="modalImage">
-    </div>
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../js/script.js"></script>
 </body>
 </html>
