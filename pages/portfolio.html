@@ -1066,66 +1066,92 @@
             programmerSkillBars.forEach(bar => programmerObserver.observe(bar));
 
             // Chart.js: Hard Skill (Radar Chart)
-            const hardSkillCtx = document.getElementById('hardSkillChart');
-            if (hardSkillCtx) {
-                const hardSkillRawData = { 
-                    'An': 85, 'CS': 80, 'DS': 95,  
-                    'ML': 95, 'Mu': 95, 'Ne': 90, 'IS': 95   
-                };
-                const radarChartFillColor = 'rgba(0, 102, 97, 0.5)'; 
-                const radarChartBorderColorTheme = '#006661'; 
+const hardSkillCtx = document.getElementById('hardSkillChart');
+if (hardSkillCtx) {
+    const hardSkillRawData = {
+        'An': 85, 'CS': 80, 'DS': 95,
+        'ML': 95, 'Mu': 95, 'Ne': 90, 'IS': 95
+    };
+    const radarChartFillColor = 'rgba(0, 102, 97, 0.5)';
+    const radarChartBorderColorTheme = '#006661';
 
-                const hardSkillChartData = {
-                    labels: Object.keys(hardSkillRawData), 
-                    datasets: [{
-                        label: 'Tingkat Penguasaan', 
-                        data: Object.values(hardSkillRawData),
-                        backgroundColor: radarChartFillColor, 
-                        borderColor: radarChartBorderColorTheme, 
-                        borderWidth: 2,
-                        pointBackgroundColor: radarChartBorderColorTheme, 
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff', 
-                        pointHoverBorderColor: radarChartBorderColorTheme
-                    }]
-                };
-                new Chart(hardSkillCtx.getContext('2d'), {
-                    type: 'radar', 
-                    data: hardSkillChartData,
-                    options: {
-                        responsive: true, maintainAspectRatio: false, 
-                        plugins: { 
-                            legend: { display: false }, 
-                            tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
-                        },
-                        scales: { r: {
-                            angleLines: { color: 'rgba(0,0,0,0.1)' }, 
-                            grid: { color: 'rgba(0,0,0,0.1)' },
-                            pointLabels: { font: { family: 'Lexend', size: 10, weight: '500' }, color: '#4a5568' }, 
-                            ticks: { beginAtZero: true, max: 100, stepSize: 20, color: '#666', backdropColor: 'rgba(255,255,255,0.7)', font: { family: 'Lexend', size: 8 }} 
-                        }},
-                        elements: { line: { tension: 0.1 }, point: { radius: 3, hitRadius: 8, hoverRadius: 5 }} 
-                    }
-                });
-
-                const hardSkillChartLegend = document.getElementById('hardSkillChartLegend');
-                if (hardSkillChartLegend) {
-                    const legendTextMapping = {
-                        'An': 'Android', 'CS': 'Cyber Security', 'DS': 'Data Science',
-                        'ML': 'Machine Learning', 'Mu': 'Multimedia', 'Ne': 'Networking',
-                        'IS': 'IT Support'
-                    };
-                    hardSkillChartLegend.innerHTML = ''; 
-                    for (const key in legendTextMapping) {
-                        if (legendTextMapping.hasOwnProperty(key)) {
-                            const legendItem = document.createElement('div');
-                            legendItem.classList.add('legend-item'); 
-                            legendItem.textContent = `${key} = ${legendTextMapping[key]}`;
-                            hardSkillChartLegend.appendChild(legendItem);
-                        }
-                    }
+    const hardSkillChartData = {
+        labels: Object.keys(hardSkillRawData),
+        datasets: [{
+            label: 'Tingkat Penguasaan',
+            data: Object.values(hardSkillRawData),
+            backgroundColor: radarChartFillColor,
+            borderColor: radarChartBorderColorTheme,
+            borderWidth: 2,
+            pointBackgroundColor: radarChartBorderColorTheme,
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: radarChartBorderColorTheme
+        }]
+    };
+    new Chart(hardSkillCtx.getContext('2d'), {
+        type: 'radar',
+        data: hardSkillChartData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
+            },
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(0,0,0,0.1)' },
+                    grid: { color: 'rgba(0,0,0,0.1)' },
+                    pointLabels: {
+                        font: { family: 'Lexend', size: 10, weight: '500' },
+                        color: '#4a5568',
+                        // Jika label terlalu panjang dan menyebabkan offset, Anda bisa mempertimbangkan untuk membungkus teks atau menyingkatnya.
+                    },
+                    ticks: {
+                        beginAtZero: true,
+                        max: 100,
+                        stepSize: 20,
+                        color: '#666',
+                        backdropColor: 'rgba(255,255,255,0.7)',
+                        font: { family: 'Lexend', size: 8 }
+                    },
+                    // *** SOLUSI UTAMA UNTUK MENGURANGI JARAK KE TEPI ***
+                    offset: false, // Tambahkan properti ini
+                    // Jika pointLabels terlalu dekat setelah offset: false,
+                    // Anda bisa mencoba menyesuaikan padding global pada chart:
+                    // padding: 20, // Tambahkan ini di 'options' level atas jika perlu
                 }
+            },
+            elements: {
+                line: { tension: 0.1 },
+                point: { radius: 3, hitRadius: 8, hoverRadius: 5 }
             }
+        }
+    });
+
+    const hardSkillChartLegend = document.getElementById('hardSkillChartLegend');
+    if (hardSkillChartLegend) {
+        const legendTextMapping = {
+            'An': 'Android', 'CS': 'Cyber Security', 'DS': 'Data Science',
+            'ML': 'Machine Learning', 'Mu': 'Multimedia', 'Ne': 'Networking',
+            'IS': 'IT Support'
+        };
+        hardSkillChartLegend.innerHTML = '';
+        for (const key in legendTextMapping) {
+            if (legendTextMapping.hasOwnProperty(key)) {
+                const legendItem = document.createElement('div');
+                legendItem.classList.add('legend-item');
+                legendItem.textContent = `${key} = ${legendTextMapping[key]}`;
+                hardSkillChartLegend.appendChild(legendItem);
+            }
+        }
+    }
+}
+
+
+            
+            
 
             // Chart.js: Language Skill (Vertical Bar Chart)
             const languageCtx = document.getElementById('languageSkillChart');
