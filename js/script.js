@@ -106,13 +106,14 @@ document.addEventListener('DOMContentLoaded', function() {
             if (el) el.textContent = currentYear;
         });
         
-        // 5. Logika untuk menandai link navigasi yang aktif
+        // // PERUBAHAN PENTING: Logika untuk menandai link navigasi yang aktif telah disederhanakan
         const currentPath = window.location.pathname;
-        document.querySelectorAll('.nav-link').forEach(link => {
-            const linkPath = new URL(link.href).pathname;
+        document.querySelectorAll('a.nav-link').forEach(link => {
+            const linkPath = new URL(link.href, window.location.href).pathname;
             
-            // Cek jika path link sama dengan path halaman saat ini
-            if (linkPath === currentPath) {
+            // Cek jika path link sama dengan path halaman saat ini.
+            // Juga menangani kasus di mana halaman home bisa berupa "/" atau "/index.html".
+            if (linkPath === currentPath || (linkPath === '/' && (currentPath.endsWith('/index.html') || currentPath.endsWith('/')))) {
                 link.classList.add('active');
                 
                 // Jika link aktif ada di dalam dropdown, buat parent-nya juga aktif
@@ -130,10 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-        // Khusus untuk link Home di index.html
-        if (currentPath === '/index.html' || currentPath === '/') {
-            document.querySelector('a.nav-link[href="../index.html"]')?.classList.add('active');
-        }
     };
 
     // // PERUBAHAN BARU: Memuat header dan footer, lalu menjalankan skrip utama.
