@@ -954,10 +954,10 @@
                     <iframe id="cvPdfViewer" src="" frameborder="0" class="w-full h-full"></iframe>
                 </div>
                 <div class="modal-footer flex justify-between items-center">
-                    <a id="downloadPdfButton" href="../pages/cvQ.pdf" download="Toriq_As_Syarif_CV.pdf" class="close-button flex items-center justify-center">
+                    <a id="downloadPdfButton" href="https://github.com/to6661q/to6661q/blob/792f10174cbaa1d6d23be4e2240eb9bfab83f8df/pages/cvQ.pdf" download="Toriq_As_Syarif_CV.pdf" class="close-button flex items-center justify-center">
                         <i class='bx bxs-download mr-2'></i> Download PDF
                     </a>
-                    <button id="closeCvButton" class="close-button">Tutup</button>
+                    <button id="closeCvButton" class="close-button">Close</button>
                 </div>
             </div>
         </div>
@@ -1300,7 +1300,7 @@
             const downloadPdfButton = document.getElementById('downloadPdfButton'); // New: Get download button
 
             // Set the PDF URL here. Replace 'path/to/your-cv.pdf' with your actual CV PDF link.
-            const cvPdfUrl = 'https://raw.githubusercontent.com/to6661q/to6661q/792f10174cbaa1d6d23be4e2240eb9bfab83f8df/pages/cvQ.pdf'; 
+            const cvPdfUrl = '../pages/cvQ.pdf'; 
             // Ensure the download link uses the same URL
             if (downloadPdfButton) {
                 downloadPdfButton.href = cvPdfUrl;
