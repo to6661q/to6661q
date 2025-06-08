@@ -1,10 +1,8 @@
 <!-- // File ini berisi semua kode untuk header dan navigasi -->
-<!-- // PERUBAHAN: Semua link di bawah ini telah disesuaikan path-nya -->
 <div class="top-header fixed top-0 left-0 right-0 flex items-center justify-between px-4 md:px-6 shadow-md">
-    <!-- // PERUBAHAN: Link logo sekarang mengarah ke index.html di direktori utama -->
+    <!-- Link logo mengarah ke halaman utama ("/") -->
     <a href="/" class="flex items-center"> 
-        <!-- // PERUBAHAN: Ganti "logo.png" dengan nama file logo Anda di dalam folder /img -->
-        <img src="/img/logo.png" 
+        <img src="../img/logo.png" 
              alt="Logo Situs" 
              class="h-8 w-8 mr-2 rounded-sm"
              onerror="this.onerror=null;this.src='https://placehold.co/40x40/FFFFFF/006661?text=TS';"> <!-- Fallback jika gambar tidak ada -->
@@ -14,10 +12,12 @@
     <nav class="hidden md:flex space-x-1 items-center">
         <a href="/" class="nav-link">Home</a>
         
+        <!-- // PERUBAHAN ADA DI BAGIAN INI -->
         <div class="desktop-nav-item relative">
-            <button class="nav-link flex items-center" aria-haspopup="true" aria-expanded="false" id="portfolioDesktopTrigger">
+            <!-- Tombol "Portfolio" sekarang menjadi link yang bisa diklik -->
+            <a href="/pages/portfolio.html" class="nav-link flex items-center" id="portfolioDesktopTrigger">
                 Portfolio <i class='bx bx-chevron-down text-lg ml-1'></i>
-            </button>
+            </a>
             <div class="dropdown-menu"> 
                 <a href="/pages/portfolio.html" class="nav-link">All Portfolio</a>
                 <a href="/pages/experience.html" class="nav-link">Experience</a> 
@@ -43,6 +43,7 @@
     <nav class="space-y-2">
         <a href="/" class="nav-link"><i class='bx bxs-home'></i>Home</a>
         
+        <!-- Untuk mobile, biarkan sebagai button karena fungsinya hanya membuka submenu -->
         <div>
             <button class="nav-link w-full text-left flex justify-between items-center portfolio-mobile-trigger">
                 <span><i class='bx bxs-briefcase-alt-2'></i>Portfolio</span>
