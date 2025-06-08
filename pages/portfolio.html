@@ -18,7 +18,7 @@
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     
     <script src="https://unpkg.com/chart.js"></script>
-<link rel="stylesheet" href="/css/style.css">
+
     <style>
         /* Custom Styles & Overrides */
         body {
@@ -400,6 +400,24 @@
             overflow-y: auto;
             max-height: 85vh; 
         }
+        /* Specific modal content for CV PDF viewer */
+        #cvModal .modal-content {
+            max-width: 700px; /* Diubah dari 900px menjadi 700px */
+            max-height: 85vh; /* Diubah dari 90vh menjadi 85vh */
+            display: flex;
+            flex-direction: column;
+        }
+        #cvPdfViewer {
+            width: 100%;
+            height: 500px; /* Disesuaikan agar proporsional dengan lebar baru */
+            border: 1px solid #e2e8f0;
+        }
+        @media (max-width: 768px) {
+            #cvPdfViewer {
+                height: 400px; /* Adjust height for smaller screens */
+            }
+        }
+
         @keyframes fadeInModal {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -623,14 +641,14 @@
     <!-- Menu Mobile Drawer (Samping) -->
     <!-- Removed Mobile Menu Drawer HTML -->
 
-<header id="header-placeholder"></header>
+
     <!-- Konten Utama -->
     <main id="mainContent" class="main-content-area">
         <!-- Bagian Awal dan Teks -->
         <section id="home-content" class="bg-white shadow-lg rounded-[0.5rem]">
             <div class="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 text-center md:text-left fade-in-section py-2 md:py-3" data-aos="fade-up"> 
                 <div class="profile-img-container">
-                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGfb4H5tRHrHA/profile-displayphoto-shrink_400_400/B4DZZN3UqiG4Ag-/0/1745063071619?e=1753920000&v=beta&t=EO4u6S0oblEjMVdIbVWODU7CSbvovQksxNtoZx7Wo_c" alt="Foto profil Toriq As Syarif" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
+                    <img src="https://media.licdn.com/dms/image/v2/D4D03AQGfb4H5tRHrHA/profile-displayphoto-shrink_400_400/B4DZZN3UqiG4Ag-/0/1745063071619?e=1753920000&v=beta&t=EO4u6S0oblEjMVdIbVWODU7CSbvovQksNtoZx7Wo_c" alt="Foto profil Toriq As Syarif" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
                 </div>
                 <div class="text-center md:text-left">
                     <h1 class="text-[1.5rem] md:text-[3rem] font-extrabold leading-tight mb-2 text-[#006661]"> 
@@ -639,9 +657,10 @@
                     <p id="call-to-action" class="text-lg md:text-xl text-[#004d40] mb-3 slide-down-fade-in"> 
                         Fully adaptable. Embrace the process, let's grow together!
                     </p>
-                    <a href="path/to/your-cv.pdf" download="Toriq_As_Syarif_CV.pdf" class="download-cv-button mt-3"> 
+                    <!-- Tombol Download My CV yang akan memicu pop-up PDF -->
+                    <button id="openCvModalBtn" class="download-cv-button mt-3"> 
                         <i class='bx bxs-download'></i> Download My CV
-                    </a>
+                    </button>
                 </div>
             </div>
         </section>
@@ -830,7 +849,7 @@
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg" alt="Logo Microsoft Word"></div>
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/34/Microsoft_Office_Excel_%282019%E2%80%93present%29.svg" alt="Logo Microsoft Excel"></div>
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Microsoft_Office_PowerPoint_%282019%E2%80%93present%29.svg" alt="Logo Microsoft PowerPoint"></div>
-                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Microsoft_Office_OneNote_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_OneNote_%282019%E2%80%93present%29.svg.png" alt="Logo Microsoft OneNote"></div>
+                            <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Microsoft_Office_OneNote_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_OneNote_%282019-present%29.svg.png" alt="Logo Microsoft OneNote"></div>
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Microsoft_Office_Access_%282019-present%29.svg/2097px-Microsoft_Office_Access_%282019-present%29.svg.png" alt="Logo Microsoft Access"></div>
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Microsoft_Publisher_2013-2019_logo.svg/1200px-Microsoft_Publisher_2013-2019_logo.svg.png" alt="Logo Microsoft Publisher"></div>
                         </div>
@@ -876,7 +895,7 @@
                     <div class="org-logo-item" data-title="HIMTI UIN Jakarta Academic Division - 2019/2020" data-description="Himpunan Mahasiswa Teknik Informatika (HIMTI) focuses on developing the potential and scientific knowledge of Informatics Engineering students at UIN Syarif Hidayatullah Jakarta. This department aims to enhance IT hard skills and encourage students to excel academically and actively participate in various IT competitions.">
                         <img class="org-logo" src="https://media.licdn.com/dms/image/v2/C560BAQH9y7sIutv2fA/company-logo_200_200/company-logo_200_200/0/1630663355274/himtiuinjkt_logo?e=2147483647&v=beta&t=tm2rR4NRsiHZZn_eJEE3dNhxMduYh3WSIDJAnZlrorA" alt="Logo HIMTI UIN Jakarta">
                     </div>
-                    <div class="org-logo-item" data-title="SEMA FST Oversight Commission - 2020/2021" data-description="The Senat Mahasiswa Faculty of Science and Technology (SEMA FST) Oversight Commission primarily functions to control and supervise all activities and policies set by Dewan Mahasiswa Faculty of Science and Technology (DEMA FST) and all Department Student Associations Himpunan Mahasiswa Jurusan (HMJ) within the UIN Jakarta Faculty of Science and Technology. This commission is responsible for ensuring that every work program adheres to the organizational statutes, bylaws, and applicable regulations, as well as maintaining transparency and accountability of student organizations at the faculty level.">
+                    <div class="org-logo-item" data-title="SEMA FST Oversight Commission - 2020/2021" data-description="The Senat Mahasiswa Fakultas Sains dan Teknologi (SEMA FST) Oversight Commission primarily functions to control and supervise all activities and policies set by Dewan Mahasiswa Fakultas Sains dan Teknologi (DEMA FST) and all Department Student Associations Himpunan Mahasiswa Jurusan (HMJ) within the UIN Jakarta Faculty of Science and Technology. This commission is responsible for ensuring that every work program adheres to the organizational statutes, bylaws, and applicable regulations, as well as maintaining transparency and accountability of student organizations at the faculty level.">
                         <img class="org-logo" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Semafstuin.jpg" alt="Logo SEMA FST">
                     </div>
                     <div class="org-logo-item" data-title="Dapur Seni Music Division - 2018/2025" data-description="This student activity unit accommodates the artistic talents of students from the Faculty of Science and Technology. The Music Division serves as a hub for musical development, where students can hone their instrumental and vocal skills, create original works, and perform in various shows. This division also actively organizes training sessions, participates in competitions, and builds a community for music enthusiasts on campus.">
@@ -888,7 +907,7 @@
                     <div class="org-logo-item" data-title="PSHT UIN Jakarta - 2019/2025" data-description="Persaudaraan Setia Hati Terate (PSHT) UIN Jakarta is a Student Activity Unit Unit Kegiatan Mahasiswa (UKM) that serves as the official branch of Persaudaraan Setia Hati Terate (PSHT) within UIN Syarif Hidayatullah Jakarta. This UKM focuses on training and developing the martial art of Pencak Silat Setia Hati Terate, which not only emphasizes self-defense techniques but also the formation of character, discipline, mental strength, and spirituality among its members. PSHT UIN Jakarta actively conducts regular training sessions, belt promotion tests, and participates in various pencak silat championships and community service activities.">
                         <img class="org-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK_26mJdolNSXjKpG2D7oc8vY0DRlmS8rfBg&s" alt="Logo PSHT UIN Jakarta">
                     </div>
-                    <div class="org-logo-item" data-title="HMI Komfastek - 2018/2025" data-description="Himpunan Mahasiswa Islam Komisariat Faculty of Science and Technology (HMI Komfastek) UIN Jakarta is a specialized branch of the Himpunan Mahasiswa Islam (HMI), specifically affiliated with the Faculty of Science and Technology (FST) at UIN Syarif Hidayatullah Jakarta. As part of the larger HMI organization, Komfastek focuses on cadre development for students within the FST environment. The main goal of HMI Komfastek is to produce academics with integrity, creativity, Islamic awareness, and social responsibility. They strive to cultivate students who not only excel in the fields of Science and Technology but also possess leadership qualities, a critical perspective on national issues, and the ability to contribute meaningfully in line with HMI values and the Three Pillars of Higher Education (Tri Dharma Perguruan Tinggi). Their activities typically include discussions, leadership training Latihan Kader (LK), Islamic studies, and community service.">
+                    <div class="org-logo-item" data-title="HMI Komfastek - 2018/2025" data-description="Himpunan Mahasiswa Islam Komisariat Fakultas Sains dan Teknologi (HMI Komfastek) UIN Jakarta is a specialized branch of the Himpunan Mahasiswa Islam (HMI), specifically affiliated with the Fakultas Sains dan Teknologi (FST) at UIN Syarif Hidayatullah Jakarta. As part of the larger HMI organization, Komfastek focuses on cadre development for students within the FST environment. The main goal of HMI Komfastek is to produce academics with integrity, creativity, Islamic awareness, and social responsibility. They strive to cultivate students who not only excel in the fields of Science and Technology but also possess leadership qualities, a critical perspective on national issues, and the ability to contribute meaningfully in line with HMI values and the Three Pillars of Higher Education (Tri Dharma Perguruan Tinggi). Their activities typically include discussions, leadership training Latihan Kader (LK), Islamic studies, and community service.">
                         <img class="org-logo" src="https://ugc.production.linktr.ee/fc35f15e-5a30-4d56-bcf7-53fbb20951e1_jpg-20231119-170838-0000.jpeg?io=true&size=avatar-v3_0" alt="Logo HMI Komfastek">
                     </div>
                 </div>
@@ -935,10 +954,28 @@
                 </div>
             </div>
         </div>
+
+        <!-- New CV PDF Modal Structure -->
+        <div id="cvModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="cvModalTitle">Curriculum Vitae (CV)</h2>
+                </div>
+                <div class="modal-body flex-grow">
+                    <!-- PDF will be loaded here -->
+                    <iframe id="cvPdfViewer" src="" frameborder="0" class="w-full h-full"></iframe>
+                </div>
+                <div class="modal-footer flex justify-between items-center">
+                    <a id="downloadPdfButton" href="path/to/your-cv.pdf" download="Toriq_As_Syarif_CV.pdf" class="close-button flex items-center justify-center">
+                        <i class='bx bxs-download mr-2'></i> Download PDF
+                    </a>
+                    <button id="closeCvButton" class="close-button">Tutup</button>
+                </div>
+            </div>
+        </div>
         
         <!-- Removed Footer HTML -->
     </main>
-    <footer id="footer-placeholder"></footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -1251,7 +1288,39 @@
             if (closeButton && infoModal) closeButton.addEventListener('click', () => infoModal.style.setProperty('display', 'none', 'important'));
             if (infoModal) window.addEventListener('click', e => { if (e.target === infoModal) infoModal.style.setProperty('display', 'none', 'important'); });
 
-            // Removed Header/Footer related JS
+            // CV Modal Logic
+            const openCvModalBtn = document.getElementById('openCvModalBtn');
+            const cvModal = document.getElementById('cvModal');
+            const closeCvButton = document.getElementById('closeCvButton');
+            const cvPdfViewer = document.getElementById('cvPdfViewer');
+            const downloadPdfButton = document.getElementById('downloadPdfButton'); // New: Get download button
+
+            // Set the PDF URL here. Replace 'path/to/your-cv.pdf' with your actual CV PDF link.
+            const cvPdfUrl = 'https://www.africau.edu/images/default/sample.pdf'; 
+            // Ensure the download link uses the same URL
+            if (downloadPdfButton) {
+                downloadPdfButton.href = cvPdfUrl;
+            }
+
+            if (openCvModalBtn && cvModal && closeCvButton && cvPdfViewer) {
+                openCvModalBtn.addEventListener('click', () => {
+                    cvPdfViewer.src = cvPdfUrl; // Load the PDF into the iframe
+                    cvModal.style.setProperty('display', 'flex', 'important');
+                });
+
+                closeCvButton.addEventListener('click', () => {
+                    cvModal.style.setProperty('display', 'none', 'important');
+                    cvPdfViewer.src = ''; // Clear iframe src to stop PDF loading
+                });
+
+                // Close modal when clicking outside the modal content
+                window.addEventListener('click', (e) => {
+                    if (e.target === cvModal) {
+                        cvModal.style.setProperty('display', 'none', 'important');
+                        cvPdfViewer.src = ''; // Clear iframe src
+                    }
+                });
+            }
         });
     </script>
 </body>
