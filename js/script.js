@@ -1,148 +1,100 @@
-// // PERUBAHAN: Semua skrip dari file HTML asli sekarang ada di sini.
+// Pastikan script ini dijalankan setelah DOM sepenuhnya dimuat
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // // PERUBAHAN BARU: Fungsi untuk memuat komponen (header/footer) secara dinamis.
-    const loadComponent = async (url, placeholderId) => {
+
+    // Fungsi untuk memuat konten HTML dari URL tertentu ke dalam elemen dengan ID
+    async function loadHTML(url, elementId) {
         try {
             const response = await fetch(url);
+            // Periksa apakah respons berhasil (status 200 OK)
             if (!response.ok) {
-                throw new Error(`Gagal memuat ${url}: Status ${response.status}`);
+                // Jika respons tidak berhasil, lemparkan error
+                throw new Error(`Gagal memuat ${url}: ${response.status} ${response.statusText}`);
             }
-            const content = await response.text();
-            const placeholder = document.getElementById(placeholderId);
-            if (placeholder) {
-                // Menyisipkan HTML langsung, yang akan dirender oleh browser.
-                placeholder.insertAdjacentHTML('afterbegin', content);
-                // Menghapus elemen placeholder itu sendiri, menyisakan kontennya.
-                placeholder.replaceWith(...placeholder.childNodes);
-            }
+            const data = await response.text();
+            document.getElementById(elementId).innerHTML = data;
         } catch (error) {
-            console.error(error);
-            const placeholder = document.getElementById(placeholderId);
-            if (placeholder) {
-                placeholder.innerText = `Error memuat ${placeholderId}.`;
-            }
+            console.error(`Terjadi kesalahan saat memuat ${url}:`, error);
+            // Kamu bisa menambahkan pesan ke UI di sini jika ingin memberitahu pengguna
+            // Misalnya: document.getElementById(elementId).innerHTML = '<p>Konten tidak dapat dimuat.</p>';
         }
-    };
+    }
 
-    // // PERUBAHAN BARU: Fungsi untuk menentukan path yang benar.
-    // // Ini penting agar komponen bisa dimuat dari index.html (di root) dan dari halaman di dalam /pages.
-    const getPathPrefix = () => {
-        // Jika URL path mengandung '/pages/', berarti kita di dalam subfolder.
-        return window.location.pathname.includes('/pages/') ? '../' : './';
-    };
+    // Panggil fungsi untuk memuat header dan footer
+    // PERHATIKAN PATH FILE! Ini adalah penyebab paling umum mengapa tidak tampil.
+    // Asumsi saat ini:
+    // - File HTML utama kamu (misalnya aboutMe.html) ada di folder 'pages'
+    // - File script.js ada di folder 'js' (di luar 'pages')
+    // - File header.html dan footer.html ada di folder 'includes' (di luar 'pages' dan 'js')
 
-    const prefix = getPathPrefix();
+    // Jalur yang diperbarui untuk folder "includes"
+    loadHTML('../includes/header.html', 'header-container'); // Path relatif dari script.js ke includes/header.html
+    loadHTML('../includes/footer.html', 'footer-container'); // Path relatif dari script.js ke includes/footer.html
 
-    // // PERUBAHAN BARU: Fungsi utama untuk menginisialisasi semua skrip halaman.
-    // // Fungsi ini akan dijalankan SETELAH header dan footer selesai dimuat.
-    const initializePageScripts = () => {
-        // 1. Inisialisasi AOS (Animate on Scroll)
-        AOS.init({
-            duration: 800, 
-            once: true,
-            mirror: false,
-            offset: 50, 
+
+    // Inisialisasi AOS (Animate On Scroll)
+    // Pastikan AOS.init() dipanggil setelah elemen-elemen yang perlu dianimasikan dimuat
+    AOS.init({
+        // Kamu bisa menambahkan konfigurasi AOS di sini jika perlu
+        duration: 1000, // durasi animasi
+        once: true,    // animasi hanya berjalan sekali
+    });
+
+    // Inisialisasi Typed.js
+    // Pastikan elemen dengan kelas 'typed-text' ada di dalam header.html atau footer.html
+    // atau di bagian lain dari HTML utama yang sudah dimuat.
+    const typedElement = document.querySelector('.typed-text');
+    if (typedElement) {
+        new Typed(typedElement, {
+            strings: ["Developer", "Designer", "Content Creator"], // Ganti dengan string yang kamu inginkan
+            typeSpeed: 50,
+            backSpeed: 25,
+            loop: true,
+            showCursor: true,
+            cursorChar: '|',
         });
+    }
 
-        // 2. Logika untuk animasi ketik (hanya berjalan jika elemennya ada di halaman)
-        if (document.getElementById('typed-hello')) {
-            new Typed('#typed-hello', {
-                strings: ["Hello Guys!"],
-                typeSpeed: 80,
-                showCursor: true,
-                cursorChar: '|',
-                onComplete: (self) => {
-                    self.cursor.remove();
-                    displayRandomQuote(); // Tampilkan kutipan setelah selesai
-                }
-            });
-        }
-        
-        // Fungsi untuk menampilkan kutipan acak
-        function displayRandomQuote() {
-            const quotes = [
-                { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
-                { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
-                { text: "Life is really simple, but we insist on making it complicated.", author: "Confucius" }
-            ];
-            const quoteElement = document.getElementById('random-quote');
-            const authorElement = document.getElementById('quote-author');
-            
-            if (quoteElement && authorElement) {
-                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                quoteElement.textContent = `"${randomQuote.text}"`;
-                authorElement.textContent = `- ${randomQuote.author}`;
-                authorElement.classList.add('is-visible');
-            }
-        }
-
-        // 3. Logika untuk Header & Menu Mobile
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenuDrawer = document.getElementById('mobileMenuDrawer'); 
-        const closeMobileMenuBtn = document.getElementById('closeMobileMenuBtn');
-        
-        if (mobileMenuBtn && mobileMenuDrawer && closeMobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.add('open'));
-            closeMobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.remove('open'));
-        }
-        
-        // Logika untuk submenu portfolio di mobile
-        const portfolioMobileTrigger = document.querySelector('.portfolio-mobile-trigger');
-        const portfolioMobileSubmenu = document.querySelector('.portfolio-mobile-submenu');
-        const portfolioArrowIcon = portfolioMobileTrigger?.querySelector('.arrow-icon');
-
-        if (portfolioMobileTrigger) {
-            portfolioMobileTrigger.addEventListener('click', (event) => {
-                event.preventDefault(); 
-                portfolioMobileSubmenu.classList.toggle('open');
-                portfolioArrowIcon.classList.toggle('rotate-180');
-            });
-        }
-        
-        // 4. Update Tahun di Footer dan Drawer
-        const currentYear = new Date().getFullYear();
-        document.querySelectorAll('#currentYearFooter, #currentYearMobileDrawer').forEach(el => {
-            if (el) el.textContent = currentYear;
-        });
-        
-        // // PERUBAHAN PENTING: Logika untuk menandai link navigasi yang aktif telah disederhanakan
-        const currentPath = window.location.pathname;
-        document.querySelectorAll('a.nav-link').forEach(link => {
-            const linkPath = new URL(link.href, window.location.href).pathname;
-            
-            // Cek jika path link sama dengan path halaman saat ini.
-            // Juga menangani kasus di mana halaman home bisa berupa "/" atau "/index.html".
-            if (linkPath === currentPath || (linkPath === '/' && (currentPath.endsWith('/index.html') || currentPath.endsWith('/')))) {
-                link.classList.add('active');
-                
-                // Jika link aktif ada di dalam dropdown, buat parent-nya juga aktif
-                const parentSubmenu = link.closest('.mobile-submenu');
-                if (parentSubmenu) {
-                    const trigger = parentSubmenu.previousElementSibling;
-                    trigger.classList.add('active');
-                    parentSubmenu.classList.add('open');
-                    trigger.querySelector('.arrow-icon')?.classList.add('rotate-180');
-                }
-
-                const parentDropdown = link.closest('.desktop-nav-item');
-                if(parentDropdown) {
-                    parentDropdown.querySelector('.nav-link').classList.add('active');
+    // Inisialisasi Chart.js (jika kamu memiliki elemen canvas untuk chart)
+    // Pastikan elemen canvas untuk chart ada di HTML setelah dimuat.
+    const chartCanvas = document.getElementById('myChart'); // Ganti 'myChart' dengan ID canvas chart kamu
+    if (chartCanvas) {
+        const ctx = chartCanvas.getContext('2d');
+        new Chart(ctx, {
+            type: 'bar', // Misalnya 'bar', 'line', 'pie', dll.
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
         });
-    };
-
-    // // PERUBAHAN BARU: Memuat header dan footer, lalu menjalankan skrip utama.
-    const loadLayout = async () => {
-        await Promise.all([
-            loadComponent(`${prefix}includes/header.html`, 'header-placeholder'),
-            loadComponent(`${prefix}includes/footer.html`, 'footer-placeholder')
-        ]);
-        // Setelah layout selesai dimuat, baru jalankan semua skrip interaktif.
-        initializePageScripts(); 
-    };
-
-    // Mulai proses!
-    loadLayout();
+    }
 });
