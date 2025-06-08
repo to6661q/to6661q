@@ -1,6 +1,7 @@
 /* // PERUBAHAN: Semua gaya CSS dari file HTML asli dipindahkan ke sini. */
 
 body {
+    height: 100%;
     font-family: 'Lexend', sans-serif;
     background-color: #f0fdf4;
     line-height: 1.6;
@@ -8,6 +9,8 @@ body {
     padding: 0;
     margin: 0;
     overflow-x: hidden;
+     display: flex;         /* Activates Flexbox on the body */
+    flex-direction: column; /* Stacks child elements vertically */
 }
 
 h1, h2, h3 {
@@ -34,6 +37,7 @@ h1, h2, h3 {
     transform: translateX(0);
 }
 .main-content-area {
+    flex: 1;
     padding-top: 64px; /* Space for fixed header */
 }
 .nav-link {
