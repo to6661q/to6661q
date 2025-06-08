@@ -4,23 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Saya - Keahlian & Informasi</title>
-    
+
+    <!-- Memuat Tailwind CSS dari CDN untuk styling utility-first -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
+    <!-- Memuat font kustom 'Lexend' dan 'Montserrat' dari Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
+    <!-- Memuat AOS (Animate On Scroll) library untuk efek animasi saat scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> <!-- Dipindahkan ke sini untuk memastikan AOS.init bisa dijalankan -->
+
+    <!-- Memuat Boxicons untuk ikon-ikon yang digunakan di halaman -->
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
+
+    <!-- Memuat Typed.js untuk efek mengetik pada teks -->
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    
+
+    <!-- Memuat Chart.js untuk membuat grafik dan chart -->
     <script src="https://unpkg.com/chart.js"></script>
 
     <style>
         /* Custom Styles & Overrides */
+        /* Gaya dasar untuk body, mengatur font, warna latar belakang, line-height, dan mencegah scroll horizontal */
         body {
             font-family: 'Lexend', sans-serif;
             background-color: #f3f4f6; /* Light gray background */
@@ -31,12 +40,14 @@
             overflow-x: hidden; /* Prevent horizontal scrolling */
         }
 
+        /* Gaya untuk heading (h1, h2, h3) */
         h1, h2, h3 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
         }
 
         /* Shine effect for profile image */
+        /* Kontainer gambar profil dengan efek bayangan dan transisi hover */
         .profile-img-container {
             position: relative;
             display: inline-block;
@@ -46,9 +57,11 @@
             transition: transform 0.3s ease-in-out;
             border: 5px solid #006661; /* Updated color */
         }
+        /* Efek scale saat hover pada gambar profil */
         .profile-img-container:hover {
             transform: scale(1.05);
         }
+        /* Efek "kilauan" pada gambar profil */
         .profile-img-container::before {
             content: '';
             position: absolute;
@@ -61,12 +74,14 @@
             animation: shine 4s infinite ease-out;
             animation-delay: 1s;
         }
+        /* Keyframe untuk animasi "kilauan" */
         @keyframes shine {
             0% { left: -75%; }
             50% { left: 125%; }
             100% { left: -75%; }
         }
 
+        /* Gaya untuk kursor efek mengetik dari Typed.js */
         .typed-cursor {
             opacity: 1;
             animation: blink 0.7s infinite;
@@ -75,44 +90,50 @@
         .typed-cursor.hidden-cursor {
             display: none;
         }
+        /* Keyframe untuk animasi kursor berkedip */
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
 
+        /* Gaya umum untuk bagian yang akan memiliki efek fade-in */
         .fade-in-section { /* General fade-in, can be used with AOS or custom */
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
+        /* Kelas untuk membuat bagian terlihat (visible) */
         .fade-in-section.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
         /* New slide-up animation for About Me text */
+        /* Animasi slide-up dan fade-in untuk teks "About Me" */
         .slide-up-fade-in-about {
             opacity: 0;
             transform: translateY(40px); /* Start 40px below */
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
             transition-delay: 0.2s; /* Slight delay after parent fades in */
         }
+        /* Kelas untuk membuat teks "About Me" terlihat */
         .slide-up-fade-in-about.is-visible {
             opacity: 1;
             transform: translateY(0); /* Move to final position */
         }
 
-
+        /* Gaya dasar untuk card (kotak informasi) */
         .card {
             background-color: white;
             border-radius: 0.5rem;
             padding: 1rem;
             margin-bottom: 1rem;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            display: flex; 
-            flex-direction: column; 
+            display: flex;
+            flex-direction: column;
         }
 
+        /* Gaya header pada card */
         .card-header {
             font-family: 'Lexend', sans-serif;
             font-size: 1rem;
@@ -122,6 +143,7 @@
             margin-bottom: 0.5rem; /* Dikurangi untuk merapatkan dengan chart */
         }
 
+        /* Gaya untuk bar skill programmer */
         .skill-bar-programmer {
             background-color: #e5e7eb;
             border-radius: 0.375rem;
@@ -129,6 +151,7 @@
             position: relative;
             flex-grow: 1;
         }
+        /* Gaya untuk isi bar skill programmer (persentase) */
         .skill-bar-fill-programmer {
             background-color: #006661; /* Updated color */
             border-radius: 0.375rem;
@@ -139,20 +162,23 @@
             top: 0;
             left: 0;
         }
+        /* Kontainer untuk setiap item skill (ikon dan bar) */
         .skill-item-container {
             display: flex;
             align-items: center;
             gap: 8px; /* Jarak antara ikon dan skill bar sedikit dirapatkan */
             margin-bottom: 0.35rem; /* Jarak antar item skill dirapatkan lagi */
         }
-        .lang-icon { 
+        /* Gaya ikon bahasa pemrograman */
+        .lang-icon {
             font-size: 1.3rem; /* Sedikit dikecilkan lagi agar lebih pas */
             color: #006661;
             width: 26px; /* Sedikit dikecilkan */
             text-align: center;
-            flex-shrink: 0; 
+            flex-shrink: 0;
         }
-        .lang-icon-text-custom { 
+        /* Gaya teks ikon bahasa pemrograman (untuk 'C', 'R', 'K') */
+        .lang-icon-text-custom {
             font-family: 'Montserrat', sans-serif;
             font-weight: bold;
             font-size: 1.0rem; /* Sedikit dikecilkan lagi */
@@ -164,65 +190,72 @@
             display: inline-block;
         }
 
-        
-        .chart-outer-container { 
+        /* Kontainer luar untuk chart (grafik) */
+        .chart-outer-container {
             position: relative;
             width: 100%;
-            height: 280px; 
-            margin-bottom: 0rem; 
-            margin-top: 0.5rem; 
+            height: 280px;
+            margin-bottom: 0rem;
+            margin-top: 0.5rem;
         }
-        #hardSkillChartContainer, #softSkillChartContainer, #languageSkillChartContainer, #codingSkillBarsContainer { 
-            position: relative; 
+        /* Kontainer untuk setiap jenis chart */
+        #hardSkillChartContainer, #softSkillChartContainer, #languageSkillChartContainer, #codingSkillBarsContainer {
+            position: relative;
             width: 100%;
-            height: 100%; 
+            height: 100%;
         }
-        #hardSkillChart, #softSkillChart, #languageSkillChart { 
+        /* Gaya kanvas chart */
+        #hardSkillChart, #softSkillChart, #languageSkillChart {
             width: 100% !important;
-            height: 100% !important; 
+            height: 100% !important;
         }
+        /* Flex grow untuk kontainer bar skill coding */
         #codingSkillBarsContainer .flex-grow {
-             min-height: 280px; 
+             min-height: 280px;
         }
 
-
+        /* Gaya untuk legend chart (keterangan warna) */
         .chart-legend {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); 
-            gap: 0.1rem 0.3rem; 
-            margin-top: 0.5rem; 
-            padding: 0 0.1rem; 
-            justify-content: center; 
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.1rem 0.3rem;
+            margin-top: 0.5rem;
+            padding: 0 0.1rem;
+            justify-content: center;
         }
-        .legend-item { 
+        /* Item dalam legend chart */
+        .legend-item {
             display: flex;
             align-items: center;
             margin: 0;
-            font-size: 0.6rem; 
+            font-size: 0.6rem;
             color: #4a5568;
-            line-height: 1.2; 
+            line-height: 1.2;
         }
-        .legend-color { 
-            width: 0.6rem; 
-            height: 0.6rem; 
-            border-radius: 0.1rem; 
-            margin-right: 0.2rem; 
+        /* Kotak warna dalam legend chart */
+        .legend-color {
+            width: 0.6rem;
+            height: 0.6rem;
+            border-radius: 0.1rem;
+            margin-right: 0.2rem;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
-        .legend-label { 
-            font-size: 0.6rem; 
+        /* Label teks dalam legend chart */
+        .legend-label {
+            font-size: 0.6rem;
             color: #4a5568;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
         }
 
-
+        /* Grid foto untuk daftar aplikasi */
         .photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
             gap: 0.25rem;
-            margin-bottom: 1rem; 
+            margin-bottom: 1rem;
             padding: 0;
         }
+        /* Item logo dalam grid foto */
         .logo-item {
             display: flex;
             justify-content: center;
@@ -234,15 +267,18 @@
             transition: transform 0.2s ease-in-out;
             padding: 0.25rem;
         }
+        /* Efek scale saat hover pada item logo */
         .logo-item:hover {
             transform: scale(1.1);
         }
+        /* Gaya gambar logo */
         .logo {
             width: 80%;
             height: auto;
             max-height: 80%;
             object-fit: contain;
         }
+        /* Media queries untuk menyesuaikan tata letak photo-grid pada ukuran layar yang berbeda */
         @media (min-width: 768px) {
             .photo-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -250,10 +286,11 @@
         }
         @media (min-width: 1024px) {
             .photo-grid {
-                grid-template-columns: repeat(6, 1fr); 
+                grid-template-columns: repeat(6, 1fr);
             }
         }
 
+        /* Kontainer slideshow untuk sertifikat */
         .slideshow-container {
             background-color: #f3f4f6;
             border-radius: 0.5rem;
@@ -265,6 +302,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             cursor: pointer;
         }
+        /* Item sertifikat dalam slideshow */
         .certificate-item {
             position: absolute;
             top: 0;
@@ -279,9 +317,11 @@
             justify-content: center;
             align-items: center;
         }
+        /* Kelas untuk item sertifikat yang sedang aktif */
         .certificate-item.active {
             opacity: 1;
         }
+        /* Gaya gambar sertifikat */
         .certificate-img {
             width: 100%;
             height: 100%;
@@ -289,16 +329,18 @@
             border-radius: 0.5rem;
             transition: transform 0.3s ease-in-out;
         }
+        /* Efek scale saat hover atau aktif pada gambar sertifikat */
         .certificate-item:hover .certificate-img,
         .certificate-item:active .certificate-img {
             transform: scale(1.05);
         }
 
+        /* Gaya tombol detail */
         .detail-button {
             display: block;
             width: 100%;
             margin: 0rem auto 1rem auto;
-            background-color: #006661; 
+            background-color: #006661;
             color: white;
             padding: 0.6rem 0;
             border-radius: 0.375rem;
@@ -308,45 +350,51 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
+        /* Efek hover pada tombol detail */
         .detail-button:hover {
-            background-color: #00796b; 
+            background-color: #00796b;
             transform: translateY(-2px);
         }
-        .download-cv-button { 
+        /* Gaya tombol download CV */
+        .download-cv-button {
             display: inline-flex;
             align-items: center;
-            margin-top: 1.5rem; 
+            margin-top: 1.5rem;
             background-color: #006661;
             color: white;
-            padding: 0.6rem 1.2rem; 
-            border-radius: 0.375rem; 
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.375rem;
             text-decoration: none;
-            font-weight: 500; 
+            font-weight: 500;
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        /* Gaya ikon dalam tombol download CV */
         .download-cv-button i {
-            margin-right: 0.5rem; 
+            margin-right: 0.5rem;
         }
+        /* Efek hover pada tombol download CV */
         .download-cv-button:hover {
             background-color: #00796b;
             transform: translateY(-2px);
         }
 
-
-        .org-section-container, .course-section-container { 
+        /* Kontainer untuk bagian organisasi dan kursus */
+        .org-section-container, .course-section-container {
             margin: 0 auto;
             padding: 0rem;
         }
-        .org-photo-grid, .course-photo-grid { 
+        /* Grid foto untuk organisasi dan kursus */
+        .org-photo-grid, .course-photo-grid {
             padding:0;
             margin:0;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 0.5rem;
-            margin-bottom: 1rem; 
+            margin-bottom: 1rem;
         }
-        .org-logo-item { 
+        /* Item logo organisasi */
+        .org-logo-item {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -357,10 +405,11 @@
             background-color: white;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            cursor: pointer; 
+            cursor: pointer;
             padding: 0.5rem;
         }
-         .course-logo-item { 
+         /* Item logo kursus */
+         .course-logo-item {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -372,36 +421,40 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             padding: 0.5rem;
-            overflow: hidden; 
+            overflow: hidden;
         }
-        .org-logo-item:hover, .course-logo-item:hover { 
-            transform: scale(1.05); 
+        /* Efek hover pada item logo organisasi dan kursus */
+        .org-logo-item:hover, .course-logo-item:hover {
+            transform: scale(1.05);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
-        .org-logo, .course-logo { 
+        /* Gaya gambar logo organisasi dan kursus */
+        .org-logo, .course-logo {
             width: 90%;
             height: 90%;
             object-fit: contain;
-            transition: transform 0.3s ease-in-out; 
+            transition: transform 0.3s ease-in-out;
         }
-         
+
+        /* Penyesuaian ukuran logo kursus */
         .course-logo {
-            width: 60%; 
+            width: 60%;
             height: 60%;
         }
-        .course-logo-description { 
+        /* Deskripsi logo kursus */
+        .course-logo-description {
             font-family: 'Lexend', sans-serif;
-            font-size: 0.65rem; 
+            font-size: 0.65rem;
             color: #555;
             text-align: center;
-            line-height: 1.1; 
+            line-height: 1.1;
             font-weight: 500;
             word-break: break-word;
             overflow-wrap: break-word;
             margin-top: 0.25rem;
         }
 
-
+        /* Gaya untuk modal (popup) */
         .modal {
             display: none;
             position: fixed;
@@ -413,10 +466,11 @@
             overflow: auto;
             background-color: rgba(0,0,0,0.5);
             justify-content: center;
-            align-items: center; 
-            padding: 1rem; 
+            align-items: center;
+            padding: 1rem;
             box-sizing: border-box;
         }
+        /* Konten dalam modal */
         .modal-content {
             background-color: #fefefe;
             padding: 20px;
@@ -428,12 +482,14 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             animation: fadeInModal 0.3s;
             overflow-y: auto;
-            max-height: 85vh; 
+            max-height: 85vh;
         }
+        /* Keyframe untuk animasi fade-in modal */
         @keyframes fadeInModal {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        /* Header modal */
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -442,16 +498,18 @@
             padding-bottom: 0.5rem;
             border-bottom: 1px solid #e2e8f0;
         }
+        /* Judul dalam header modal */
         .modal-header h2 {
             margin: 0;
             font-size: 1rem;
-            color: #333; 
+            color: #333;
             font-family: 'Lexend', sans-serif;
         }
+        /* Tombol tutup modal */
         .close-button {
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
-            background-color: #006661; 
+            background-color: #006661;
             color: white;
             font-size: 0.75rem;
             font-weight: 500;
@@ -460,14 +518,17 @@
             border: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        /* Efek hover pada tombol tutup modal */
         .close-button:hover {
-            background-color: #00796b; 
+            background-color: #00796b;
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
+        /* Efek focus pada tombol tutup modal */
         .close-button:focus {
             outline: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
+        /* Isi body modal */
         .modal-body {
             text-align: justify;
             margin-bottom: 0.5rem;
@@ -476,21 +537,25 @@
             line-height: 1.6;
             font-family: 'Lexend', sans-serif;
         }
+        /* Footer modal */
         .modal-footer {
             text-align: right;
             margin-top: 0.5rem;
         }
 
+        /* Kontainer untuk bagian edukasi */
         .edu-section-container {
             margin: 0 auto;
-            padding: 0; 
+            padding: 0;
         }
+        /* Grid foto untuk edukasi */
         .edu-photo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
             gap: 0.5rem;
             margin-bottom: 1rem;
         }
+        /* Item logo edukasi */
         .edu-logo-item {
             display: flex;
             flex-direction: column;
@@ -505,10 +570,12 @@
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             cursor: pointer;
         }
+        /* Efek hover pada item logo edukasi */
         .edu-logo-item:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
         }
+        /* Gaya gambar logo edukasi */
         .edu-logo {
             width: 80%;
             max-height: 70px;
@@ -516,6 +583,7 @@
             object-fit: contain;
             margin-bottom: 0.5rem;
         }
+        /* Deskripsi logo edukasi */
         .edu-logo-description {
             font-family: 'Lexend', sans-serif;
             font-size: 0.8rem;
@@ -526,6 +594,7 @@
             word-break: break-word;
             overflow-wrap: break-word;
         }
+        /* Teks deskripsi edukasi */
         .edu-description-text {
             font-family: 'Lexend', sans-serif;
             font-size: 1rem;
@@ -534,6 +603,7 @@
             margin-top: 2rem;
             line-height: 1.6;
         }
+        /* Media query untuk gaya edukasi pada layar kecil */
         @media (max-width: 640px) {
             .edu-section-container { padding: 0.5rem; }
             .edu-photo-grid { gap: 0.5rem; }
@@ -543,165 +613,189 @@
             .edu-description-text { font-size: 0.9rem; margin-top: 1.5rem; }
         }
 
+        /* Kontainer teks "About Me" dengan efek mengetik */
         #about-me-typing-container {
             padding-left: 0;
         }
-        #typing-text-about-me { 
+        /* Gaya teks efek mengetik */
+        #typing-text-about-me {
             font-family: 'Lexend', sans-serif;
             white-space: pre-wrap;
             text-align: justify;
             font-size: 1rem;
             line-height: 1.5rem;
-            color: #006661; 
-            min-height: 1rem; 
+            color: #006661;
+            min-height: 1rem;
         }
+        /* Media query untuk teks "About Me" pada layar kecil */
         @media (max-width: 640px) {
             #typing-text-about-me { font-size: 1rem; }
         }
 
+        /* Efek slide-down dan fade-in */
         .slide-down-fade-in {
             opacity: 0;
             transform: translateY(-20px);
             transition: opacity 1.0s ease-out, transform 1.0s ease-out;
         }
+        /* Kelas untuk membuat elemen terlihat */
         .slide-down-fade-in.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
+        /* Gaya teks nama dengan outline */
         #typed-name {
             color: #FFFFFF;
             text-shadow:
-                -1.5px -1.5px 0 #006661, 
-                1.5px -1.5px 0 #006661, 
-                -1.5px  1.5px 0 #006661, 
-                1.5px  1.5px 0 #006661; 
+                -1.5px -1.5px 0 #006661,
+                1.5px -1.5px 0 #006661,
+                -1.5px  1.5px 0 #006661,
+                1.5px  1.5px 0 #006661;
         }
 
+        /* Gaya header atas */
         .top-header {
-            background-color: #006661; 
+            background-color: #006661;
             color: white;
-            z-index: 1001; 
-            height: 64px; 
+            z-index: 1001;
+            height: 64px;
         }
-        .mobile-menu-drawer { 
-            background-color: #004d40;  
+        /* Gaya menu drawer mobile */
+        .mobile-menu-drawer {
+            background-color: #004d40;
             color: white;
-            width: 250px; 
-            z-index: 1002; 
+            width: 250px;
+            z-index: 1002;
             transition: transform 0.3s ease-in-out;
-            transform: translateX(-100%); 
+            transform: translateX(-100%);
         }
+        /* Kelas untuk membuka menu drawer mobile */
         .mobile-menu-drawer.open {
             transform: translateX(0);
         }
+        /* Area konten utama dengan padding top untuk header */
         .main-content-area {
-            padding-top: 64px; 
+            padding-top: 64px;
         }
+        /* Gaya umum untuk link navigasi */
         .nav-link {
             display: block;
-            padding: 0.75rem 1rem; 
-            border-radius: 0.375rem; 
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
             transition: background-color 0.2s ease, color 0.2s ease;
-            font-weight: 500; 
-            white-space: nowrap; 
+            font-weight: 500;
+            white-space: nowrap;
         }
+        /* Efek hover dan kelas aktif untuk link navigasi */
         .nav-link:hover, .nav-link.active {
-            background-color: #00796b; 
+            background-color: #00796b;
             color: #ffffff;
         }
+        /* Penyesuaian padding untuk link navigasi di menu mobile */
         .mobile-menu-drawer .nav-link {
-             padding: 0.75rem 1.5rem; 
+             padding: 0.75rem 1.5rem;
         }
-        .mobile-menu-drawer .nav-link i { 
+        /* Margin kanan untuk ikon di menu mobile */
+        .mobile-menu-drawer .nav-link i {
             margin-right: 0.75rem;
         }
 
-         /* Styling untuk Desktop Dropdown Submenu (dari others_page_certificates) */
+         /* Styling untuk Desktop Dropdown Submenu */
         .desktop-nav-item.relative .dropdown-menu {
             display: none;
             position: absolute;
             left: 0;
-            top: 100%; 
-            background-color: #00796b; 
-            min-width: 180px; 
+            top: 100%;
+            background-color: #00796b;
+            min-width: 180px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-radius: 0.375rem; 
-            padding-top: 0.25rem; 
-            padding-bottom: 0.25rem; 
-            z-index: 1010; 
+            border-radius: 0.375rem;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            z-index: 1010;
         }
+        /* Menampilkan dropdown menu saat hover atau focus */
         .desktop-nav-item.relative:hover .dropdown-menu,
-        .desktop-nav-item.relative .nav-link:focus + .dropdown-menu, 
-        .desktop-nav-item.relative .dropdown-menu:hover { 
+        .desktop-nav-item.relative .nav-link:focus + .dropdown-menu,
+        .desktop-nav-item.relative .dropdown-menu:hover {
             display: block;
         }
-        .dropdown-menu a.nav-link { 
-            padding: 0.5rem 1rem; 
-            font-size: 0.875rem; 
+        /* Gaya link dalam dropdown menu */
+        .dropdown-menu a.nav-link {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
             color: white;
             white-space: nowrap;
         }
+        /* Efek hover untuk link dalam dropdown menu */
         .dropdown-menu a.nav-link:hover {
-            background-color: #006661; 
+            background-color: #006661;
         }
+        /* Penyesuaian padding untuk trigger dropdown desktop */
         #portfolioDesktopTrigger {
-            padding-right: 0.5rem; 
+            padding-right: 0.5rem;
         }
+        /* Penyesuaian margin untuk ikon pada trigger dropdown desktop */
         #portfolioDesktopTrigger i {
-            margin-left: 0.25rem; 
+            margin-left: 0.25rem;
         }
 
-
-        /* Styling untuk Mobile Submenu Drawer (dari others_page_certificates) */
+        /* Styling untuk Mobile Submenu Drawer */
         .mobile-submenu {
-            display: none; 
-            padding-left: 1rem; 
-            background-color: #005953; 
+            display: none;
+            padding-left: 1rem;
+            background-color: #005953;
             border-radius: 0.25rem;
             margin-top: 0.25rem;
-            max-height: 0; 
+            max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
         }
+        /* Kelas untuk membuka submenu mobile */
         .mobile-submenu.open {
             display: block;
-            max-height: 500px; 
+            max-height: 500px;
         }
+        /* Gaya link dalam submenu mobile */
         .mobile-submenu .nav-link {
-            font-size: 0.8rem; 
+            font-size: 0.8rem;
             padding-top: 0.5rem;
             padding-bottom: 0.5rem;
         }
-        .portfolio-mobile-trigger .arrow-icon { 
+        /* Transisi untuk ikon panah pada trigger submenu mobile */
+        .portfolio-mobile-trigger .arrow-icon {
             transition: transform 0.3s ease-in-out;
         }
+        /* Rotasi ikon panah saat submenu mobile terbuka */
         .portfolio-mobile-trigger .arrow-icon.rotate-180 {
             transform: rotate(180deg);
         }
 
-
         /* Footer Social Icon Styling */
+        /* Gaya umum untuk link ikon sosial di footer */
         .social-icon-link {
-            display: inline-flex; 
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px; 
-            height: 40px; 
-            border: 2px solid white; 
-            border-radius: 0.375rem; 
-            color: white; 
-            background-color: transparent; 
+            width: 40px;
+            height: 40px;
+            border: 2px solid white;
+            border-radius: 0.375rem;
+            color: white;
+            background-color: transparent;
             transition: background-color 0.3s ease, color 0.3s ease;
-            margin: 0 0.375rem; 
+            margin: 0 0.375rem;
         }
+        /* Efek hover pada link ikon sosial */
         .social-icon-link:hover {
-            background-color: white; 
-            color: #006661; 
-            border-color: white; 
+            background-color: white;
+            color: #006661;
+            border-color: white;
         }
+        /* Ukuran ikon sosial */
         .social-icon-link i {
-            font-size: 1.5rem; 
+            font-size: 1.5rem;
         }
 
     </style>
@@ -710,29 +804,31 @@
 
     <!-- Header Atas (Desktop & Mobile Trigger) -->
     <header class="top-header fixed top-0 left-0 right-0 flex items-center justify-between px-4 md:px-6 shadow-md">
+        <!-- Logo Situs dan Nama -->
         <a href="#home" class="flex items-center">
-            <img src="https://placehold.co/40x40/FFFFFF/006661?text=TS" alt="Logo Situs" class="h-8 w-8 mr-2 rounded-sm"> 
+            <img src="https://placehold.co/40x40/FFFFFF/006661?text=TS" alt="Logo Situs" class="h-8 w-8 mr-2 rounded-sm">
             <span class="text-lg font-semibold text-white">to6661q</span>
         </a>
-        <!-- Navigasi Desktop -->
+        <!-- Navigasi Desktop (disembunyikan di mobile) -->
         <nav class="hidden md:flex space-x-1 items-center">
-            <a href="#home" class="nav-link active">Home</a> 
-            
+            <a href="#home" class="nav-link active">Home</a>
+
+            <!-- Dropdown Portfolio untuk Desktop -->
             <div class="desktop-nav-item relative">
                 <button class="nav-link flex items-center" aria-haspopup="true" aria-expanded="false" id="portfolioDesktopTrigger">
                     Portfolio <i class='bx bx-chevron-down text-lg ml-1 transform transition-transform duration-200'></i>
                 </button>
-                <div class="dropdown-menu"> 
-                    <a href="#experience-target" class="nav-link">Experience</a> 
-                    <a href="portfolio-training.html" class="nav-link">Training</a> 
-                    <a href="#achievements-target" class="nav-link">Achievements</a> 
+                <div class="dropdown-menu">
+                    <a href="#experience-target" class="nav-link">Experience</a>
+                    <a href="portfolio-training.html" class="nav-link">Training</a>
+                    <a href="#achievements-target" class="nav-link">Achievements</a>
                 </div>
             </div>
-            
+
             <a href="others.html" class="nav-link">Something</a>
-            <a href="#about-me" class="nav-link">About Me</a> 
+            <a href="#about-me" class="nav-link">About Me</a>
         </nav>
-        <!-- Tombol Hamburger Mobile -->
+        <!-- Tombol Hamburger Mobile (terlihat di mobile) -->
         <button id="mobileMenuBtn" aria-label="Buka menu" class="md:hidden">
             <i class='bx bx-menu text-3xl'></i>
         </button>
@@ -740,20 +836,24 @@
 
     <!-- Menu Mobile Drawer (Samping) -->
     <aside id="mobileMenuDrawer" class="mobile-menu-drawer fixed top-0 left-0 h-full shadow-lg p-6 pt-20 overflow-y-auto">
+        <!-- Tombol Tutup Menu Mobile -->
         <button id="closeMobileMenuBtn" class="absolute top-5 right-5 text-2xl" aria-label="Tutup menu">
             <i class='bx bx-x'></i>
         </button>
+        <!-- Navigasi di Menu Mobile -->
         <nav class="space-y-2">
             <a href="#home" class="nav-link active"><i class='bx bxs-home'></i>Home</a>
-            
+
+            <!-- Trigger Dropdown Portfolio untuk Mobile -->
             <div>
                 <button class="nav-link w-full text-left flex justify-between items-center portfolio-mobile-trigger">
                     <span><i class='bx bxs-briefcase-alt-2'></i>Portfolio</span>
                     <i class='bx bx-chevron-down text-lg arrow-icon'></i>
                 </button>
-                <div class="mobile-submenu mt-1 space-y-1 portfolio-mobile-submenu"> 
+                <!-- Submenu Portfolio Mobile -->
+                <div class="mobile-submenu mt-1 space-y-1 portfolio-mobile-submenu">
                     <a href="#experience-target" class="nav-link">Experience</a>
-                    <a href="portfolio-training.html" class="nav-link">Training</a> 
+                    <a href="portfolio-training.html" class="nav-link">Training</a>
                     <a href="#achievements-target" class="nav-link">Achievements</a>
                 </div>
             </div>
@@ -761,45 +861,51 @@
             <a href="others.html" class="nav-link"><i class='bx bxs-extension'></i>Something</a>
             <a href="#about-me" class="nav-link"><i class='bx bxs-user-detail'></i>About Me</a>
         </nav>
-        <div class="mt-8 text-xs text-gray-400"> 
+        <!-- Informasi Hak Cipta di Menu Mobile -->
+        <div class="mt-8 text-xs text-gray-400">
             <p>&copy; <span id="currentYearMobileDrawer"></span> Toriq As Syarif</p>
         </div>
     </aside>
 
 
-    <!-- Konten Utama -->
+    <!-- Konten Utama Halaman -->
     <main id="mainContent" class="main-content-area">
-        <!-- Bagian Awal dan Teks -->
+        <!-- Bagian Home (Profil dan Call to Action) -->
         <section id="home-content" class="bg-white shadow-lg rounded-[0.5rem]">
-            <div class="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 text-center md:text-left fade-in-section py-2 md:py-3" data-aos="fade-up"> 
+            <div class="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 text-center md:text-left fade-in-section py-2 md:py-3" data-aos="fade-up">
+                <!-- Kontainer Gambar Profil dengan efek shine -->
                 <div class="profile-img-container">
                     <img src="https://media.licdn.com/dms/image/v2/D4D03AQGfb4H5tRHrHA/profile-displayphoto-shrink_400_400/B4DZZN3UqiG4Ag-/0/1745063071619?e=1753920000&v=beta&t=EO4u6S0oblEjMVdIbVWODU7CSbvovQksxNtoZx7Wo_c" alt="Foto profil Toriq As Syarif" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
                 </div>
+                <!-- Teks perkenalan dan tombol Download CV -->
                 <div class="text-center md:text-left">
-                    <h1 class="text-[1.5rem] md:text-[3rem] font-extrabold leading-tight mb-2 text-[#006661]"> 
-                        Hello, I'm <span id="typed-name"></span>
+                    <h1 class="text-[1.5rem] md:text-[3rem] font-extrabold leading-tight mb-2 text-[#006661]">
+                        Hello, I'm <span id="typed-name"></span> <!-- Teks dengan efek mengetik -->
                     </h1>
-                    <p id="call-to-action" class="text-lg md:text-xl text-[#004d40] mb-3 slide-down-fade-in"> 
+                    <p id="call-to-action" class="text-lg md:text-xl text-[#004d40] mb-3 slide-down-fade-in">
                         Fully adaptable. Embrace the process, let's grow together!
                     </p>
-                    <a href="path/to/your-cv.pdf" download="Toriq_As_Syarif_CV.pdf" class="download-cv-button mt-3"> 
+                    <a href="path/to/your-cv.pdf" download="Toriq_As_Syarif_CV.pdf" class="download-cv-button mt-3">
                         <i class='bx bxs-download'></i> Download My CV
                     </a>
                 </div>
             </div>
         </section>
-        
-        <section id="about-me" class="max-w-6xl mx-auto px-2 md:px-6"> 
+
+        <!-- Bagian About Me -->
+        <section id="about-me" class="max-w-6xl mx-auto px-2 md:px-6">
             <div id="about-me-text-container" class="w-full text-center fade-in-section" data-aos="fade-up" data-aos-delay="100">
-                <div id="about-me-typing-container" class="slide-up-fade-in-about py-2 md:py-3"> 
+                <div id="about-me-typing-container" class="slide-up-fade-in-about py-2 md:py-3">
                     <p id="typing-text-about-me">Possesses a basic understanding of Programming, Databases, Networking, and Machine Learning. Skilled in cross-functional collaboration with experience working alongside design, marketing, and engineering teams. Detail-oriented, organized, and passionate about digital products and the content streaming industry like music, podcast, and video. Familiar with A/B testing, product analytics tools, and agile methodologies.</p>
                 </div>
             </div>
         </section>
 
-        <section id="certificates" class="max-w-6xl mx-auto px-2 md:px-6"> 
-            <div class="text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up"> 
+        <!-- Bagian Sertifikat (Experience, Training, Achievements) -->
+        <section id="certificates" class="max-w-6xl mx-auto px-2 md:px-6">
+            <div class="text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
+                    <!-- Card Sertifikat Pengalaman Kerja -->
                     <div class="card fade-in-section" data-aos="fade-right">
                         <a href="https://www.to6661q.xyz/portfolio/work-experience" class="detail-button">Work Experience</a>
                         <div id="slideshow-container-1" class="slideshow-container">
@@ -811,8 +917,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Card Sertifikat Pelatihan -->
                     <div class="card fade-in-section" data-aos="fade-up">
-                        <a href="portfolio-training.html" class="detail-button">Training</a> 
+                        <a href="portfolio-training.html" class="detail-button">Training</a>
                         <div id="slideshow-container-2" class="slideshow-container">
                             <div class="certificate-item active">
                                 <img class="certificate-img" src="https://placehold.co/400x260/E0F2F7/006064?text=Training+1" alt="Sertifikat Pelatihan 1">
@@ -822,6 +929,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Card Sertifikat Pencapaian -->
                     <div class="card fade-in-section" data-aos="fade-left" data-aos-delay="400">
                         <a href="https://www.to6661q.xyz/portfolio/achievement" class="detail-button">Achievement</a>
                         <div id="slideshow-container-3" class="slideshow-container">
@@ -837,33 +945,35 @@
             </div>
         </section>
 
-        <section id="programming-language-skills" class="max-w-6xl mx-auto px-2 md:px-6"> 
-            <div class="text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">  
+        <!-- Bagian Skill Bahasa Pemrograman -->
+        <section id="programming-language-skills" class="max-w-6xl mx-auto px-2 md:px-6">
+            <div class="text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
-                    <!-- Card 1: Hard Skill (Radar Chart) -->
+                    <!-- Card Hard Skill (Radar Chart) -->
                     <div class="card w-full fade-in-section" data-aos="fade-up">
                         <h2 class="card-header">Hard Skill</h2>
                         <div class="chart-outer-container">
-                            <div id="hardSkillChartContainer"> 
-                                <canvas id="hardSkillChart"></canvas> 
+                            <div id="hardSkillChartContainer">
+                                <canvas id="hardSkillChart"></canvas>
                             </div>
                         </div>
-                        <div class="chart-legend" id="hardSkillChartLegend"></div> 
+                        <div class="chart-legend" id="hardSkillChartLegend"></div>
                     </div>
-                    <!-- Card 2: Soft Skill (Doughnut Chart) -->
+                    <!-- Card Soft Skill (Doughnut Chart) -->
                     <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="100">
-                        <h2 class="card-header">Soft Skill</h2> 
+                        <h2 class="card-header">Soft Skill</h2>
                          <div class="chart-outer-container">
-                            <div id="softSkillChartContainer"> 
-                                <canvas id="softSkillChart"></canvas> 
+                            <div id="softSkillChartContainer">
+                                <canvas id="softSkillChart"></canvas>
                             </div>
                         </div>
-                        <div class="chart-legend" id="softSkillChartLegend"></div> 
+                        <div class="chart-legend" id="softSkillChartLegend"></div>
                     </div>
-                    <!-- Card 3: Coding Skill -->
+                    <!-- Card Coding Skill (Bar Skill) -->
                     <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="200">
                         <h2 class="card-header">Coding Skill</h2>
-                        <div id="codingSkillBarsContainer" class="flex flex-col justify-center flex-grow py-1"> 
+                        <div id="codingSkillBarsContainer" class="flex flex-col justify-center flex-grow py-1">
+                            <!-- Daftar bar skill untuk berbagai bahasa pemrograman -->
                             <div class="skill-item-container">
                                 <i class='bx bxl-python lang-icon'></i>
                                 <div class="skill-bar-programmer">
@@ -919,35 +1029,37 @@
                                 </div>
                             </div>
                             <div class="skill-item-container">
-                                <span class="lang-icon-text-custom">K</span> 
+                                <span class="lang-icon-text-custom">K</span>
                                 <div class="skill-bar-programmer">
                                     <div class="skill-bar-fill-programmer" id="kotlin-skill"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Card 4: Language Skill -->
+                    <!-- Card Language Skill (Bar Chart Vertikal) -->
                     <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="300">
-                        <h2 class="card-header">Language Skill</h2> 
+                        <h2 class="card-header">Language Skill</h2>
                         <div class="chart-outer-container">
                             <div id="languageSkillChartContainer" class="relative">
                                 <canvas id="languageSkillChart"></canvas>
                             </div>
                         </div>
-                         <!-- Keterangan untuk Language Skill dihapus -->
+                         <!-- Keterangan untuk Language Skill dihapus karena tidak digunakan -->
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- Application Skill Section -->
+
+        <!-- Bagian Application Skill -->
         <section id="application-skills" class="max-w-6xl mx-auto px-2 md:px-6">
             <div class="text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">
                 <h2 class="text-2xl md:text-3xl font-bold mb-6 text-[#006661] text-center">Application Skill</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-3">
+                    <!-- Kartu Aplikasi Kantor -->
                     <div class="fade-in-section p-0" data-aos="fade-right">
                         <h2 class="card-header">Aplikasi Kantor</h2>
                         <div class="photo-grid">
+                            <!-- Daftar logo aplikasi kantor -->
                             <div class="logo-item"><img class="logo" src="https://atarim.io/wp-content/uploads/Trello_logo_PNG3-2048x1152.webp" alt="Logo Trello"></div>
                             <div class="logo-item"><img class="logo" src="https://icon.icepanel.io/Technology/svg/IBM-SPSS-Statistics.svg" alt="Logo SPSS"></div>
                             <div class="logo-item"><img class="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvrixGJRMafbXlYE-e5v5tpAstg9Qlqr1kfEEQQSWBu880msjy-QMUMhbrnhYq541GUeI&usqp=CAU" alt="Logo Microsoft Teams"></div>
@@ -959,9 +1071,11 @@
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Microsoft_Publisher_2013-2019_logo.svg/1200px-Microsoft_Publisher_2013-2019_logo.svg.png" alt="Logo Microsoft Publisher"></div>
                         </div>
                     </div>
+                    <!-- Kartu Aplikasi Pemrograman -->
                     <div class="fade-in-section p-0" data-aos="fade-up">
                         <h2 class="card-header">Aplikasi Pemrograman</h2>
                         <div class="photo-grid">
+                            <!-- Daftar logo aplikasi pemrograman -->
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg" alt="Logo VS Code"></div>
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Notepad%2B%2B_Logo.png" alt="Logo Notepad++"></div>
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/38/Jupyter_logo.svg" alt="Logo Jupyter"></div>
@@ -973,9 +1087,11 @@
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/3/36/Logo.min.svg" alt="Logo PostgreSQL"></div>
                         </div>
                     </div>
+                    <!-- Kartu Aplikasi Multimedia -->
                     <div class="fade-in-section p-0" data-aos="fade-left" data-aos-delay="400">
                         <h2 class="card-header">Aplikasi Multimedia</h2>
                         <div class="photo-grid">
+                            <!-- Daftar logo aplikasi multimedia -->
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/40/Adobe_Premiere_Pro_CC_icon.svg" alt="Logo Adobe Premiere Pro"></div>
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Logo Adobe Photoshop"></div>
                             <div class="logo-item"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Adobe_After_Effects_CC_icon.svg" alt="Logo Adobe After Effects"></div>
@@ -990,8 +1106,8 @@
                 </div>
             </div>
         </section>
-        
-        <!-- Course History Section -->
+
+        <!-- Bagian Course History -->
         <section id="course-history" class="max-w-6xl mx-auto px-2 md:px-6">
             <div class="course-section-container text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">
                 <h2 class="text-xl font-bold mb-3 text-[#006661] text-center">Course History</h2>
@@ -1074,10 +1190,12 @@
         </section>
 
 
-        <section id="organizational-experience" class="max-w-6xl mx-auto px-2 md:px-6"> 
-            <div class="org-section-container text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">  
-                <h2 class="text-xl font-bold mb-3 text-[#006661] text-center">Organization Experience</h2> 
+        <!-- Bagian Pengalaman Organisasi -->
+        <section id="organizational-experience" class="max-w-6xl mx-auto px-2 md:px-6">
+            <div class="org-section-container text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">
+                <h2 class="text-xl font-bold mb-3 text-[#006661] text-center">Organization Experience</h2>
                 <div class="org-photo-grid">
+                    <!-- Daftar logo organisasi dengan data-title dan data-description untuk modal -->
                     <div class="org-logo-item" data-title="HIMTI UIN Jakarta Academic Division - 2019/2020" data-description="Himpunan Mahasiswa Teknik Informatika (HIMTI) focuses on developing the potential and scientific knowledge of Informatics Engineering students at UIN Syarif Hidayatullah Jakarta. This department aims to enhance IT hard skills and encourage students to excel academically and actively participate in various IT competitions.">
                         <img class="org-logo" src="https://media.licdn.com/dms/image/v2/C560BAQH9y7sIutv2fA/company-logo_200_200/company-logo_200_200/0/1630663355274/himtiuinjkt_logo?e=2147483647&v=beta&t=tm2rR4NRsiHZZn_eJEE3dNhxMduYh3WSIDJAnZlrorA" alt="Logo HIMTI UIN Jakarta">
                     </div>
@@ -1099,12 +1217,13 @@
                 </div>
             </div>
         </section>
-        
-        <!-- Education Section -->
-        <section id="education" class="max-w-6xl mx-auto px-2 md:px-6"> 
-            <div class="edu-section-container text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up"> 
-                <h2 class="text-xl font-bold mb-3 text-[#006661] text-center">Education</h2> 
+
+        <!-- Bagian Edukasi -->
+        <section id="education" class="max-w-6xl mx-auto px-2 md:px-6">
+            <div class="edu-section-container text-center fade-in-section pt-4 md:pt-6" data-aos="fade-up">
+                <h2 class="text-xl font-bold mb-3 text-[#006661] text-center">Education</h2>
                 <div class="edu-photo-grid">
+                    <!-- Daftar logo institusi pendidikan -->
                     <div class="edu-logo-item">
                         <img class="edu-logo" src="https://i.pinimg.com/474x/2d/57/40/2d57400bf03bbdbfd9e33560e4cfc62c.jpg" alt="Logo TK">
                         <span class="edu-logo-description">TK</span>
@@ -1129,6 +1248,7 @@
             </div>
         </section>
 
+        <!-- Modal untuk menampilkan detail organisasi -->
         <div id="infoModal" class="modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1140,10 +1260,12 @@
                 </div>
             </div>
         </div>
-        
-        <footer class="bg-[#006661] text-gray-300 py-3 mt-4 text-center"> 
+
+        <!-- Footer Halaman -->
+        <footer class="bg-[#006661] text-gray-300 py-3 mt-4 text-center">
             <div class="container mx-auto px-6">
-                <div class="flex justify-center space-x-2 mb-1"> 
+                <!-- Ikon Media Sosial -->
+                <div class="flex justify-center space-x-2 mb-1">
                     <a href="https://www.linkedin.com/in/toriq-as-syarif-9488381b2/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon-link">
                         <i class='bx bxl-linkedin-square'></i>
                     </a>
@@ -1160,21 +1282,23 @@
                         <i class='bx bxl-whatsapp'></i>
                     </a>
                 </div>
-                <p class="text-xs">&copy; <span id="currentYearFooter"></span> Toriq As Syarif. All rights reserved.</p> 
+                <!-- Informasi Hak Cipta -->
+                <p class="text-xs">&copy; <span id="currentYearFooter"></span> Toriq As Syarif. All rights reserved.</p>
             </div>
         </footer>
     </main>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Inisialisasi AOS library untuk animasi saat scroll
             AOS.init({
-                duration: 800, 
-                once: true,
+                duration: 800,
+                once: true, // Animasi hanya terjadi sekali
                 mirror: false,
-                offset: 50, 
+                offset: 50,
             });
 
+            // Inisialisasi Typed.js untuk efek mengetik pada nama
             var typedName = new Typed('#typed-name', {
                 strings: ["Toriq As Syarif", "Programmer", "Developer", "Engineer", "Guitarist"],
                 typeSpeed: 60,
@@ -1186,6 +1310,7 @@
                 cursorChar: '|',
             });
 
+            // Efek slide-down dan fade-in untuk Call to Action
             const callToActionElement = document.getElementById('call-to-action');
             if (callToActionElement) {
                 setTimeout(() => {
@@ -1193,6 +1318,7 @@
                 }, 2000);
             }
 
+            // Observer untuk memicu animasi teks 'About Me' saat terlihat
             const aboutMeTextContainer = document.getElementById('about-me-typing-container');
             const typingTextAboutMe = document.getElementById('typing-text-about-me');
 
@@ -1200,118 +1326,128 @@
                 const observerOptions = {
                     root: null,
                     rootMargin: '0px',
-                    threshold: 0.1 
+                    threshold: 0.1
                 };
                 const observerCallback = (entries, observer) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             aboutMeTextContainer.classList.add('is-visible');
-                            observer.unobserve(entry.target); 
+                            observer.unobserve(entry.target); // Hentikan observasi setelah terlihat
                         }
                     });
                 };
                 const aboutMeObserver = new IntersectionObserver(observerCallback, observerOptions);
-                aboutMeObserver.observe(aboutMeTextContainer); 
+                aboutMeObserver.observe(aboutMeTextContainer);
             }
 
+            // Fungsi untuk mengatur level skill pada bar programmer
             function setProgrammerSkillLevel(skillId, level) {
                 const skillBarFill = document.getElementById(skillId);
                 if (skillBarFill) {
-                    skillBarFill.style.width = '0%'; 
+                    skillBarFill.style.width = '0%'; // Reset width before animating
                     setTimeout(() => {
                         skillBarFill.style.width = level + '%';
-                    }, 100); 
+                    }, 100); // Small delay for animation
                 }
             }
-            
-            const softSkillData = { 
-                'Adaptable': 80, 
+
+            // Data untuk Soft Skill (Doughnut Chart)
+            const softSkillData = {
+                'Adaptable': 80,
                 'Communicative': 85,
                 'Disciplined': 75,
                 'Respectful': 90,
                 'Responsible': 88,
                 'Teamwork': 92
             };
+            // Warna untuk Soft Skill Doughnut Chart
             const softSkillDoughnutColors = ['#006661', '#00796b', '#00897b', '#26a69a', '#4db6ac', '#80cbc4'];
 
-
+            // Observer untuk memicu animasi bar skill programmer saat terlihat
             const programmerSkillBars = document.querySelectorAll('.skill-bar-fill-programmer');
             const programmerObserverOptions = { root: null, rootMargin: '0px', threshold: 0.5 };
             const programmerObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const targetId = entry.target.id;
+                        // Panggil fungsi setProgrammerSkillLevel dengan level yang sesuai
                         if (targetId === 'python-skill') setProgrammerSkillLevel(targetId, 90);
                         else if (targetId === 'html-skill') setProgrammerSkillLevel(targetId, 95);
                         else if (targetId === 'php-skill') setProgrammerSkillLevel(targetId, 80);
-                        else if (targetId === 'css-skill') setProgrammerSkillLevel(targetId, 90); 
+                        else if (targetId === 'css-skill') setProgrammerSkillLevel(targetId, 90);
                         else if (targetId === 'java-skill') setProgrammerSkillLevel(targetId, 75);
-                        else if (targetId === 'javascript-skill') setProgrammerSkillLevel(targetId, 85); 
-                        else if (targetId === 'cpp-skill') setProgrammerSkillLevel(targetId, 70); 
-                        else if (targetId === 'c-skill') setProgrammerSkillLevel(targetId, 65); 
-                        else if (targetId === 'r-skill') setProgrammerSkillLevel(targetId, 60); 
-                        else if (targetId === 'kotlin-skill') setProgrammerSkillLevel(targetId, 70); 
-                        observer.unobserve(entry.target); 
+                        else if (targetId === 'javascript-skill') setProgrammerSkillLevel(targetId, 85);
+                        else if (targetId === 'cpp-skill') setProgrammerSkillLevel(targetId, 70);
+                        else if (targetId === 'c-skill') setProgrammerSkillLevel(targetId, 65);
+                        else if (targetId === 'r-skill') setProgrammerSkillLevel(targetId, 60);
+                        else if (targetId === 'kotlin-skill') setProgrammerSkillLevel(targetId, 70);
+                        observer.unobserve(entry.target); // Hentikan observasi setelah animasi
                     }
                 });
             }, programmerObserverOptions);
+            // Observasi setiap bar skill
             programmerSkillBars.forEach(bar => programmerObserver.observe(bar));
 
             // Chart.js: Hard Skill (Radar Chart)
             const hardSkillCtx = document.getElementById('hardSkillChart');
             if (hardSkillCtx) {
-                const hardSkillRawData = { 
-                    'An': 90, 'CS': 80, 'DS': 85,  
-                    'ML': 85, 'Mu': 85, 'Ne': 75, 'IS': 80   
+                // Data mentah untuk Hard Skill
+                const hardSkillRawData = {
+                    'An': 90, 'CS': 80, 'DS': 85,
+                    'ML': 85, 'Mu': 85, 'Ne': 75, 'IS': 80
                 };
-                const radarChartFillColor = 'rgba(0, 102, 97, 0.5)'; 
-                const radarChartBorderColorTheme = '#006661'; 
+                // Warna fill dan border untuk Radar Chart
+                const radarChartFillColor = 'rgba(0, 102, 97, 0.5)';
+                const radarChartBorderColorTheme = '#006661';
 
                 const hardSkillChartData = {
-                    labels: Object.keys(hardSkillRawData), 
+                    labels: Object.keys(hardSkillRawData), // Label dari key data
                     datasets: [{
-                        label: 'Tingkat Penguasaan', 
-                        data: Object.values(hardSkillRawData),
-                        backgroundColor: radarChartFillColor, 
-                        borderColor: radarChartBorderColorTheme, 
+                        label: 'Tingkat Penguasaan',
+                        data: Object.values(hardSkillRawData), // Data dari value data
+                        backgroundColor: radarChartFillColor,
+                        borderColor: radarChartBorderColorTheme,
                         borderWidth: 2,
-                        pointBackgroundColor: radarChartBorderColorTheme, 
+                        pointBackgroundColor: radarChartBorderColorTheme,
                         pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff', 
+                        pointHoverBackgroundColor: '#fff',
                         pointHoverBorderColor: radarChartBorderColorTheme
                     }]
                 };
+                // Buat Radar Chart
                 new Chart(hardSkillCtx.getContext('2d'), {
-                    type: 'radar', 
+                    type: 'radar',
                     data: hardSkillChartData,
                     options: {
-                        responsive: true, maintainAspectRatio: false, 
-                        plugins: { 
-                            legend: { display: false }, 
-                            tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }, // Sembunyikan legend default
+                            tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }} // Format tooltip
                         },
                         scales: { r: {
-                            angleLines: { color: 'rgba(0,0,0,0.1)' }, 
+                            angleLines: { color: 'rgba(0,0,0,0.1)' },
                             grid: { color: 'rgba(0,0,0,0.1)' },
-                            pointLabels: { font: { family: 'Lexend', size: 10, weight: '500' }, color: '#4a5568' }, 
-                            ticks: { beginAtZero: true, max: 100, stepSize: 20, color: '#666', backdropColor: 'rgba(255,255,255,0.7)', font: { family: 'Lexend', size: 8 }} 
+                            pointLabels: { font: { family: 'Lexend', size: 10, weight: '500' }, color: '#4a5568' },
+                            ticks: { beginAtZero: true, max: 100, stepSize: 20, color: '#666', backdropColor: 'rgba(255,255,255,0.7)', font: { family: 'Lexend', size: 8 }}
                         }},
-                        elements: { line: { tension: 0.1 }, point: { radius: 3, hitRadius: 8, hoverRadius: 5 }} 
+                        elements: { line: { tension: 0.1 }, point: { radius: 3, hitRadius: 8, hoverRadius: 5 }}
                     }
                 });
 
+                // Buat legend kustom untuk Hard Skill Chart
                 const hardSkillChartLegend = document.getElementById('hardSkillChartLegend');
                 if (hardSkillChartLegend) {
+                    // Mapping teks untuk legend
                     const legendTextMapping = {
                         'An': 'Android', 'CS': 'Cyber Security', 'DS': 'Data Science',
                         'ML': 'Machine Learning', 'Mu': 'Multimedia', 'Ne': 'Networking',
                         'IS': 'IT Support'
                     };
-                    hardSkillChartLegend.innerHTML = ''; 
+                    hardSkillChartLegend.innerHTML = ''; // Kosongkan legend sebelumnya
                     for (const key in legendTextMapping) {
                         if (legendTextMapping.hasOwnProperty(key)) {
                             const legendItem = document.createElement('div');
-                            legendItem.classList.add('legend-item'); 
+                            legendItem.classList.add('legend-item');
                             legendItem.textContent = `${key} = ${legendTextMapping[key]}`;
                             hardSkillChartLegend.appendChild(legendItem);
                         }
@@ -1322,43 +1458,46 @@
             // Chart.js: Language Skill (Vertical Bar Chart)
             const languageCtx = document.getElementById('languageSkillChart');
             if (languageCtx) {
-                const languageSkillLevels = { 
-                    'Bahasa': 95, 
+                // Data untuk Language Skill
+                const languageSkillLevels = {
+                    'Bahasa': 95,
                     'Inggris': 80,
                     'Arab': 60
                 };
+                // Warna bar untuk Language Skill Chart
                 const languageBarColors = ['#006661', '#00796b', '#00897b'];
                 const languageSkillData = {
                     labels: Object.keys(languageSkillLevels),
                     datasets: [{
-                        label: 'Tingkat Keahlian', 
+                        label: 'Tingkat Keahlian',
                         data: Object.values(languageSkillLevels),
-                        backgroundColor: languageBarColors, 
-                        borderColor: languageBarColors, 
+                        backgroundColor: languageBarColors,
+                        borderColor: languageBarColors,
                         borderWidth: 1
                     }]
                 };
+                // Buat Bar Chart
                 new Chart(languageCtx.getContext('2d'), {
-                    type: 'bar', 
+                    type: 'bar',
                     data: languageSkillData,
                     options: {
                         responsive: true, maintainAspectRatio: false,
-                        plugins: { 
-                            legend: { display: false }, 
+                        plugins: {
+                            legend: { display: false },
                             tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
                         },
                         scales: {
-                            y: { 
+                            y: {
                                 beginAtZero: true,
                                 max: 100,
-                                ticks: { 
-                                    stepSize: 25, 
+                                ticks: {
+                                    stepSize: 25,
                                     callback: val => val + '%' ,
                                     font: { family: 'Lexend', size: 8 }, color: '#666'
                                 },
                                 grid: { color: 'rgba(0,0,0,0.1)' }
                             },
-                            x: { 
+                            x: {
                                 ticks: { font: { family: 'Lexend', size: 10 }, color: '#4a5568' },
                                 grid: { display: false }
                             }
@@ -1367,57 +1506,63 @@
                 });
             }
 
-            // Chart.js: Soft Skill (Doughnut Chart) 
-            const softSkillCtx = document.getElementById('softSkillChart'); 
+            // Chart.js: Soft Skill (Doughnut Chart)
+            const softSkillCtx = document.getElementById('softSkillChart');
             if (softSkillCtx) {
+                // Buat Doughnut Chart
                 new Chart(softSkillCtx.getContext('2d'), {
-                    type: 'doughnut', 
+                    type: 'doughnut',
                     data: {
-                        labels: Object.keys(softSkillData), 
+                        labels: Object.keys(softSkillData),
                         datasets: [{
-                            label: 'Tingkat Penguasaan', 
-                            data: Object.values(softSkillData), 
-                            backgroundColor: softSkillDoughnutColors, 
-                            borderColor: softSkillDoughnutColors,    
+                            label: 'Tingkat Penguasaan',
+                            data: Object.values(softSkillData),
+                            backgroundColor: softSkillDoughnutColors,
+                            borderColor: softSkillDoughnutColors,
                             borderWidth: 1
                         }]
                     },
                     options: {
                         responsive: true, maintainAspectRatio: false,
-                        cutout: '50%', 
-                        plugins: { 
-                            legend: { display: false }, 
+                        cutout: '50%', // Ukuran lubang di tengah doughnut chart
+                        plugins: {
+                            legend: { display: false },
                             tooltip: { callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }}
                         }
                     }
                 });
-                const softSkillChartLegend = document.getElementById('softSkillChartLegend'); 
+                // Buat legend kustom untuk Soft Skill Chart
+                const softSkillChartLegend = document.getElementById('softSkillChartLegend');
                 if (softSkillChartLegend) {
-                    softSkillChartLegend.innerHTML = ''; 
+                    softSkillChartLegend.innerHTML = '';
                     Object.keys(softSkillData).forEach((label, index) => {
                          const item = document.createElement('div'); item.className = 'legend-item';
                          const colorBox = document.createElement('div'); colorBox.className = 'legend-color';
-                         colorBox.style.backgroundColor = softSkillDoughnutColors[index % softSkillDoughnutColors.length]; 
+                         colorBox.style.backgroundColor = softSkillDoughnutColors[index % softSkillDoughnutColors.length];
                          const labelText = document.createElement('span'); labelText.className = 'legend-label';
                          labelText.textContent = label;
                          item.append(colorBox, labelText); softSkillChartLegend.appendChild(item);
                     });
                 }
             }
-            
+
+            // Observer umum untuk efek fade-in pada berbagai bagian
             const fadeInSections = document.querySelectorAll('.fade-in-section');
             const generalFadeInObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        // Kecualikan 'about-me-text-container' karena sudah punya observer sendiri
                         if (entry.target.id !== 'about-me-text-container') {
                              entry.target.classList.add('is-visible');
                         }
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { root: null, rootMargin: '0px', threshold: 0.1 }); 
+            }, { root: null, rootMargin: '0px', threshold: 0.1 });
+            // Observasi setiap bagian yang memiliki kelas 'fade-in-section'
             fadeInSections.forEach(section => generalFadeInObserver.observe(section));
 
+            // Fungsi untuk menginisialisasi slideshow sertifikat
             function initializeSlideshow(containerId) {
                 const container = document.getElementById(containerId);
                 if (!container) return;
@@ -1425,124 +1570,152 @@
                 if (items.length === 0) return;
                 let currentIndex = 0;
                 let interval;
-                items[currentIndex].classList.add('active');
+                items[currentIndex].classList.add('active'); // Tampilkan item pertama
 
+                // Fungsi untuk menampilkan item berikutnya
                 function showNext() {
                     items[currentIndex].classList.remove('active');
                     currentIndex = (currentIndex + 1) % items.length;
                     items[currentIndex].classList.add('active');
                 }
+                // Fungsi untuk menampilkan item sebelumnya
                 function showPrev() {
                     items[currentIndex].classList.remove('active');
                     currentIndex = (currentIndex - 1 + items.length) % items.length;
                     items[currentIndex].classList.add('active');
                 }
-                function start() { clearInterval(interval); interval = setInterval(showNext, 3000); } 
+                // Fungsi untuk memulai slideshow otomatis
+                function start() { clearInterval(interval); interval = setInterval(showNext, 3000); }
+                // Fungsi untuk menghentikan slideshow otomatis
                 function pause() { clearInterval(interval); }
 
-                start();
+                start(); // Mulai slideshow
+                // Event listener untuk pause saat mouse masuk/touch mulai dan start saat mouse keluar/touch berakhir
                 container.addEventListener('mouseenter', pause);
                 container.addEventListener('mouseleave', start);
                 container.addEventListener('touchstart', pause, {passive: true});
                 container.addEventListener('touchend', start);
+                // Event listener untuk navigasi manual dengan klik/tap
                 container.addEventListener('click', (e) => {
                     const rect = container.getBoundingClientRect();
                     e.clientX - rect.left > rect.width / 2 ? showNext() : showPrev();
-                    pause(); start();
+                    pause(); start(); // Pause sebentar lalu lanjutkan slideshow
                 });
             }
+            // Inisialisasi slideshow untuk setiap container sertifikat
             initializeSlideshow('slideshow-container-1');
             initializeSlideshow('slideshow-container-2');
             initializeSlideshow('slideshow-container-3');
 
-            const orgLogoItems = document.querySelectorAll('.org-logo-item'); 
-            const courseLogoItems = document.querySelectorAll('.course-logo-item'); 
+            // Logika Modal untuk detail organisasi
+            const orgLogoItems = document.querySelectorAll('.org-logo-item');
+            const courseLogoItems = document.querySelectorAll('.course-logo-item'); // Ini tidak digunakan untuk modal di sini, tapi ada di file asli
             const infoModal = document.getElementById('infoModal');
-            const modalTitleEl = document.getElementById('modalTitle'); 
-            const modalBodyEl = document.getElementById('modalBody');   
+            const modalTitleEl = document.getElementById('modalTitle');
+            const modalBodyEl = document.getElementById('modalBody');
             const closeButton = document.getElementById('closeButton');
 
+            // Sembunyikan modal secara default
             if (infoModal) infoModal.style.display = "none";
 
+            // Event listener untuk menampilkan modal saat item logo organisasi diklik
             orgLogoItems.forEach(item => {
                  item.addEventListener('click', () => {
                     if (modalTitleEl && modalBodyEl && infoModal) {
                         modalTitleEl.textContent = item.dataset.title || 'Detail';
                         modalBodyEl.innerHTML = `<p>${item.dataset.description || 'Informasi tidak tersedia.'}</p>`;
-                        infoModal.style.setProperty('display', 'flex', 'important');
+                        infoModal.style.setProperty('display', 'flex', 'important'); // Tampilkan modal
                     }
                 });
             });
 
+            // Event listener untuk tombol tutup modal
             if (closeButton && infoModal) closeButton.addEventListener('click', () => infoModal.style.setProperty('display', 'none', 'important'));
+            // Event listener untuk menutup modal saat mengklik di luar area modal
             if (infoModal) window.addEventListener('click', e => { if (e.target === infoModal) infoModal.style.setProperty('display', 'none', 'important'); });
 
-            // Logika Header Responsif (Sinkron dengan others_page_certificates)
+            // Logika Header Responsif (Menu Mobile dan Desktop)
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileMenuDrawer = document.getElementById('mobileMenuDrawer'); 
+            const mobileMenuDrawer = document.getElementById('mobileMenuDrawer');
             const closeMobileMenuBtn = document.getElementById('closeMobileMenuBtn');
-            const mobileNavLinks = document.querySelectorAll('#mobileMenuDrawer .nav-link'); 
+            const mobileNavLinks = document.querySelectorAll('#mobileMenuDrawer .nav-link');
 
             if (mobileMenuBtn && mobileMenuDrawer && closeMobileMenuBtn) {
+                // Event listener untuk membuka menu mobile
                 mobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.add('open'));
+                // Event listener untuk menutup menu mobile
                 closeMobileMenuBtn.addEventListener('click', () => mobileMenuDrawer.classList.remove('open'));
-                
-                mobileNavLinks.forEach(link => { 
-                    if (!link.parentElement.classList.contains('portfolio-mobile-trigger') && !link.closest('.mobile-submenu')) { 
+
+                // Event listener untuk menutup menu mobile saat link di dalamnya diklik (kecuali dropdown trigger)
+                mobileNavLinks.forEach(link => {
+                    if (!link.parentElement.classList.contains('portfolio-mobile-trigger') && !link.closest('.mobile-submenu')) {
                         link.addEventListener('click', () => mobileMenuDrawer.classList.remove('open'));
                     }
                 });
             }
-            
+
+            // Logika Submenu Portfolio Mobile
             const portfolioMobileTrigger = document.querySelector('.portfolio-mobile-trigger');
             const portfolioMobileSubmenu = document.querySelector('.portfolio-mobile-submenu');
             const portfolioArrowIcon = portfolioMobileTrigger ? portfolioMobileTrigger.querySelector('.arrow-icon') : null;
 
             if (portfolioMobileTrigger && portfolioMobileSubmenu && portfolioArrowIcon) {
+                // Event listener untuk toggle submenu mobile
                 portfolioMobileTrigger.addEventListener('click', function(event) {
-                    event.preventDefault(); 
+                    event.preventDefault();
                     portfolioMobileSubmenu.classList.toggle('open');
                     portfolioArrowIcon.classList.toggle('rotate-180');
                 });
+                // Tutup menu mobile saat link di submenu diklik
                 portfolioMobileSubmenu.querySelectorAll('a.nav-link').forEach(link => {
                      link.addEventListener('click', () => {
                         mobileMenuDrawer.classList.remove('open');
                      });
                 });
             }
-            
+
+            // Trigger dropdown desktop (tidak ada logika JS langsung di sini karena sudah diatur via CSS hover)
             const portfolioDesktopTrigger = document.getElementById('portfolioDesktopTrigger');
             const desktopDropdown = portfolioDesktopTrigger ? portfolioDesktopTrigger.nextElementSibling : null;
-            
+
+            // Atur tahun saat ini di footer dan mobile drawer
             const currentYearElements = [document.getElementById('currentYearFooter'), document.getElementById('currentYearMobileDrawer')];
             currentYearElements.forEach(el => {
                 if (el) el.textContent = new Date().getFullYear();
             });
-            
-            const sections = document.querySelectorAll('main section[id]'); 
+
+            // Logika untuk mengatur link navigasi aktif berdasarkan posisi scroll
+            const sections = document.querySelectorAll('main section[id]');
             function setActiveLink() {
                 let currentSectionId = '';
-                const headerHeight = 64; 
-                
+                const headerHeight = 64; // Tinggi header
+
                 sections.forEach(section => {
-                    const sectionTop = section.offsetTop - headerHeight - 10; 
+                    // Hitung posisi section dengan mempertimbangkan tinggi header
+                    const sectionTop = section.offsetTop - headerHeight - 10;
                     const sectionBottom = sectionTop + section.offsetHeight;
 
+                    // Tentukan section yang sedang aktif berdasarkan posisi scroll
                     if (pageYOffset >= sectionTop && pageYOffset < sectionBottom) {
                         currentSectionId = section.getAttribute('id');
                     }
                 });
+                // Jika paling atas halaman, aktifkan 'Home'
                 if (!currentSectionId && sections.length > 0 && pageYOffset < (sections[0].offsetTop - headerHeight -10) ) {
-                     currentSectionId = 'home-content'; 
+                     currentSectionId = 'home-content';
                 }
 
-                document.querySelectorAll('nav .nav-link').forEach(link => { 
+                // Hapus kelas 'active' dari semua link navigasi
+                document.querySelectorAll('nav .nav-link').forEach(link => {
                     link.classList.remove('active');
                     const linkHref = link.getAttribute('href');
-                    
+
+                    // Tambahkan kelas 'active' ke link yang sesuai dengan section aktif
                     if (linkHref && ((linkHref.startsWith('#') && linkHref.substring(1) === currentSectionId) || (currentSectionId === 'home-content' && linkHref === '#home'))) {
                         link.classList.add('active');
-                    } else if (linkHref === 'others.html' && window.location.pathname.endsWith('/others.html')) { 
+                    }
+                    // Penanganan khusus untuk link 'Something' dan 'Training' jika berada di halaman terpisah
+                    else if (linkHref === 'others.html' && window.location.pathname.endsWith('/others.html')) {
                         if(link.textContent.trim() === 'Something') {
                             link.classList.add('active');
                         }
@@ -1561,8 +1734,10 @@
                     }
                 });
             }
+            // Event listener untuk scroll dan panggil setActiveLink
             window.addEventListener('scroll', setActiveLink);
-            setActiveLink(); 
+            // Panggil setActiveLink saat halaman dimuat pertama kali
+            setActiveLink();
 
         });
     </script>
