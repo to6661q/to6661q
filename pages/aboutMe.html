@@ -3,24 +3,719 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
+    <title>Profil Saya - Keahlian & Informasi</title>
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Lexend & Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate On Scroll) Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Boxicons for Icons -->
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Typed.js for Typing Effect -->
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <!-- Chart.js for Charts -->
     <script src="https://unpkg.com/chart.js"></script>
+    
+
     <link rel="stylesheet" href="../css/style.css">
+    <!-- Custom Styles (Overriding or extending Tailwind) -->
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+            line-height: 1.6;
+            color: #333;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Shine effect for profile image */
+        .profile-img-container {
+            position: relative;
+            display: inline-block;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+            border: 5px solid #006661; /* Updated color */
+        }
+        .profile-img-container:hover {
+            transform: scale(1.05);
+        }
+        .profile-img-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: skewX(-20deg);
+            animation: shine 4s infinite ease-out;
+            animation-delay: 1s;
+        }
+        @keyframes shine {
+            0% { left: -75%; }
+            50% { left: 125%; }
+            100% { left: -75%; }
+        }
+
+        /* Typed.js cursor styling */
+        .typed-cursor {
+            opacity: 1;
+            animation: blink 0.7s infinite;
+            color: #004d40; /* Updated color - darker teal */
+        }
+        .typed-cursor.hidden-cursor {
+            display: none;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* General fade-in animation for sections */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Slide-up animation for About Me text */
+        .slide-up-fade-in-about {
+            opacity: 0;
+            transform: translateY(40px); /* Start 40px below */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            transition-delay: 0.2s; /* Slight delay after parent fades in */
+        }
+        .slide-up-fade-in-about.is-visible {
+            opacity: 1;
+            transform: translateY(0); /* Move to final position */
+        }
+
+        /* Card styling */
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #006661; /* Updated color */
+            text-align: center;
+            margin-bottom: 0.5rem; /* Reduced for closer proximity to chart */
+        }
+
+        /* Chart container styling */
+        .chart-outer-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            margin-bottom: 0rem;
+            margin-top: 0.5rem;
+        }
+        #hardSkillChartContainer, #softSkillChartContainer, #languageSkillChartContainer , #experiencePizzaChartContainer{
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        #hardSkillChart, #softSkillChart, #languageSkillChart, #experiencePizzaChartContainer {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        .chart-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.3rem 0.3rem;
+            margin-top: 1rem;
+            padding: 0 0.3rem;
+            justify-content: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            font-size: 0.6rem;
+            color: #4a5568;
+            line-height: 1.2;
+        }
+        .legend-color {
+            width: 0.6rem;
+            height: 0.6rem;
+            border-radius: 0.1rem;
+            margin-right: 0.2rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .legend-label {
+            font-size: 0.6rem;
+            color: #4a5568;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Photo Grid for Office Software / Hobbies */
+        .photo-grid {
+            display: grid;
+            /* grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); REMOVED - now handled by grid-cols-3 */
+            gap: 0.25rem;
+            margin-bottom: 0;
+            padding: 0;
+        }
+        .logo-item {
+            /* REMOVED height and width to allow aspect-square to control it */
+            /* height: 100px; */
+            /* weight:100px; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.5rem;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease-in-out;
+            border: 2px solid blue; /* Added border as per request */
+        }
+        .logo-item:hover {
+            transform: scale(1.1);
+        }
+        .logo {
+            /* Adjusted for full fill within aspect-square parent */
+            /* width: 80%; */
+            /* height: auto; */
+            /* max-height: 80%; */
+            object-fit: contain;
+        }
+
+        /* Slideshow Container for Experience Certificates */
+        .slideshow-container {
+            background-color: #f3f4f6;
+            border-radius: 0.5rem;
+            padding: 0rem;
+            overflow: hidden;
+            position: relative;
+            height: 0;
+            padding-bottom: 65%; /* Aspect ratio (e.g., 65% for 16:9 like effect) */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .certificate-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .certificate-item.active {
+            opacity: 1;
+        }
+        .certificate-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        .certificate-item:hover .certificate-img,
+        .certificate-item:active .certificate-img {
+            transform: scale(1.05);
+        }
+
+        /* Detail Button Styling */
+        .detail-button {
+            display: block;
+            width: 100%;
+            margin: 0rem auto 1rem auto;
+            background-color: #006661;
+            color: white;
+            padding: 0.6rem 0;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .detail-button:hover {
+            background-color: #00796b;
+            transform: translateY(-2px);
+        }
+
+        /* Slide down fade in effect for initial elements */
+        .slide-down-fade-in {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 1.0s ease-out, transform 1.0s ease-out;
+        }
+        .slide-down-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typed name styling with outline effect */
+        #typed-name {
+            color: #FFFFFF;
+            text-shadow:
+                -1.5px -1.5px 0 #006661,
+                1.5px -1.5px 0 #006661,
+                -1.5px 1.5px 0 #006661,
+                1.5px 1.5px 0 #006661;
+        }
+
+        /* Google Maps Container */
+        .map-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 75%; /* Aspect ratio 4:3 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Footer Social Icons */
+.icon-scl {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #006661;
+    border-radius: 0.375rem;
+    color: #006661;
+    background-color: transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0.12rem ;
+}
+.icon-scl:hover {
+    background-color: #006661;
+    color: white;
+}
+.icon-scl i {
+    font-size: 1.5rem;
+}
+
+
+    </style>
 </head>
 <body class="bg-[#f0fdf4]">
+
     <div id="header-placeholder"></div>
     <main id="mainContent" class="main-content-area">
-efewf </main>
-    <div id="footer-placeholder"></div>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <!-- Home Section: Profile Image & Greeting -->
+        <section id="home-content" class="bg-white shadow-lg rounded-[0.5rem] p-4 md:p-6 mb-6">
+            <div class="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 text-center md:text-left fade-in-section" data-aos="fade-up">
+                <div class="profile-img-container">
+                    <img src="https://placehold.co/192x192/006661/FFFFFF?text=Photo" onerror="this.onerror=null;this.src='https://placehold.co/192x192/006661/FFFFFF?text=Photo_Error';" alt="Profile Image" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
+                </div>
+                <div class="text-center md:text-left">
+                    <h1 class="text-[1.5rem] md:text-[3rem] font-extrabold leading-tight mb-2 text-[#006661]">
+                        Hello, I'm <span id="typed-name"></span>
+                    </h1>
+                    <p id="call-to-action" class="text-lg md:text-xl text-[#004d40] mb-3 slide-down-fade-in">
+                        Fully adaptable. Embrace the process, let's grow together!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Combined About Me & Experience Section -->
+        <section id="about-me-and-experience" class="max-w-6xl mx-auto px-2 md:px-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5">
+                <!-- About Me (2/3 width) -->
+                <div id="about-me-text-container" class="md:col-span-2 w-full text-center fade-in-section bg-white shadow-lg rounded-[0.5rem] p-0 md:p-6" data-aos="fade-up" data-aos-delay="100">
+                    <div id="about-me-typing-container" class="slide-up-fade-in-about py-2 md:py-3">
+                        <p id="typing-text-about-me" class="text-justify">Hello, I'm Toriq As Syarif, a Bachelor of Informatics Engineering graduate who is passionate about the world of technology. I possess a strong foundation in Programming, Databases, Networking, and Machine Learning, which I've diligently applied in various website development projects and IT support roles. My extensive organizational experience, coupled with diverse training programs such as UX Designer and SAP Analytics Cloud, has honed my skills, shaping me into an adaptable individual with strong communication abilities. I am highly interested in the IT and Digital Banking sectors, and I am eager to contribute my enthusiasm and expertise to innovative and impactful initiatives.</p>
+                    </div>
+                </div>
+
+                <!-- Experience Section (1/3 width) - Now holding the Hub-and-Spoke Diagram -->
+                <div id="experience-section" class="md:col-span-1 text-center fade-in-section bg-white shadow-lg rounded-[0.5rem] p-0 md:p-6" data-aos="fade-up">
+                    <!--Diagram Container -->
+
+                    <h2 class="card-header">Resume My Skill</h2>
+                    <div class="chart-outer-container">
+                        <div id="experiencePizzaChartContainer">
+                            <canvas id="experiencePizzaChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-legend" id="experiencePizzaChartLegend"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="skills-section" class="max-w-6xl mx-auto px-2 md:px-6 mb-6">
+            <!-- Mengubah grid menjadi 2 kolom di layar lg ke atas -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 md:gap-5">
+
+                <!-- Card 1 & 2 Digabung: Menggunakan col-span-2 agar menempati 2 kolom dari 4 di layar lg ke atas -->
+                <div class="card w-full fade-in-section lg:col-span-1" data-aos="fade-up">
+                    <h2 class="card-header">My Project</h2>
+                    <div class="flex flex-col md:flex-row gap-4 p-0"> <!-- Flexbox untuk tata letak internal -->
+                        <!-- Konten Soft Skill -->
+                        <div class="md:w-1/2">
+                            <a href="https://www.to6661q.xyz/pages/experience.html" class="detail-button">Visit Me on GitHub</a>
+                            <div id="slideshow-container-1" class="slideshow-container mt-4">
+                                <div class="certificate-item active">
+                                    <img class="certificate-img" src="https://placehold.co/600x400/006661/FFFFFF?text=Experience+1" onerror="this.onerror=null;this.src='https://placehold.co/600x400/006661/FFFFFF?text=Error';" alt="Experience Certificate 1">
+                                </div>
+                                <div class="certificate-item">
+                                    <img class="certificate-img" src="https://placehold.co/600x400/00796B/FFFFFF?text=Experience+2" onerror="this.onerror=null;this.src='https://placehold.co/600x400/00796B/FFFFFF?text=Error';" alt="Experience Certificate 2">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Konten My Activity -->
+                        <div class="md:w-1/2">
+                            <p>trhhhhhhh, sleep code</p>
+                            <!-- Anda bisa menambahkan lebih banyak detail atau elemen di sini untuk my activity -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wrapper untuk My Hobby dan Social Media & Maps -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-5">
+                    <!-- Card 3: My Hobby -->
+                    <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="200">
+                        <h2 class="card-header">my hobby</h2>
+                        <div class="photo-grid grid grid-cols-3 gap-2">
+                            <!-- 1. Membaca -->
+                            <div class="logo-item w-full aspect-square flex items-center justify-center">
+                                <img class="logo w-full h-full object-contain p-1" src="https://asset-2.tstatic.net/trends/foto/bank/images/Arti-istilah-viral-Random.jpg" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Membaca">
+                            </div>
+                            <!-- 2. Bermain Game -->
+                            <div class="logo-item w-full aspect-square flex items-center justify-center">
+                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?gaming" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Bermain Game">
+                            </div>
+                            <!-- 3. Mendaki/Hiking -->
+                            <div class="logo-item w-full aspect-square flex items-center justify-center">
+                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?hiking" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Mendaki">
+                            </div>
+                            <!-- 4. Memasak -->
+                            <div class="logo-item w-full aspect-square flex items-center justify-center">
+                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?cooking" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Memasak">
+                            </div>
+                            <!-- 5. Melukis -->
+                            <div class="logo-item w-full aspect-square flex items-center justify-center">
+                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?painting" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Melukis">
+                            </div>
+                            <!-- 6. Bermain Musik -->
+                            <div class="logo-item w-full aspect-square flex items-center justify-center">
+                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?music" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Bermain Musik">
+                            </div>
+                            <!-- 7. Fotografi -->
+                            <div class="logo-item w-full aspect-square flex items-center justify-center">
+                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?photography" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Fotografi">
+                            </div>
+                            <!-- 8. Berkebun -->
+                            <div class="logo-item w-full aspect-square flex items-center justify-center">
+                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?gardening" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Berkebun">
+                            </div>
+                            <!-- 9. Traveling -->
+                            <div class="logo-item w-full aspect-square flex items-center justify-center">
+                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?travel" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Traveling">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Social Media & Maps -->
+                    <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="300">
+                        <h2 class="card-header">Let's Connect! </h2>
+                        <div class="container rounded bg-red text-gray-300 py-0 mt-2 text-center">
+                            <div class="flex justify-center">
+                                <!-- LinkedIn -->
+                                <a href="https://www.linkedin.com/in/toriq-as-syarif-9488381b2/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="icon-scl">
+                                    <i class='bx bxl-linkedin-square'></i>
+                                </a>
+                                <!-- GitHub -->
+                                <a href="https://github.com/to6661q" target="_blank" rel="noopener noreferrer" aria-label="GitHub" class="icon-scl">
+                                    <i class='bx bxl-github'></i>
+                                </a>
+                                <!-- Instagram -->
+                                <a href="https://www.instagram.com/to6661q/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="icon-scl">
+                                    <i class='bx bxl-instagram-alt'></i>
+                                </a>
+                                <!-- Email -->
+                                <a href="mailto:toriq.assyarif@gmail.com" aria-label="Email" class="icon-scl">
+                                    <i class='bx bxs-envelope'></i>
+                                </a>
+                                <!-- WhatsApp -->
+                                <a href="https://wa.me/6282289007000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="icon-scl">
+                                    <i class='bx bxl-whatsapp'></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Container responsif untuk peta -->
+                        <div class="container rounded bg-[#006661] text-gray-300 py-1 mt-4 text-center relative w-full overflow-hidden" style="padding-top: 56.25%;">
+                            <iframe
+                                src="https://maps.google.com/maps?q=South%20Tangerang,%20Banten,%20Indonesia&output=embed"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="Lokasi Google Maps"
+                                class="absolute top-0 left-0 w-full h-full border-0 rounded"
+                            ></iframe>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div id="footer-placeholder"></div>
+    </main>
+
+    <!-- Main JavaScript Logic -->
+
+
     <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS library for scroll animations
+            AOS.init({
+                duration: 800, // Durasi animasi
+                once: true,    // Apakah animasi hanya terjadi sekali - saat scrolling ke bawah
+                mirror: false, // Apakah elemen harus menganimasi keluar saat di-scroll
+                offset: 50,    // Offset (dalam px) dari bagian atas layar
+            });
+
+            // Initialize Typed.js for the name typing effect
+            var typedName = new Typed('#typed-name', {
+                strings: ["Toriq As Syarif", "Programmer", "Developer", "Engineer", "Guitarist"],
+                typeSpeed: 60,
+                backSpeed: 30,
+                backDelay: 1500,
+                startDelay: 500,
+                loop: true,
+                showCursor: true,
+                cursorChar: '|',
+            });
+
+            // Add 'is-visible' class to call-to-action after a delay
+            const callToActionElement = document.getElementById('call-to-action');
+            if (callToActionElement) {
+                setTimeout(() => {
+                    callToActionElement.classList.add('is-visible');
+                }, 2000);
+            }
+
+            // Intersection Observer for About Me text animation
+            const aboutMeTextContainer = document.getElementById('about-me-typing-container');
+            if (aboutMeTextContainer) {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1 // Pemicu saat 10% elemen terlihat
+                };
+                const observerCallback = (entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            aboutMeTextContainer.classList.add('is-visible');
+                            // Efek ketikan untuk teks "About Me"
+                            const textElement = document.getElementById('typing-text-about-me');
+                            const originalText = "Hello, I'm Toriq As Syarif, a Bachelor of Informatics Engineering graduate who is passionate about the world of technology. I possess a strong foundation in Programming, Databases, Networking, and Machine Learning, which I've diligently applied in various website development projects and IT support roles. My extensive organizational experience, coupled with diverse training programs such as UX Designer and SAP Analytics Cloud, has honed my skills, shaping me into an adaptable individual with strong communication abilities. I am highly interested in the IT and Digital Banking sectors, and I am eager to contribute my enthusiasm and expertise to innovative and impactful initiatives."; // Teks lengkap untuk diketik
+                            textElement.textContent = ''; // Kosongkan teks awal
+                            let i = 0;
+                            const speed = 30; // Kecepatan ketikan dalam milidetik
+
+                            function typeWriter() {
+                                if (i < originalText.length) {
+                                    textElement.textContent += originalText.charAt(i);
+                                    i++;
+                                    setTimeout(typeWriter, speed);
+                                }
+                            }
+                            typeWriter(); // Mulai efek ketikan
+                            observer.unobserve(entry.target); // Berhenti mengamati setelah animasi
+                        }
+                    });
+                };
+                const aboutMeObserver = new IntersectionObserver(observerCallback, observerOptions);
+                aboutMeObserver.observe(aboutMeTextContainer);
+            }
+
+
+              // Chart.js: Experience Pizza Chart (Pie Chart)
+            const experiencePizzaCtx = document.getElementById('experiencePizzaChart');
+            if (experiencePizzaCtx) {
+                const experiencePizzaData = {
+                    'Hardskill': 99,
+                    'Softskill': 99,
+                    'Coding': 99,
+                    'Language': 99,
+                    'Software': 99,
+                    'Organization': 99 // Added this for 6 slices
+                };
+                const pizzaChartColors = ['#006661', '#00796b', '#00897b', '#26a69a', '#4db6ac', '#80cbc4'];
+
+                new Chart(experiencePizzaCtx.getContext('2d'), {
+                    type: 'pie', // Changed from 'doughnut' to 'pie'
+                    data: {
+                        labels: Object.keys(experiencePizzaData),
+                        datasets: [{
+                            label: 'Label Skill',
+                            data: Object.values(experiencePizzaData),
+                            backgroundColor: pizzaChartColors,
+                            borderColor: '#ffffff', // White border for slices
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        // Removed cutout option for a solid pie chart
+                        plugins: {
+                            legend: {
+                                display: true, // Show legend for this chart
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: 'Lexend', size: 12 },
+                                    color: '#4a5568',
+                                    boxWidth: 10, // Smaller color box
+                                    boxHeight: 10, // Smaller color box
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: ctx => `${ctx.label}: ${ctx.raw}%`
+                                }
+                            }
+                        },
+                        elements: {
+                            arc: {
+                                hoverOffset: 20 // This creates the "zoom" or "explode" effect on hover
+                            }
+                        }
+                    }
+                });
+            }
+
+
+            // General fade-in sections observer (excluding the specific about-me-text-container)
+            const fadeInSections = document.querySelectorAll('.fade-in-section');
+            const generalFadeInObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.id !== 'about-me-typing-container') { // Kecualikan 'about-me-typing-container' karena memiliki observer sendiri
+                            entry.target.classList.add('is-visible');
+                        }
+                        observer.unobserve(entry.target); // Berhenti mengamati setelah animasi
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.1 });
+            fadeInSections.forEach(section => generalFadeInObserver.observe(section));
+
+            // Function to initialize slideshows
+            function initializeSlideshow(containerId) {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    console.warn(`Slideshow container with ID '${containerId}' not found.`);
+                    return;
+                }
+                const items = container.querySelectorAll('.certificate-item');
+                if (items.length === 0) {
+                    console.warn(`No certificate items found in slideshow container '${containerId}'.`);
+                    return;
+                }
+
+                let currentIndex = 0;
+                let interval;
+
+                // Set initial active item
+                items[currentIndex].classList.add('active');
+
+                // Function to show the next slide
+                function showNext() {
+                    items[currentIndex].classList.remove('active');
+                    currentIndex = (currentIndex + 1) % items.length;
+                    items[currentIndex].classList.add('active');
+                }
+
+                // Function to show the previous slide
+                function showPrev() {
+                    items[currentIndex].classList.remove('active');
+                    currentIndex = (currentIndex - 1 + items.length) % items.length;
+                    items[currentIndex].classList.add('active');
+                }
+
+                // Start automatic slideshow
+                function startSlideshow() {
+                    clearInterval(interval); // Hapus interval yang ada
+                    interval = setInterval(showNext, 3000); // Ganti slide setiap 3 detik
+                }
+
+                // Pause automatic slideshow
+                function pauseSlideshow() {
+                    clearInterval(interval);
+                }
+
+                startSlideshow(); // Mulai slideshow di awal
+
+                // Add event listeners for interaction
+                container.addEventListener('mouseenter', pauseSlideshow);
+                container.addEventListener('mouseleave', startSlideshow);
+                container.addEventListener('touchstart', pauseSlideshow, {passive: true});
+                container.addEventListener('touchend', startSlideshow);
+
+                // Handle click to navigate slides
+                container.addEventListener('click', (e) => {
+                    const rect = container.getBoundingClientRect();
+                    // Tentukan apakah klik ada di setengah kiri atau kanan
+                    if (e.clientX - rect.left > rect.width / 2) {
+                        showNext();
+                    } else {
+                        showPrev();
+                    }
+                    pauseSlideshow(); // Jeda pada interaksi manual
+                    startSlideshow(); // Mulai ulang setelah jeda singkat
+                });
+            }
+
+            // Initialize all slideshows present in the HTML
+            initializeSlideshow('slideshow-container-1');
+        });
+    </script>
 </body>
 </html>
