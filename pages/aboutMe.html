@@ -169,7 +169,7 @@
             background-color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
             transition: transform 0.2s ease-in-out;
-            border: 2px solid blue; /* Added border as per request */
+            border: 2px solid white; 
         }
         .logo-item:hover {
             transform: scale(1.1);
@@ -327,10 +327,8 @@
                     </div>
                 </div>
 
-                <!-- Experience Section (1/3 width) - Now holding the Hub-and-Spoke Diagram -->
                 <div id="experience-section" class="md:col-span-1 text-center fade-in-section bg-white shadow-lg rounded-[0.5rem] p-0 md:p-6" data-aos="fade-up">
-                    <!--Diagram Container -->
-                    <h2 class="card-header">Resume My Skill</h2>
+                    <h2 class="card-header">My Skill</h2>
                     <div class="chart-outer-container">
                         <div id="experiencePizzaChartContainer">
                             <canvas id="experiencePizzaChart"></canvas>
@@ -342,73 +340,38 @@
         </section>
 
         <section id="skills-section" class="max-w-6xl mx-auto px-2 md:px-6 mb-6">
-            <!-- Mengubah grid menjadi 2 kolom di layar lg ke atas -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 md:gap-5">
-                <!-- Card 1 & 2 Digabung: Menggunakan col-span-2 agar menempati 2 kolom dari 4 di layar lg ke atas -->
                 <div class="card w-full fade-in-section lg:col-span-1" data-aos="fade-up">
                     <h2 class="card-header">My Project</h2>
-                    <div class="flex flex-col md:flex-row gap-4 p-0"> <!-- Flexbox untuk tata letak internal -->
-                        <!-- Konten Soft Skill -->
+                    <div class="flex flex-col md:flex-row gap-4 p-0"> 
                         <div class="md:w-1/2">
                             <a href="https://www.to6661q.xyz/pages/experience.html" class="detail-button">Visit Me on GitHub</a>
                             <div id="slideshow-container-1" class="slideshow-container mt-4">
-                                <div class="certificate-item active">
-                                    <img class="certificate-img" src="https://placehold.co/600x400/006661/FFFFFF?text=Experience+1" onerror="this.onerror=null;this.src='https://placehold.co/600x400/006661/FFFFFF?text=Error';" alt="Experience Certificate 1">
-                                </div>
-                                <div class="certificate-item">
-                                    <img class="certificate-img" src="https://placehold.co/600x400/00796B/FFFFFF?text=Experience+2" onerror="this.onerror=null;this.src='https://placehold.co/600x400/00796B/FFFFFF?text=Error';" alt="Experience Certificate 2">
-                                </div>
+                                <div class="certificate-item active"><img class="certificate-img" src="../img/github01.jpg"></div>
+                                <div class="certificate-item active"><img class="certificate-img" src="../img/github02.jpg"></div>
+                                <div class="certificate-item active"><img class="certificate-img" src="../img/github03.jpg"></div>
+                                <div class="certificate-item active"><img class="certificate-img" src="../img/github04.jpg"></div>
+                                <div class="certificate-item active"><img class="certificate-img" src="../img/github05.jpg"></div>
                             </div>
                         </div>
-                        <!-- Konten My Activity -->
                         <div class="md:w-1/2">
                             <p>trhhhhhhh, sleep code</p>
-                            <!-- Anda bisa menambahkan lebih banyak detail atau elemen di sini untuk my activity -->
                         </div>
                     </div>
                 </div>
-                <!-- Wrapper untuk My Hobby dan Social Media & Maps -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-5">
-                    <!-- Card 3: My Hobby -->
                     <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="200">
-                        <h2 class="card-header">my hobby</h2>
+                        <h2 class="card-header">My Hobby</h2>
                         <div class="photo-grid grid grid-cols-3 gap-2">
-                            <!-- 1. Membaca -->
-                            <div class="logo-item w-full aspect-square flex items-center justify-center">
-                                <img class="logo w-full h-full object-contain p-1" src="https://asset-2.tstatic.net/trends/foto/bank/images/Arti-istilah-viral-Random.jpg" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Membaca">
-                            </div>
-                            <!-- 2. Bermain Game -->
-                            <div class="logo-item w-full aspect-square flex items-center justify-center">
-                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?gaming" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Bermain Game">
-                            </div>
-                            <!-- 3. Mendaki/Hiking -->
-                            <div class="logo-item w-full aspect-square flex items-center justify-center">
-                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?hiking" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Mendaki">
-                            </div>
-                            <!-- 4. Memasak -->
-                            <div class="logo-item w-full aspect-square flex items-center justify-center">
-                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?cooking" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Memasak">
-                            </div>
-                            <!-- 5. Melukis -->
-                            <div class="logo-item w-full aspect-square flex items-center justify-center">
-                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?painting" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Melukis">
-                            </div>
-                            <!-- 6. Bermain Musik -->
-                            <div class="logo-item w-full aspect-square flex items-center justify-center">
-                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?music" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Bermain Musik">
-                            </div>
-                            <!-- 7. Fotografi -->
-                            <div class="logo-item w-full aspect-square flex items-center justify-center">
-                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?photography" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Fotografi">
-                            </div>
-                            <!-- 8. Berkebun -->
-                            <div class="logo-item w-full aspect-square flex items-center justify-center">
-                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?gardening" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Berkebun">
-                            </div>
-                            <!-- 9. Traveling -->
-                            <div class="logo-item w-full aspect-square flex items-center justify-center">
-                                <img class="logo w-full h-full object-contain p-1" src="https://source.unsplash.com/random/60x60/?travel" onerror="this.onerror=null;this.src='https://placehold.co/60x60/006661/FFFFFF?text=Error';" alt="Hobi Traveling">
-                            </div>
+                            <div class="logo-item w-full aspect-square flex items-center justify-center"><img class="logo w-full h-full object-contain p-1" src="../img/hobby01.jpg"></div>
+                            <div class="logo-item w-full aspect-square flex items-center justify-center"><img class="logo w-full h-full object-contain p-1" src="../img/hobby02.jpg"></div>
+                            <div class="logo-item w-full aspect-square flex items-center justify-center"><img class="logo w-full h-full object-contain p-1" src="../img/hobby03.jpg"></div>
+                            <div class="logo-item w-full aspect-square flex items-center justify-center"><img class="logo w-full h-full object-contain p-1" src="../img/hobby04.jpg"></div>
+                            <div class="logo-item w-full aspect-square flex items-center justify-center"><img class="logo w-full h-full object-contain p-1" src="../img/hobby05.jpg"></div>
+                            <div class="logo-item w-full aspect-square flex items-center justify-center"><img class="logo w-full h-full object-contain p-1" src="../img/hobby06.jpg"></div>
+                            <div class="logo-item w-full aspect-square flex items-center justify-center"><img class="logo w-full h-full object-contain p-1" src="../img/hobby07.jpg"></div>
+                            <div class="logo-item w-full aspect-square flex items-center justify-center"><img class="logo w-full h-full object-contain p-1" src="../img/hobby08.jpg"></div>
+                            <div class="logo-item w-full aspect-square flex items-center justify-center"><img class="logo w-full h-full object-contain p-1" src="../img/hobby09.jpg"></div>
                         </div>
                     </div>
                     <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="300">
@@ -446,7 +409,9 @@
                 </div>
             </div>
         </section>
+        
         <div id="footer-placeholder"></div>
+    
     </main>
     <script src="../js/script.js"></script>
     <script>
