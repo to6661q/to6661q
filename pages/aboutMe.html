@@ -4,49 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
-
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Google Fonts: Lexend & Montserrat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- AOS (Animate On Scroll) Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- Boxicons for Icons -->
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-    <!-- Typed.js for Typing Effect -->
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-
-    <!-- Chart.js for Charts -->
     <script src="https://unpkg.com/chart.js"></script>
     
-
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Custom Styles (Overriding or extending Tailwind) -->
     <style>
         body {
             font-family: 'Lexend', sans-serif;
-            background-color: #f3f4f6; /* Light gray background */
+            background-color: #f3f4f6; 
             line-height: 1.6;
             color: #333;
             padding: 0;
             margin: 0;
-            overflow-x: hidden; /* Prevent horizontal scrolling */
+            overflow-x: hidden; 
         }
-
         h1, h2, h3 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
         }
-
-        /* Shine effect for profile image */
         .profile-img-container {
             position: relative;
             display: inline-block;
@@ -54,7 +37,7 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease-in-out;
-            border: 5px solid #006661; /* Updated color */
+            border: 5px solid #006661;
         }
         .profile-img-container:hover {
             transform: scale(1.05);
@@ -76,12 +59,10 @@
             50% { left: 125%; }
             100% { left: -75%; }
         }
-
-        /* Typed.js cursor styling */
         .typed-cursor {
             opacity: 1;
             animation: blink 0.7s infinite;
-            color: #004d40; /* Updated color - darker teal */
+            color: #004d40; 
         }
         .typed-cursor.hidden-cursor {
             display: none;
@@ -90,8 +71,6 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0; }
         }
-
-        /* General fade-in animation for sections */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
@@ -101,20 +80,16 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Slide-up animation for About Me text */
         .slide-up-fade-in-about {
             opacity: 0;
-            transform: translateY(40px); /* Start 40px below */
+            transform: translateY(40px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            transition-delay: 0.2s; /* Slight delay after parent fades in */
+            transition-delay: 0.2s; 
         }
         .slide-up-fade-in-about.is-visible {
             opacity: 1;
-            transform: translateY(0); /* Move to final position */
+            transform: translateY(0); 
         }
-
-        /* Card styling */
         .card {
             background-color: white;
             border-radius: 0.5rem;
@@ -124,17 +99,14 @@
             display: flex;
             flex-direction: column;
         }
-
         .card-header {
             font-family: 'Lexend', sans-serif;
             font-size: 1rem;
             font-weight: 500;
-            color: #006661; /* Updated color */
+            color: #006661; 
             text-align: center;
-            margin-bottom: 0.5rem; /* Reduced for closer proximity to chart */
+            margin-bottom: 0.5rem; 
         }
-
-        /* Chart container styling */
         .chart-outer-container {
             position: relative;
             width: 100%;
@@ -179,8 +151,6 @@
             color: #4a5568;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
         }
-
-        /* Photo Grid for Office Software / Hobbies */
         .photo-grid {
             display: grid;
             /* grid-template-columns: repeat(auto-fit, minmax(60px, 1fr)); REMOVED - now handled by grid-cols-3 */
@@ -211,8 +181,6 @@
             /* max-height: 80%; */
             object-fit: contain;
         }
-
-        /* Slideshow Container for Experience Certificates */
         .slideshow-container {
             background-color: #f3f4f6;
             border-radius: 0.5rem;
@@ -252,8 +220,6 @@
         .certificate-item:active .certificate-img {
             transform: scale(1.05);
         }
-
-        /* Detail Button Styling */
         .detail-button {
             display: block;
             width: 100%;
@@ -272,8 +238,6 @@
             background-color: #00796b;
             transform: translateY(-2px);
         }
-
-        /* Slide down fade in effect for initial elements */
         .slide-down-fade-in {
             opacity: 0;
             transform: translateY(-20px);
@@ -283,8 +247,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* Typed name styling with outline effect */
         #typed-name {
             color: #FFFFFF;
             text-shadow:
@@ -293,8 +255,6 @@
                 -1.5px 1.5px 0 #006661,
                 1.5px 1.5px 0 #006661;
         }
-
-        /* Google Maps Container */
         .map-container {
             position: relative;
             width: 100%;
@@ -335,8 +295,6 @@
 .icon-scl i {
     font-size: 1.5rem;
 }
-
-
     </style>
 </head>
 <body class="bg-[#f0fdf4]">
@@ -359,7 +317,6 @@
                 </div>
             </div>
         </section>
-
         <!-- Combined About Me & Experience Section -->
         <section id="about-me-and-experience" class="max-w-6xl mx-auto px-2 md:px-6 mb-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5">
@@ -373,7 +330,6 @@
                 <!-- Experience Section (1/3 width) - Now holding the Hub-and-Spoke Diagram -->
                 <div id="experience-section" class="md:col-span-1 text-center fade-in-section bg-white shadow-lg rounded-[0.5rem] p-0 md:p-6" data-aos="fade-up">
                     <!--Diagram Container -->
-
                     <h2 class="card-header">Resume My Skill</h2>
                     <div class="chart-outer-container">
                         <div id="experiencePizzaChartContainer">
@@ -382,14 +338,12 @@
                     </div>
                     <div class="chart-legend" id="experiencePizzaChartLegend"></div>
                 </div>
-
             </div>
         </section>
 
         <section id="skills-section" class="max-w-6xl mx-auto px-2 md:px-6 mb-6">
             <!-- Mengubah grid menjadi 2 kolom di layar lg ke atas -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 md:gap-5">
-
                 <!-- Card 1 & 2 Digabung: Menggunakan col-span-2 agar menempati 2 kolom dari 4 di layar lg ke atas -->
                 <div class="card w-full fade-in-section lg:col-span-1" data-aos="fade-up">
                     <h2 class="card-header">My Project</h2>
@@ -406,7 +360,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Konten My Activity -->
                         <div class="md:w-1/2">
                             <p>trhhhhhhh, sleep code</p>
@@ -414,7 +367,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Wrapper untuk My Hobby dan Social Media & Maps -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-5">
                     <!-- Card 3: My Hobby -->
@@ -459,7 +411,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Card 4: Social Media & Maps -->
                     <div class="card w-full fade-in-section" data-aos="fade-up" data-aos-delay="300">
                         <h2 class="card-header">Let's Connect! </h2>
@@ -487,7 +438,6 @@
                                 </a>
                             </div>
                         </div>
-
                         <!-- Container responsif untuk peta -->
                         <div class="container rounded bg-[#006661] text-gray-300 py-1 mt-4 text-center relative w-full overflow-hidden" style="padding-top: 56.25%;">
                             <iframe
@@ -506,22 +456,16 @@
         </section>
         <div id="footer-placeholder"></div>
     </main>
-
-    <!-- Main JavaScript Logic -->
-
-
     <script src="../js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize AOS library for scroll animations
             AOS.init({
-                duration: 800, // Durasi animasi
-                once: true,    // Apakah animasi hanya terjadi sekali - saat scrolling ke bawah
-                mirror: false, // Apakah elemen harus menganimasi keluar saat di-scroll
-                offset: 50,    // Offset (dalam px) dari bagian atas layar
+                duration: 800,
+                once: true,  
+                mirror: false, 
+                offset: 50,   
             });
-
-            // Initialize Typed.js for the name typing effect
+            
             var typedName = new Typed('#typed-name', {
                 strings: ["Toriq As Syarif", "Programmer", "Developer", "Engineer", "Guitarist"],
                 typeSpeed: 60,
@@ -533,7 +477,6 @@
                 cursorChar: '|',
             });
 
-            // Add 'is-visible' class to call-to-action after a delay
             const callToActionElement = document.getElementById('call-to-action');
             if (callToActionElement) {
                 setTimeout(() => {
@@ -541,7 +484,6 @@
                 }, 2000);
             }
 
-            // Intersection Observer for About Me text animation
             const aboutMeTextContainer = document.getElementById('about-me-typing-container');
             if (aboutMeTextContainer) {
                 const observerOptions = {
@@ -553,13 +495,11 @@
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             aboutMeTextContainer.classList.add('is-visible');
-                            // Efek ketikan untuk teks "About Me"
                             const textElement = document.getElementById('typing-text-about-me');
                             const originalText = "Hello, I'm Toriq As Syarif, a Bachelor of Informatics Engineering graduate who is passionate about the world of technology. I possess a strong foundation in Programming, Databases, Networking, and Machine Learning, which I've diligently applied in various website development projects and IT support roles. My extensive organizational experience, coupled with diverse training programs such as UX Designer and SAP Analytics Cloud, has honed my skills, shaping me into an adaptable individual with strong communication abilities. I am highly interested in the IT and Digital Banking sectors, and I am eager to contribute my enthusiasm and expertise to innovative and impactful initiatives."; // Teks lengkap untuk diketik
-                            textElement.textContent = ''; // Kosongkan teks awal
+                            textElement.textContent = '';
                             let i = 0;
                             const speed = 30; // Kecepatan ketikan dalam milidetik
-
                             function typeWriter() {
                                 if (i < originalText.length) {
                                     textElement.textContent += originalText.charAt(i);
@@ -567,15 +507,14 @@
                                     setTimeout(typeWriter, speed);
                                 }
                             }
-                            typeWriter(); // Mulai efek ketikan
-                            observer.unobserve(entry.target); // Berhenti mengamati setelah animasi
+                            typeWriter(); 
+                            observer.unobserve(entry.target);
                         }
                     });
                 };
                 const aboutMeObserver = new IntersectionObserver(observerCallback, observerOptions);
                 aboutMeObserver.observe(aboutMeTextContainer);
             }
-
 
               // Chart.js: Experience Pizza Chart (Pie Chart)
             const experiencePizzaCtx = document.getElementById('experiencePizzaChart');
@@ -631,7 +570,6 @@
                     }
                 });
             }
-
 
             // General fade-in sections observer (excluding the specific about-me-text-container)
             const fadeInSections = document.querySelectorAll('.fade-in-section');
