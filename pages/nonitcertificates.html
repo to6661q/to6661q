@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pencapaian - Portofolio Saya</title>
+    <title>Non-IT Certificates</title>
     
     <!-- Framework dan Library dari CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,12 +22,12 @@
         /* General styles dari aboutMe.html, disesuaikan agar tetap umum */
         body {
             font-family: 'Lexend', sans-serif;
-            background-color: #f3f4f6;
+            background-color: #f3f4f6; /* Light gray background */
             line-height: 1.6;
             color: #333;
             padding: 0;
             margin: 0;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
         h1, h2, h3 {
             font-family: 'Montserrat', sans-serif;
@@ -50,10 +50,10 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            align-items: center; /* Memusatkan konten secara horizontal */
+            justify-content: center; /* Memusatkan konten secara vertikal */
             text-align: center;
-            min-height: 250px; /* Tinggi minimum untuk kartu */
+       
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
         .card-item-container:hover {
@@ -62,15 +62,16 @@
         }
         .card-image {
             max-width: 100%;
-            max-height: 180px; /* Tinggi maksimum gambar dalam kartu */
+            max-height: 500px; /* Tinggi maksimum gambar dalam kartu */
             object-fit: contain; /* Menjaga rasio aspek gambar */
             border-radius: 0.375rem;
-            margin-bottom: 0.75rem; /* Jarak bawah gambar ke teks */
+       
             transition: transform 0.2s ease-in-out; /* Transisi untuk efek zoom pada gambar */
             cursor: pointer; /* Menunjukkan bahwa gambar bisa diklik */
         }
         .card-image:hover {
             transform: scale(1.05); /* Efek zoom saat kursor di atas gambar */
+            
         }
         .card-title {
             font-family: 'Montserrat', sans-serif;
@@ -92,10 +93,10 @@
             gap: 1.5rem; /* Jarak antar kartu */
             padding-top: 1rem;
         }
-        /* Desktop layout untuk Halaman Pelatihan & Pencapaian (3 kolom) */
+        /* Desktop layout untuk Halaman Pengalaman (2 kolom) */
         @media (min-width: 768px) {
-            .grid-layout.three-col-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .grid-layout.experience-grid {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
 
@@ -104,7 +105,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background-color: #0077B5; /* Warna LinkedIn */
+            background-color: #006661; /* Warna LinkedIn */
             color: white;
             padding: 0.6rem 1.2rem;
             border-radius: 0.375rem;
@@ -113,10 +114,10 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-top: 1rem; /* Jarak dari judul */
-            margin-bottom: 2rem; /* Jarak ke konten di bawahnya */
+            //margin-bottom: 2rem; /* Jarak ke konten di bawahnya */
         }
         .linkedin-button:hover {
-            background-color: #005582;
+            background-color: #00796b;
             transform: translateY(-2px);
         }
         .linkedin-button i {
@@ -137,14 +138,16 @@
             background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
             align-items: center;
             justify-content: center;
+            
         }
 
         .image-modal-content {
             margin: auto;
             display: block;
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 70%;
+            max-height: 70%;
             animation: zoomIn 0.3s ease-out;
+            border-radius: 0.5rem;
         }
 
         .image-modal-close {
@@ -172,73 +175,42 @@
     </style>
 </head>
 <body class="bg-[#f0fdf4]">
-    <!-- Kontainer untuk memuat header.html secara dinamis -->
     <div id="header-placeholder"></div>
-
-    <!-- Konten Utama Halaman Pencapaian -->
     <main id="mainContent" class="main-content-area">
         <section class="max-w-6xl mx-auto px-4 md:px-6 mb-8">
-            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-[#006661] text-center fade-in-section" data-aos="fade-up">Kompetisi</h2>
-            <div class="text-center">
+            <h2 class="text-2xl md:text-3xl font-bold text-[#006661] text-center fade-in-section mt-8" data-aos="fade-up">Non-IT Certificates</h2>
+            <div class="text-center"> 
                 <a href="https://www.linkedin.com/in/to6661q/" target="_blank" rel="noopener noreferrer" class="linkedin-button">
-                    <i class='bx bxl-linkedin-square'></i> Lihat LinkedIn
+                    <i class='bx bxl-linkedin-square'></i> View on LinkedIn
                 </a>
             </div>
-            <div class="grid-layout three-col-grid">
-                <!-- Contoh Kartu Kompetisi -->
+            <div class="grid-layout experience-grid">
                 <div class="card-item-container fade-in-section" data-aos="fade-right">
-                    <img class="card-image" src="https://placehold.co/400x260/E0F2F7/006064?text=Kompetisi+1" alt="Kompetisi 1">
-                    <h3 class="card-title">Finalis Kontes Pemrograman Nasional</h3>
-                    <p class="card-description">Mencapai posisi teratas dalam kompetisi koding tingkat nasional, menunjukkan keterampilan pemrograman tingkat lanjut dan kemampuan pemecahan masalah.</p>
+                    <img class="card-image" src="https://eswpcd25uod.exactdn.com/blog/wp-content/uploads/2018/07/contoh-sertifikat-02-1024x723.jpg?strip=all&lossy=1&ssl=1" alt="Pengalaman Kerja 1">
                 </div>
-                <div class="card-item-container fade-in-section" data-aos="fade-right" data-aos-delay="100">
-                    <img class="card-image" src="https://placehold.co/400x260/D0ECE7/004D40?text=Kompetisi+2" alt="Kompetisi 2">
-                    <h3 class="card-title">Pemenang Hackathon Universitas</h3>
-                    <p class="card-description">Dianugerahi penghargaan untuk solusi paling inovatif di hackathon tahunan universitas, berkolaborasi dalam tim untuk mengembangkan prototipe fungsional.</p>
+                <div class="card-item-container fade-in-section" data-aos="fade-right">
+                    <img class="card-image" src="https://eswpcd25uod.exactdn.com/blog/wp-content/uploads/2018/07/contoh-sertifikat-02-1024x723.jpg?strip=all&lossy=1&ssl=1" alt="Pengalaman Kerja 1">
                 </div>
-                 <div class="card-item-container fade-in-section" data-aos="fade-right" data-aos-delay="200">
-                    <img class="card-image" src="https://placehold.co/400x260/C0D9D9/003D3D?text=Kompetisi+3" alt="Kompetisi 3">
-                    <h3 class="card-title">10 Besar Tantangan Ilmu Data</h3>
-                    <p class="card-description">Berada di antara 10 peserta teratas dalam tantangan ilmu data yang menantang, menerapkan analisis statistik dan teknik *machine learning*.</p>
+                <div class="card-item-container fade-in-section" data-aos="fade-right">
+                    <img class="card-image" src="https://eswpcd25uod.exactdn.com/blog/wp-content/uploads/2018/07/contoh-sertifikat-02-1024x723.jpg?strip=all&lossy=1&ssl=1" alt="Pengalaman Kerja 1">
                 </div>
-                <!-- Tambahkan lebih banyak kartu Kompetisi di sini -->
-            </div>
-        </section>
-
-        <section class="max-w-6xl mx-auto px-4 md:px-6">
-            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-[#006661] text-center fade-in-section" data-aos="fade-up" data-aos-delay="200">Peningkatan</h2>
-            <div class="text-center">
-                <a href="https://www.linkedin.com/in/to6661q/" target="_blank" rel="noopener noreferrer" class="linkedin-button">
-                    <i class='bx bxl-linkedin-square'></i> Lihat LinkedIn
-                </a>
-            </div>
-            <div class="grid-layout three-col-grid">
-                <!-- Contoh Kartu Peningkatan -->
-                <div class="card-item-container fade-in-section" data-aos="fade-left">
-                    <img class="card-image" src="https://placehold.co/400x260/A0C4C4/002F2F?text=Peningkatan+1" alt="Peningkatan 1">
-                    <h3 class="card-title">Bersertifikat ScrumMaster®</h3>
-                    <p class="card-description">Memperoleh sertifikasi dalam metodologi manajemen proyek Agile Scrum, meningkatkan efisiensi dan kolaborasi tim.</p>
+                <div class="card-item-container fade-in-section" data-aos="fade-right">
+                    <img class="card-image" src="https://eswpcd25uod.exactdn.com/blog/wp-content/uploads/2018/07/contoh-sertifikat-02-1024x723.jpg?strip=all&lossy=1&ssl=1" alt="Pengalaman Kerja 1">
                 </div>
-                <div class="card-item-container fade-in-section" data-aos="fade-left" data-aos-delay="100">
-                    <img class="card-image" src="https://placehold.co/400x260/B0D0D0/003535?text=Peningkatan+2" alt="Peningkatan 2">
-                    <h3 class="card-title">Spesialis Visualisasi Data Tingkat Lanjut</h3>
-                    <p class="card-description">Menyelesaikan kursus lanjutan dalam membuat visualisasi data yang berdampak dan interaktif menggunakan berbagai *tools*.</p>
+                <div class="card-item-container fade-in-section" data-aos="fade-right">
+                    <img class="card-image" src="https://eswpcd25uod.exactdn.com/blog/wp-content/uploads/2018/07/contoh-sertifikat-02-1024x723.jpg?strip=all&lossy=1&ssl=1" alt="Pengalaman Kerja 1">
                 </div>
-                <!-- Tambahkan lebih banyak kartu Peningkatan di sini -->
+                <div class="card-item-container fade-in-section" data-aos="fade-right">
+                    <img class="card-image" src="https://eswpcd25uod.exactdn.com/blog/wp-content/uploads/2018/07/contoh-sertifikat-02-1024x723.jpg?strip=all&lossy=1&ssl=1" alt="Pengalaman Kerja 1">
+                </div>
             </div>
         </section>
     </main>
-
-    <!-- Kontainer untuk memuat footer.html secara dinamis -->
     <div id="footer-placeholder"></div>
-
-    <!-- Modal untuk menampilkan gambar pop-up -->
     <div id="imageModal" class="image-modal">
         <span class="image-modal-close">&times;</span>
         <img class="image-modal-content" id="modalImage">
     </div>
-
-    <!-- Menghubungkan ke file JavaScript eksternal -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="../js/script.js"></script>
     <script>
