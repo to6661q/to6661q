@@ -448,7 +448,7 @@
                 const observerOptions = {
                     root: null,
                     rootMargin: '0px',
-                    threshold: 0.1 // Pemicu saat 10% elemen terlihat
+                    threshold: 0.1 //  10% element display
                 };
                 const observerCallback = (entries, observer) => {
                     entries.forEach(entry => {
@@ -458,7 +458,7 @@
                             const originalText = "Hello, I'm Toriq As Syarif, a Bachelor of Informatics Engineering graduate who is passionate about the world of technology. I possess a strong foundation in Programming, Databases, Networking, and Machine Learning, which I've diligently applied in various website development projects and IT support roles. My extensive organizational experience, coupled with diverse training programs such as UX Designer and SAP Analytics Cloud, has honed my skills, shaping me into an adaptable individual with strong communication abilities. I am highly interested in the IT and Digital Banking sectors, and I am eager to contribute my enthusiasm and expertise to innovative and impactful initiatives."; // Teks lengkap untuk diketik
                             textElement.textContent = '';
                             let i = 0;
-                            const speed = 30; // Kecepatan ketikan dalam milidetik
+                            const speed = 30; // speed
                             function typeWriter() {
                                 if (i < originalText.length) {
                                     textElement.textContent += originalText.charAt(i);
@@ -523,22 +523,21 @@
                         },
                         elements: {
                             arc: {
-                                hoverOffset: 20 // This creates the "zoom" or "explode" effect on hover
+                                hoverOffset: 20 
                             }
                         }
                     }
                 });
             }
 
-            // General fade-in sections observer (excluding the specific about-me-text-container)
             const fadeInSections = document.querySelectorAll('.fade-in-section');
             const generalFadeInObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        if (entry.target.id !== 'about-me-typing-container') { // Kecualikan 'about-me-typing-container' karena memiliki observer sendiri
+                        if (entry.target.id !== 'about-me-typing-container') {
                             entry.target.classList.add('is-visible');
                         }
-                        observer.unobserve(entry.target); // Berhenti mengamati setelah animasi
+                        observer.unobserve(entry.target);
                     }
                 });
             }, { root: null, rootMargin: '0px', threshold: 0.1 });
@@ -560,35 +559,29 @@
                 let currentIndex = 0;
                 let interval;
 
-                // Set initial active item
                 items[currentIndex].classList.add('active');
 
-                // Function to show the next slide
                 function showNext() {
                     items[currentIndex].classList.remove('active');
                     currentIndex = (currentIndex + 1) % items.length;
                     items[currentIndex].classList.add('active');
                 }
 
-                // Function to show the previous slide
                 function showPrev() {
                     items[currentIndex].classList.remove('active');
                     currentIndex = (currentIndex - 1 + items.length) % items.length;
                     items[currentIndex].classList.add('active');
                 }
-
-                // Start automatic slideshow
                 function startSlideshow() {
-                    clearInterval(interval); // Hapus interval yang ada
-                    interval = setInterval(showNext, 3000); // Ganti slide setiap 3 detik
+                    clearInterval(interval); 
+                    interval = setInterval(showNext, 3000); 
                 }
-
-                // Pause automatic slideshow
+                
                 function pauseSlideshow() {
                     clearInterval(interval);
                 }
 
-                startSlideshow(); // Mulai slideshow di awal
+                startSlideshow(); 
 
                 // Add event listeners for interaction
                 container.addEventListener('mouseenter', pauseSlideshow);
@@ -596,21 +589,18 @@
                 container.addEventListener('touchstart', pauseSlideshow, {passive: true});
                 container.addEventListener('touchend', startSlideshow);
 
-                // Handle click to navigate slides
                 container.addEventListener('click', (e) => {
                     const rect = container.getBoundingClientRect();
-                    // Tentukan apakah klik ada di setengah kiri atau kanan
                     if (e.clientX - rect.left > rect.width / 2) {
                         showNext();
                     } else {
                         showPrev();
                     }
-                    pauseSlideshow(); // Jeda pada interaksi manual
-                    startSlideshow(); // Mulai ulang setelah jeda singkat
+                    pauseSlideshow(); 
+                    startSlideshow(); 
                 });
             }
 
-            // Initialize all slideshows present in the HTML
             initializeSlideshow('slideshow-container-1');
         });
     </script>
