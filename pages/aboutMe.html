@@ -305,7 +305,7 @@
         <section id="home-content" class="bg-white shadow-lg rounded-[0.5rem] p-4 md:p-6 mb-6">
             <div class="w-full flex flex-col md:flex-row items-center justify-center gap-5 md:gap-10 text-center md:text-left fade-in-section" data-aos="fade-up">
                 <div class="profile-img-container">
-                    <img src="https://placehold.co/192x192/006661/FFFFFF?text=Photo" onerror="this.onerror=null;this.src='https://placehold.co/192x192/006661/FFFFFF?text=Photo_Error';" alt="Profile Image" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
+                    <img src="../img/photoProfile.jpeg" class="w-32 h-32 md:w-48 md:h-48 object-cover rounded-full">
                 </div>
                 <div class="text-center md:text-left">
                     <h1 class="text-[1.5rem] md:text-[3rem] font-extrabold leading-tight mb-2 text-[#006661]">
@@ -347,7 +347,7 @@
                     <h2 class="card-header">My Project</h2>
                     <div class="flex flex-col md:flex-row gap-4 p-0"> 
                         <div class="md:w-1/2">
-                            <a href="https://www.to6661q.xyz/pages/experience.html" class="detail-button">Visit Me on GitHub</a>
+                            <a href="https://www.to6661q.xyz/pages/experience.html" class="detail-button"><i class='bx bxl-github'></i> Visit Me on GitHub</a>
                             <div id="slideshow-container-1" class="slideshow-container mt-4">
                                 <div class="certificate-item active"><img class="certificate-img" src="../img/github01.jpg"></div>
                                 <div class="certificate-item active"><img class="certificate-img" src="../img/github02.jpg"></div>
@@ -357,7 +357,9 @@
                             </div>
                         </div>
                         <div class="md:w-1/2">
-                            <p>trhhhhhhh, sleep code</p>
+                            <p class="text-justify">Enjoy the process and always be kind. This means appreciating every step, learning from challenges, and celebrating even the smallest wins. It's about the growth and experience gained along the journey, not just the destination.
+
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -448,7 +450,7 @@
                 const observerOptions = {
                     root: null,
                     rootMargin: '0px',
-                    threshold: 0.1 //  10% element display
+                    threshold: 0.1 // Pemicu saat 10% elemen terlihat
                 };
                 const observerCallback = (entries, observer) => {
                     entries.forEach(entry => {
@@ -458,7 +460,7 @@
                             const originalText = "Hello, I'm Toriq As Syarif, a Bachelor of Informatics Engineering graduate who is passionate about the world of technology. I possess a strong foundation in Programming, Databases, Networking, and Machine Learning, which I've diligently applied in various website development projects and IT support roles. My extensive organizational experience, coupled with diverse training programs such as UX Designer and SAP Analytics Cloud, has honed my skills, shaping me into an adaptable individual with strong communication abilities. I am highly interested in the IT and Digital Banking sectors, and I am eager to contribute my enthusiasm and expertise to innovative and impactful initiatives."; // Teks lengkap untuk diketik
                             textElement.textContent = '';
                             let i = 0;
-                            const speed = 30; // speed
+                            const speed = 30; // Kecepatan ketikan dalam milidetik
                             function typeWriter() {
                                 if (i < originalText.length) {
                                     textElement.textContent += originalText.charAt(i);
@@ -523,21 +525,22 @@
                         },
                         elements: {
                             arc: {
-                                hoverOffset: 20 
+                                hoverOffset: 20 // This creates the "zoom" or "explode" effect on hover
                             }
                         }
                     }
                 });
             }
 
+            // General fade-in sections observer (excluding the specific about-me-text-container)
             const fadeInSections = document.querySelectorAll('.fade-in-section');
             const generalFadeInObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        if (entry.target.id !== 'about-me-typing-container') {
+                        if (entry.target.id !== 'about-me-typing-container') { // Kecualikan 'about-me-typing-container' karena memiliki observer sendiri
                             entry.target.classList.add('is-visible');
                         }
-                        observer.unobserve(entry.target);
+                        observer.unobserve(entry.target); // Berhenti mengamati setelah animasi
                     }
                 });
             }, { root: null, rootMargin: '0px', threshold: 0.1 });
@@ -559,29 +562,35 @@
                 let currentIndex = 0;
                 let interval;
 
+                // Set initial active item
                 items[currentIndex].classList.add('active');
 
+                // Function to show the next slide
                 function showNext() {
                     items[currentIndex].classList.remove('active');
                     currentIndex = (currentIndex + 1) % items.length;
                     items[currentIndex].classList.add('active');
                 }
 
+                // Function to show the previous slide
                 function showPrev() {
                     items[currentIndex].classList.remove('active');
                     currentIndex = (currentIndex - 1 + items.length) % items.length;
                     items[currentIndex].classList.add('active');
                 }
+
+                // Start automatic slideshow
                 function startSlideshow() {
-                    clearInterval(interval); 
-                    interval = setInterval(showNext, 3000); 
+                    clearInterval(interval); // Hapus interval yang ada
+                    interval = setInterval(showNext, 3000); // Ganti slide setiap 3 detik
                 }
-                
+
+                // Pause automatic slideshow
                 function pauseSlideshow() {
                     clearInterval(interval);
                 }
 
-                startSlideshow(); 
+                startSlideshow(); // Mulai slideshow di awal
 
                 // Add event listeners for interaction
                 container.addEventListener('mouseenter', pauseSlideshow);
@@ -589,18 +598,21 @@
                 container.addEventListener('touchstart', pauseSlideshow, {passive: true});
                 container.addEventListener('touchend', startSlideshow);
 
+                // Handle click to navigate slides
                 container.addEventListener('click', (e) => {
                     const rect = container.getBoundingClientRect();
+                    // Tentukan apakah klik ada di setengah kiri atau kanan
                     if (e.clientX - rect.left > rect.width / 2) {
                         showNext();
                     } else {
                         showPrev();
                     }
-                    pauseSlideshow(); 
-                    startSlideshow(); 
+                    pauseSlideshow(); // Jeda pada interaksi manual
+                    startSlideshow(); // Mulai ulang setelah jeda singkat
                 });
             }
 
+            // Initialize all slideshows present in the HTML
             initializeSlideshow('slideshow-container-1');
         });
     </script>
