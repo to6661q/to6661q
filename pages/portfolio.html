@@ -910,16 +910,16 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const targetId = entry.target.id;
-                        if (targetId === 'python-skill') setProgrammerSkillLevel(targetId, 90);
-                        else if (targetId === 'html-skill') setProgrammerSkillLevel(targetId, 95);
-                        else if (targetId === 'php-skill') setProgrammerSkillLevel(targetId, 80);
-                        else if (targetId === 'css-skill') setProgrammerSkillLevel(targetId, 90); 
-                        else if (targetId === 'java-skill') setProgrammerSkillLevel(targetId, 75);
+                        if (targetId === 'python-skill') setProgrammerSkillLevel(targetId, 95);
+                        else if (targetId === 'html-skill') setProgrammerSkillLevel(targetId, 91);
+                        else if (targetId === 'php-skill') setProgrammerSkillLevel(targetId, 91);
+                        else if (targetId === 'css-skill') setProgrammerSkillLevel(targetId, 91); 
+                        else if (targetId === 'java-skill') setProgrammerSkillLevel(targetId, 85);
                         else if (targetId === 'javascript-skill') setProgrammerSkillLevel(targetId, 85); 
-                        else if (targetId === 'cpp-skill') setProgrammerSkillLevel(targetId, 70); 
-                        else if (targetId === 'c-skill') setProgrammerSkillLevel(targetId, 65); 
-                        else if (targetId === 'r-skill') setProgrammerSkillLevel(targetId, 60); 
-                        else if (targetId === 'kotlin-skill') setProgrammerSkillLevel(targetId, 70); 
+                        else if (targetId === 'cpp-skill') setProgrammerSkillLevel(targetId, 81); 
+                        else if (targetId === 'c-skill') setProgrammerSkillLevel(targetId, 81); 
+                        else if (targetId === 'r-skill') setProgrammerSkillLevel(targetId, 81); 
+                        else if (targetId === 'kotlin-skill') setProgrammerSkillLevel(targetId, 77); 
                         observer.unobserve(entry.target); 
                     }
                 });
@@ -929,8 +929,8 @@
             const hardSkillCtx = document.getElementById('hardSkillChart');
             if (hardSkillCtx) {
                 const hardSkillRawData = {
-                    'An': 99, 'CS': 97, 'DS': 98,
-                    'ML': 80, 'Mu': 85, 'Ne': 96, 'IS': 99,'KK' : 98
+                    'An': 85, 'CS': 85, 'DS': 97,
+                    'ML': 97, 'Mu': 99, 'Ne': 95, 'IS': 99,'WD' : 95
                 };
                 const radarChartFillColor = 'rgba(0, 102, 97, 0.5)';
                 const radarChartBorderColorTheme = '#006661';
@@ -984,7 +984,7 @@
                     const legendTextMapping = {
                         'An': 'Android', 'CS': 'Cyber Security', 'DS': 'Data Science',
                         'ML': 'Machine Learning', 'Mu': 'Multimedia', 'Ne': 'Networking',
-                        'IS': 'IT Support', 'KK' : 'ddfsvv'
+                        'IS': 'IT Support', 'WD' : 'Web Developer'
                     };
                     hardSkillChartLegend.innerHTML = '';
                     for (const key in legendTextMapping) {
